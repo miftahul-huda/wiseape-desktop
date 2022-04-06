@@ -23,10 +23,13 @@ class CrudLogic {
         const CurrentModel = this.getModel();
         console.log(CurrentModel);
 
-        let result = this.validateCreate(o);
+        let result = await this.validateCreate(o);
         if(result.success){
             try {
                 let newO = await CurrentModel.create(o);
+                newO = JSON.stringify(newO)
+                newO = JSON.parse(newO)
+                newO = this.cleanObject(newO)
                 result.payload = newO;
                 return  result;
             }
@@ -77,6 +80,10 @@ class CrudLogic {
             console.log(opt)
 
             let os  = await CurrentModel.findAndCountAll(opt)
+            os = JSON.stringify(os)
+            os = JSON.parse(os)
+            let rows = this.cleanRows(os.rows);
+            os.rows = rows;
             return { success: true, payload: os }
         }
         catch (error)
@@ -107,6 +114,9 @@ class CrudLogic {
         try{
             const CurrentModel = this.getModel();
             let o  = await CurrentModel.findByPk(id);
+            o = JSON.stringify(o)
+            o = JSON.parse(o)
+            o = this.cleanObject(o)
             return { success: true, payload: o }
         }
         catch (error)
@@ -117,7 +127,7 @@ class CrudLogic {
 
     static async update(id,  o)
     {
-        let result = this.validateUpdate(log);
+        let result = await this.validateUpdate(log);
         let pk = this.getPk();
         if(result.success){
             try {
@@ -126,6 +136,8 @@ class CrudLogic {
                 where[pk] = id;
 
                 let newO = await CurrentModel.update(o, { where:  where  });
+                newO = JSON.stringify(newO)
+                newO = JSON.parse(newO)
                 result.payload = newO;
                 return  result;
             }
@@ -159,12 +171,12 @@ class CrudLogic {
         }
     }
 
-    static validateCreate(o){
+    static async validateCreate(o){
         
         return {success :  true, message: "Succesfull"}
     }
 
-    static validateUpdate(o)
+    static async validateUpdate(o)
     {   
         return {success :  true, message: "Succesfull"}
     }
@@ -178,6 +190,23 @@ class CrudLogic {
     static getDefaultWhere()
     {
         return null;
+    }
+
+    static cleanRows(rows)
+    {
+        for(var i = 0; i < rows.length; i++)
+        {
+            let o = rows[i];
+            o = this.cleanObject(o);
+            rows[i] = o;
+        }
+
+        return rows;
+    }
+
+    static cleanObject(o)
+    {
+        return o;
     }
 }
 

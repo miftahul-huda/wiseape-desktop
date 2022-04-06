@@ -1,0 +1,4 @@
+var GLOBAL = 
+{
+    desktop: null
+}

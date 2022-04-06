@@ -1,0 +1,9 @@
+{
+    "api" :
+    {
+        "application" : {
+            "base": "http://localhost:8080/application"
+        }
+    }
+     
+}
