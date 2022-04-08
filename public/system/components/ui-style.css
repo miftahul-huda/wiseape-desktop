@@ -1,0 +1,51 @@
+.wise-list-header
+{
+    display: flex;
+    height: 50px;
+}
+
+.wise-menu-button
+{
+    width: 50px;
+    height: 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 70% auto;
+    cursor: pointer;
+
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+}
+
+.wise-menu-button:hover
+{
+    background-size: 90% auto;
+    width: 60px;
+    height: 60px
+}
+
+.wise-menu-button-info
+{
+    background-color: rgb(227, 231, 177);
+    color: #666;
+    display: none;
+    font-size: 8pt;
+    opacity: 0.8;
+    padding: 4px;
+    width: 100px;
+    margin-top: 100%;
+    margin-left: 30%;
+
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(143,143,143,1);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(143,143,143,1);
+    box-shadow: 2px 2px 5px 0px rgba(143,143,143,1);
+}
+
+.wise-menu-verical-separator
+{
+    border-right: solid 1px #ccc;
+    width: 2px;
+    height: 40px;
+}

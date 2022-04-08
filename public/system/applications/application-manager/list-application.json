@@ -1,0 +1,44 @@
+{
+    "root" :
+    {
+        "children" : 
+        [
+            {
+                "element" : "div", "class" : "wise-list-header",
+                "children" : 
+                [
+                    { "element": "WiseMenuButton", "id" : "btnRefreshApplication", "onclick" : "btnRefreshApplication_OnClick", "icon" : "/application-manager/images/refresh.png", "text" : "Refresh the list" },
+                    { "element": "WiseMenuButton", "id" : "btnExportApplication", "onclick" : "btnExportApplication_OnClick", "icon" : "/application-manager/images/export.png", "text" : "Export the list to csv or excel"  },
+                    { "element": "WiseMenuButton", "id" : "btnSendApplication", "onclick" : "btnSendApplication_OnClick", "icon" : "/application-manager/images/send.png", "text" : "Send this list to email" },
+                    { "element": "WiseMenuButton", "id" : "btnPrintApplication", "onclick" : "btnPrintApplication_OnClick", "icon" : "/application-manager/images/print.png", "text" : "Print this list" },
+                    { "element": "WiseMenuVerticalSeparator" },
+                    { "element": "WiseMenuButton", "id" : "btnSelectAllApplication", "onclick" : "btnSelectAllApplication_OnClick", "icon" : "/application-manager/images/selectall.png", "text" : "Select All" },
+                    { "element": "WiseMenuButton", "id" : "btnAddApplication", "onclick" : "btnAddApplication_OnClick", "icon" : "/application-manager/images/add.png", "text" : "Add" },
+                    { "element": "WiseMenuButton", "id" : "btnEditApplication", "onclick" : "btnEditApplication_OnClick", "icon" : "/application-manager/images/edit.png", "text" : "Edit" },
+                    { "element": "WiseMenuButton", "id" : "btnDeleteApplication", "onclick" : "btnDeleteApplication_OnClick", "icon" : "/application-manager/images/delete.png", "text" : "Remove" },
+                    { "element": "WiseMenuButton", "id" : "btnCopyApplication", "onclick" : "btnCopyApplication_OnClick", "icon" : "/application-manager/images/copy.png", "text" : "Copy" },
+                    { "element": "WiseMenuButton", "id" : "btnPasteApplication", "onclick" : "btnPasteApplication_OnClick", "icon" : "/application-manager/images/paste.png", "text" : "Paste" },
+                    { "element": "WiseMenuVerticalSeparator" },
+                    { "element": "WiseMenuButton", "id" : "btnFindApplication", "onclick" : "btnFindApplication_OnClick", "icon" : "/application-manager/images/find.png", "text" : "Find" },
+                    { "element": "WiseMenuButton", "id" : "btnAdvanceFindApplication", "onclick" : "btnAdvanceFindApplication_OnClick", "icon" : "/application-manager/images/more-find.png", "text" : "Advance Find" },
+                    { "element": "WiseMenuVerticalSeparator" },
+                    { "element": "WiseMenuButton", "id" : "btnSummaryApplication", "onclick" : "btnSummaryApplication_OnClick", "icon" : "/application-manager/images/summary.png", "text" : "Summary" }
+                ]
+            }
+            ,
+            {
+                "element" : "WiseGroup", "title" : "List of Application", "description" : "This is the list of applications installed in the system",
+                "children" : 
+                [
+                    { "element": "WiseDataTable", "id" : "tableListApplication", "columns": [
+                        { "name" : "id", "display" : "false", "label": "ID" },
+                        { "name" : "appIcon", "label": "Icon", "width" : "10%", "type" : "image" },
+                        { "name" : "appTitle", "label": "Title", "width" : "50%" }
+                    ]}
+                ]
+            }
+        ]
+    }
+
+
+}

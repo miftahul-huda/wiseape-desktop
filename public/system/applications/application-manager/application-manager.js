@@ -1,7 +1,12 @@
 var ApplicationManager = Class(Application, {
     run: function(command)
     {
-        let win = this.desktop.createWindow(this.title, this.icon);
-        win.show("Hello world")
+        var me = this;
+        $.getJSON("/system/applications/application-manager/list-application.json", function(json){
+            console.log(json)
+            let win = me.desktop.createWindow(me.title, me.icon);
+            win.show(json)
+        })
+
     }
 })

@@ -16,7 +16,7 @@ var Window = Class({
         let divHeader = "<div class='wiseape-window-header'>" + divIcon + "<div class='wiseape-window-title'>" + this.title + "</div>" + divHeaderButtons + "</div>";
         let divWindowContent = "<div class='wiseape-window-content'></div>";
 
-        let divWindow = "<div class='wiseape-window' id='" + this.id + "' title='" + this.title + "'>" + divHeader + divWindowContent + "</div>"
+        let divWindow = "<div class='wiseape-window' id='" + this.id + "'>" + divHeader + divWindowContent + "</div>"
 
         this.dom = divWindow
         this.dom = $(this.dom)[0]
@@ -69,11 +69,18 @@ var Window = Class({
     show: function(content)
     {
         var me =  this;
+
+        if( typeof content === 'object')
+        {
+            let uiProcessor = new UIProcessor();
+            content = uiProcessor.createDom(content)
+        }
+
         me._saveSizePosition();
         //$(GLOBAL.desktop).append(this.dom)
         $("#" + this.id + " .wiseape-window-content").append(content)
         
-        $("#" + this.id + "").show("slow", "swing");
+        $("#" + this.id + "").fadeIn();
 
         $("#" + this.id + "").draggable({ handle: ".wiseape-window-header" })
         $("#" + this.id + "").resizable();

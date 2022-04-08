@@ -18,16 +18,61 @@ var Desktop = Class({
         stylesheet.appendTo("head");
 
         this.loadDesktop();
+
+    }
+    ,
+    initRipple: function()
+    {
+        try {
+            $('.desktop').ripples({
+                resolution: 128,
+                dropRadius: 60, //px
+                perturbance: 0.004,
+                interactive: true
+            });
+        }
+        catch (e) {
+            $('.error').show().text(e);
+        }
+
+        var $el = $('.desktop');
+        var x = Math.random() * $el.outerWidth();
+        var y = Math.random() * $el.outerHeight();
+        var dropRadius = 60;
+        var strength = 0.1; // 0.04 + Math.random() * 0.04;
+
+        /*
+        $el.ripples('drop', x, y, dropRadius, strength);
+        console.log("drop")
+
+
+            // Automatic drops
+        setInterval(function() {
+            var $el = $('.desktop');
+            var x = Math.random() * $el.outerWidth();
+            var y = Math.random() * $el.outerHeight();
+            var dropRadius = 60;
+            var strength = 0.1; // 0.04 + Math.random() * 0.04;
+
+            $el.ripples('drop', x, y, dropRadius, strength);
+            console.log("drop")
+        }, 10000);
+        */
+            
     }
     ,
     loadDesktop: function()
     {
         
-        let div = "<div class='desktop'><div class='desktop-taskbar'></div><div class='desktop-content'></div></div><div class='desktop-menu-container'></div>"
+        let div = "<div id='mydesktop' class='desktop'><div class='desktop-taskbar'></div><div class='desktop-content'></div></div><div class='desktop-menu-container'></div>"
+        //let div = "<div class='desktop' style='background-image: url(/images/ocean.jpg)'></div>"
         $(document.body).html(div);
         $(".desktop-menu-container").hide()
         GLOBAL.desktopDom =  $(".desktop-content")[0]
         this.loadTaskbar();
+
+        //this.initRipple();
+        
     }
     ,
     loadTaskbar: function()
@@ -36,27 +81,27 @@ var Desktop = Class({
         let divMenu = "<div class='taskbar-item taskbar-start-menu'></div>"
         $(".desktop-taskbar").append(divMenu);
 
-        
-        
-
-        this.menuShown = false;
+        me.menuShown = false;
         $(".taskbar-start-menu").on("click", function(){
-            
-            me.getAllMenu().then((response)=>{
-                me.menus = response.payload.rows;
-                me.loadMenu(me);
 
-                if(this.menuShown == false)
-                {
-                    $(".desktop-menu-container").show("fast", "swing")
-                    this.menuShown = true;
-                }
-                else
-                {
-                    $(".desktop-menu-container").hide("fast", "swing")
-                    this.menuShown = false;
-                }
-            })
+            if(me.menuShown == false)
+            {
+                $(".desktop-menu-container").show("fast", "swing")
+                me.menuShown = true;
+                me.getAllMenu().then((response)=>{
+                    me.menus = response.payload.rows;
+                    me.loadMenu(me);
+                })
+                
+            }
+            else
+            {
+                $(".desktop-menu-container").hide("fast", "swing")
+                me.menuShown = false;
+            }
+
+            
+
             
         });
     }
@@ -90,6 +135,7 @@ var Desktop = Class({
         this.parentId = parentId;
         $(".desktop-menu-container").html("")
         let url = "/menu/parent/" + parentId;
+        $(".desktop-menu-container").hide();
         $.get(url, function(response){
             let menus = response.payload.rows;
             menus.map((item)=>{
@@ -97,7 +143,8 @@ var Desktop = Class({
                 $(".desktop-menu-container").append(menuItem)
 
             })
-
+            $(".desktop-menu-container").show("slow");
+            me.menuShown = true;
             if(parentId != 0)
             {
                 let backMenuItem  = me.getBackMenuItem();
@@ -116,8 +163,9 @@ var Desktop = Class({
                         me.loadApplication(me, mm)
                         setTimeout(function(){
                             $(".desktop-menu-container").hide();
+                            me.menuShown = false;
 
-                        }, 500)
+                        }, 100)
                         
                     }
                 }

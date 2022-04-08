@@ -5,4 +5,5 @@ var Application = Class({
         this.icon = icon;
         this.desktop = desktop;
     }
+    
 })

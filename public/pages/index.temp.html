@@ -1,0 +1,48 @@
+<html>
+    <head>
+
+        <link rel="stylesheet" href="/javascripts/jquery-ui/jquery-ui.css" />
+        <script src="/javascripts/jquery/jquery-3.6.0.min.js"></script>
+        <script src="/system/desktop/jquery.ripples.js"></script>
+        <script src="/javascripts/jquery-ui/jquery-ui.js"></script>
+
+
+    </head>
+    <body style="background-image: url(/images/ocean.jpg)">
+
+    </body>
+
+    <script>
+        $(document).ready(function() {
+
+            try {
+                $(document.body).ripples({
+                    resolution: 128,
+                    dropRadius: 10, //px
+                    perturbance: 0.04,
+                    interactive: false
+                });
+            }
+            catch (e) {
+                $('.error').show().text(e);
+            }
+
+
+            	// Automatic drops
+            setInterval(function() {
+                var $el = $(document.body);
+                var x = Math.random() * $el.outerWidth();
+                var y = Math.random() * $el.outerHeight();
+                var dropRadius = 60;
+                var strength = 0.04 + Math.random() * 0.04;
+
+                $el.ripples('drop', x, y, dropRadius, strength);
+                console.log("drop")
+            }, 10000);
+            
+                    
+        });
+
+        
+    </script>
+</html>

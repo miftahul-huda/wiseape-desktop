@@ -8,7 +8,7 @@ div{
     width: 100%;
     height: 100%;
     display: flex;
-    background-image: url(/images/ocean.jpg)
+    background-image: url(/images/ocean.jpg);
 }
 
 .desktop-taskbar
@@ -67,7 +67,7 @@ body
     height: 45px;
     display: flex;
     background-color: rgb(60, 110, 197);
-    opacity: 0.9;
+    opacity: 0.95;
     -webkit-border-top-left-radius: 7px;
     -webkit-border-top-right-radius: 7px;
     -moz-border-radius-topleft: 7px;
