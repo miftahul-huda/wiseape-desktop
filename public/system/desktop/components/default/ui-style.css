@@ -1,0 +1,98 @@
+.wise-list-header
+{
+    display: flex;
+    height: 40px;
+}
+
+.wise-menu-button
+{
+    width: 40px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80% auto;
+    cursor: pointer;
+
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+}
+
+.wise-menu-button:hover
+{
+    background-size: 90% auto;
+    width: 60px;
+    height: 60px
+}
+
+.wise-menu-button-info
+{
+    background-color: rgb(227, 231, 177);
+    color: #666;
+    display: none;
+    font-size: 8pt;
+    opacity: 0.9;
+    padding: 4px;
+    width: 100px;
+    margin-top: -60%;
+    margin-left: 30%;
+    z-index: 2147483647;
+
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(143,143,143,1);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(143,143,143,1);
+    box-shadow: 2px 2px 5px 0px rgba(143,143,143,1);
+}
+
+.wise-menu-verical-separator
+{
+    border-right: solid 1px #ccc;
+    width: 2px;
+    height: 40px;
+}
+
+.wise-group
+{
+    width: 100%;
+    margin-left: auto;
+    height: 90%;
+    border: solid 0px #eee;
+    border-radius: 5px;
+
+}
+
+
+.wise-datatable > div
+{
+    border-radius: 0px;
+}
+
+.vertical-separator
+{
+    height: 10px;
+}
+
+.jqx-widget-content-glacier
+{
+    border-width: 0px !important;
+}
+
+.wise-grid-buttons
+{
+    display: flex;    
+}
+
+.wise-grid-buttons > div
+{
+    height: 100%;
+    line-height: 100%;
+    padding: 6px;    
+}
+
+.grid-button-text
+{
+    display: inline-block;
+    line-height: normal;
+    vertical-align: middle;
+    margin-top: 1%;
+}

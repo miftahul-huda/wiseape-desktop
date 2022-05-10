@@ -3,6 +3,7 @@ var Desktop = Class({
     constructor: function()
     {
         this.windows = []
+        this.uiProcessor = null
     }
     ,
     start: function(config)
@@ -17,8 +18,23 @@ var Desktop = Class({
         });
         stylesheet.appendTo("head");
 
-        this.loadDesktop();
+        var me = this;
+        this.loadUILibraries(me,  config, function(){
+            me.loadDesktop();
+        })
+        
 
+    }
+    ,
+    loadUILibraries: function(me, config, callback)
+    {
+        $.getScript(config.desktop.ui_processor[0], function (){
+            let o = null;
+            eval("o = " + config.desktop.ui_processor[1] + ";")
+            eval("me.uiProcessor = new " + config.desktop.ui_processor[1] + "();")
+            o.init(callback)
+            
+        })
     }
     ,
     initRipple: function()
@@ -99,19 +115,16 @@ var Desktop = Class({
                 $(".desktop-menu-container").hide("fast", "swing")
                 me.menuShown = false;
             }
-
-            
-
-            
         });
     }
     ,
     createWindow:function(title, icon)
     {
         let me = this;
-        let newWin = new Window(title, icon, function handleWindow(evt, window){
-                me.handleWindowNext(me, evt, window);
-        });
+        let newWin = me.uiProcessor.createWindow(title, icon, function handleWindow(evt, window){
+            me.handleWindowNext(me, evt, window);
+        })
+    
         GLOBAL.desktopDom.append(newWin.dom)
         me.onHeaderClick(me, newWin)
         me.windows.push(newWin)
@@ -218,6 +231,7 @@ var Desktop = Class({
     loadApplication: function(me, menu)
     {
         let appID = menu.appID;
+        let appCommand = menu.appCommand;
         let url = "/application/get-by-appid/" + appID;
         $.get(url, function(app){
             console.log(app)

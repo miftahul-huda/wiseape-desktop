@@ -2,7 +2,8 @@
     "desktop" :
     {
         "theme" :  "ocean",
-        "base_url" : "http://localhost"
+        "base_url" : "http://localhost",
+        "ui_processor" : ["/system/desktop/components/default/uiprocessor.js", "UIProcessor"]
     }
      
 }
