@@ -235,13 +235,14 @@ var Desktop = Class({
         let url = "/application/get-by-appid/" + appID;
         $.get(url, function(app){
             console.log(app)
+            let appConfig = app.appConfig;
             let includes = app.payload.appInclude;
             includes = includes.split(",");
             me.includeApplicationFiles(me, includes, 0, function(){
                 let newApp = null;
                 eval("newApp = new " + app.payload.appEndPoint + "('" + app.payload.appTitle + "', '" + app.payload.appIcon + "', me)" )
                 console.log(newApp)
-                newApp.run(menu.appCommand);
+                newApp.run(menu.appCommand, appConfig);
             })
         })
     }

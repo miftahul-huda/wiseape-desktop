@@ -1,5 +1,5 @@
 var PortfolioManagement = Class(Application, {
-    run: function(command)
+    run: function(command, appConfig)
     {
         var me = this;
 
