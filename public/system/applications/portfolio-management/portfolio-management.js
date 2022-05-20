@@ -51,7 +51,11 @@ var PortfolioManagement = Class(Application, {
     {
         var me = this;
         win.showProgress();
-        me.displayData(win, 0, 10, null, null, null,  win.hideProgress )
+        let dataFilterOpt = win.get("tableListOfStrategy").getDataFilterOption();
+        let offset = dataFilterOpt.displayPerPage * (dataFilterOpt.page - 1)
+        let limit = dataFilterOpt.displayPerPage
+
+        me.displayData(win, offset, limit, null, null, null,  win.hideProgress )
         win.get("tableListOfStrategy").elementEventHandler = function(id, event, opt) { me.dataTableEventHandler(me, win, id, event, opt) } 
     }
     ,
@@ -88,7 +92,6 @@ var PortfolioManagement = Class(Application, {
     {
         if(event == "onDataFilterChanged")
         {
-            console.log(opt)
             let offset = opt.displayPerPage * (opt.page - 1)
             let limit = opt.displayPerPage
             let sortColumn = opt.sort.column;

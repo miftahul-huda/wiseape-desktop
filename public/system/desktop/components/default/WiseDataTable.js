@@ -39,6 +39,9 @@ var WiseDataTable = Class(WiseElement, {
         $(cmbPerPage).append("<option value='50'>50</option>")
         $(cmbPerPage).append("<option value='100'>100</option>")
         $(cmbPerPage).append("<option value='200'>200</option>")
+        $(cmbPerPage).append("<option value='200'>300</option>")
+        $(cmbPerPage).append("<option value='200'>500</option>")
+        $(cmbPerPage).append("<option value='200'>1000</option>")
 
         $(divCmbPerPage).append(cmbPerPage);
 
@@ -75,11 +78,14 @@ var WiseDataTable = Class(WiseElement, {
         var me = this;
         $(cmbPerPage).on("change", function(){
             $(cmbPage).prop("selectedIndex", 0)
-            me.elementEventHandler(me.id, "onDataFilterChanged", {  sort: { column: me.sortColumn, direction: me.sortDirection  }, displayPerPage: $(cmbPerPage).val(), page: $(cmbPage).val() })
+            me.displayPerPage =  $(cmbPerPage).val()
+            me.pageNo = 1
+            me.elementEventHandler(me.id, "onDataFilterChanged", {  sort: { column: me.sortColumn, direction: me.sortDirection  }, displayPerPage: me.displayPerPage, page: $(cmbPage).val() })
         })
 
         $(cmbPage).on("change", function(){
-            me.elementEventHandler(me.id, "onDataFilterChanged", {  sort: { column: me.sortColumn, direction: me.sortDirection  }, displayPerPage: $(cmbPerPage).val(), page: $(cmbPage).val() })
+            me.pageNo = $(cmbPage).val()
+            me.elementEventHandler(me.id, "onDataFilterChanged", {  sort: { column: me.sortColumn, direction: me.sortDirection  }, displayPerPage: $(cmbPerPage).val(), page: me.pageNo })
         })
     }
     ,
@@ -160,8 +166,6 @@ var WiseDataTable = Class(WiseElement, {
             });
 
         }
-
-
         this.setComboBoxes(totalData)
     }
     ,
@@ -200,6 +204,10 @@ var WiseDataTable = Class(WiseElement, {
             $(opt).html((i + 1))
             $(this.cmbPage).append(opt)
         }
+
+        
+        if(this.pageNo != null)
+            $(this.cmbPage).val(this.pageNo);
     }
     ,
     columns2datafields: function(columns)
@@ -239,5 +247,15 @@ var WiseDataTable = Class(WiseElement, {
         const numberFormatter = Intl.NumberFormat('en-US');
         value = numberFormatter.format(value)
         return "<div class=\"jqx-grid-cell-left-align\" style=\"margin-top: 8px;\">" + value + "</div>";
+    }
+    ,
+    getDataFilterOption: function()
+    {
+        var me = this;
+        let page = $(me.cmbPage).val()
+        if(page == null)
+            page = 1
+        let opt = { sort: { column: me.sortColumn, direction: me.sortDirection  }, displayPerPage: $(me.cmbPerPage).val(), page: page };
+        return opt;
     }
 })

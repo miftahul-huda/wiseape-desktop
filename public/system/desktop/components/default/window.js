@@ -252,12 +252,11 @@
         {
            
             let ss = content.split(".")
-            console.log(ss)
+
             if(ss[ss.length-1].toLowerCase() == "json")
             {
                 $.getJSON(content, function(json){
-                    console.log("JSOSN")
-                    console.log(json)
+
                     let uiProcessor = me.uiProcessor;   
                     content = me.setIds(me, json)
                     me.elements = uiProcessor.createElement(content, me, function(elmId, event){
