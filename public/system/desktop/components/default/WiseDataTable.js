@@ -4,6 +4,11 @@ var WiseDataTable = Class(WiseElement, {
     {
         this.columns = json.columns
         this.gridTheme = "energyblue"
+        this.displayPerPage = 10
+        this.page = 1
+        this.cmbPerPage = null
+        this.cmbPage = null
+        this.sorts = []
         WiseDataTable.$superp.init.call(this, json, "WiseDataTable");
     }
     ,
@@ -29,6 +34,7 @@ var WiseDataTable = Class(WiseElement, {
 
         let divCmbPerPage = document.createElement('div')
         let cmbPerPage = document.createElement("select")
+        $(cmbPerPage).width(100)
         $(cmbPerPage).append("<option value='10'>10</option>")
         $(cmbPerPage).append("<option value='50'>50</option>")
         $(cmbPerPage).append("<option value='100'>100</option>")
@@ -42,6 +48,7 @@ var WiseDataTable = Class(WiseElement, {
 
         let divCmbPage = document.createElement('div')
         let cmbPage = document.createElement("select")
+        $(cmbPage).width(70)
 
         $(divCmbPerPage).append(cmbPerPage);
         $(divCmbPage).append(cmbPage);
@@ -55,6 +62,9 @@ var WiseDataTable = Class(WiseElement, {
         $(divWrapper).append(divGridButtons)
         $(divWrapper).append(div)
 
+        this.cmbPage = cmbPage
+        this.cmbPerPage = cmbPerPage
+
         this.handleEvents(cmbPerPage, cmbPage)
 
         return divWrapper;
@@ -64,38 +74,132 @@ var WiseDataTable = Class(WiseElement, {
     {
         var me = this;
         $(cmbPerPage).on("change", function(){
-            me.elementEventHandler(me.id, "onDataFilterChanged")
+            $(cmbPage).prop("selectedIndex", 0)
+            me.elementEventHandler(me.id, "onDataFilterChanged", {  sort: { column: me.sortColumn, direction: me.sortDirection  }, displayPerPage: $(cmbPerPage).val(), page: $(cmbPage).val() })
         })
 
         $(cmbPage).on("change", function(){
-            me.elementEventHandler(me.id, "onDataFilterChanged")
+            me.elementEventHandler(me.id, "onDataFilterChanged", {  sort: { column: me.sortColumn, direction: me.sortDirection  }, displayPerPage: $(cmbPerPage).val(), page: $(cmbPage).val() })
         })
     }
     ,
-    loadData: function(data)
+    loadData: function(data, totalData=null)
     {
+        var me = this;
         this.data = data;
         let id = this.id
         let columns = this.columns
+        columns = this.setColumnsRenderer(columns)
 
-        console.log(data)
         var source =
         {   
             localdata: data,
-            datafields: this.columns2datafields(columns)
+            datafields: this.columns2datafields(columns),
+            sort: function ()
+            {
+
+            }
         };
         var dataAdapter = new $.jqx.dataAdapter(source);
         $("#" + id).jqxGrid(
         {
             width: '100%',
-            height: '95%',
+            height: '90%',
             theme: this.gridTheme,
             groupable: true,
             showcolumnlines: false,
             source: dataAdapter,
             columnsresize: true,
+            sortable: true,
+            sorttogglestates: 1,
+            filterable: true,
+            altrows: true,
             columns: columns
-        });        
+        });       
+
+        $("#" + id).on('rowselect', function (event) 
+        {
+            // event arguments.
+            var args = event.args;
+            // row's bound index.
+            var rowBoundIndex = args.rowindex;
+            // row's data. The row's data object or null(when all rows are being selected or unselected with a single action). If you have a datafield called "firstName", to access the row's firstName, use var firstName = rowData.firstName;
+            var rowData = args.row;
+        });
+
+        if(me.sortDone != true)
+        {
+            $("#" + id).on('sort', function (event) 
+            {
+                me.sortDone = true;
+    
+                var sortinformation = event.args.sortinformation;
+                let sortColumn = sortinformation.sortcolumn
+                //var sortdirection = sortinformation.sortdirection.ascending ? "asc" : "desc";
+    
+                var sortdirection = "desc";
+                if( sortColumn in  me.sorts)
+                {
+                    sortdirection = me.sorts[sortColumn]
+                }
+    
+                if(sortdirection == "asc")
+                    sortdirection = "desc"
+                else
+                    sortdirection = "asc"
+    
+                me.sortDirection = sortdirection
+                me.sortColumn = sortColumn
+    
+                me.sorts[sortColumn] = sortdirection
+    
+                me.elementEventHandler(me.id, "onDataFilterChanged", { sort: { column: me.sortColumn, direction: me.sortDirection  }, displayPerPage: $(me.cmbPerPage).val(), page: $(me.cmbPage).val() })
+                
+                var eventData = "Triggered 'sort' event <div>Column:" + sortinformation.sortcolumn + ", Direction: " + sortdirection + "</div>";
+    
+            });
+
+        }
+
+
+        this.setComboBoxes(totalData)
+    }
+    ,
+    setColumnsRenderer: function(columns)
+    {
+        for(var i = 0; i < columns.length; i++)
+        {
+            if(columns[i].type == "image")
+            {
+                columns[i].cellsrenderer =  this.imageRenderer
+            }
+
+            else if(columns[i].type == "numeric")
+            {
+                columns[i].cellsrenderer =  this.numberRenderer
+            }
+        }
+
+        return columns;
+    }
+    ,
+    setComboBoxes: function(totalData)
+    {
+        let displayPerPage = $(this.cmbPerPage).val();
+        //let page = $(this.cmbPage).val();
+
+        let totalPage = Math.floor( totalData / displayPerPage ) + 1;
+        if( totalData % displayPerPage == 0)
+            totalPage = Math.floor( totalData / displayPerPage ) 
+        
+        $(this.cmbPage).html("");
+        for(var i = 0; i < totalPage; i++)
+        {
+            let opt = document.createElement("option")
+            $(opt).attr("value", (i+1))
+            $(opt).html((i + 1))
+            $(this.cmbPage).append(opt)
+        }
     }
     ,
     columns2datafields: function(columns)
@@ -103,15 +207,13 @@ var WiseDataTable = Class(WiseElement, {
         let datafields = [];
         columns.forEach(function(item){
             let type = "string"
-            if(type == 'image')
+            if(item.type == 'image')
                 type = "string"
 
             if(item.datafield.indexOf(".") > -1)
             {
                 let map = item.datafield.replace(/\./g, ">")
                 let datafield = item.datafield.replace(/\./g, "_")
-                console.log(datafield)
-                console.log(map)
                 datafields.push({ name: item.datafield, map: map,  type: type })
             }
             else {
@@ -126,5 +228,16 @@ var WiseDataTable = Class(WiseElement, {
     {
         return this.data;
     }
-
+    ,
+    imageRenderer: function (row, datafield, value) 
+    {
+        return '<img style="margin-left: 5px;" height="60" width="50" src="' + value + '"/>';
+    }
+    ,
+    numberRenderer: function (row, datafield, value) 
+    {
+        const numberFormatter = Intl.NumberFormat('en-US');
+        value = numberFormatter.format(value)
+        return "<div class=\"jqx-grid-cell-left-align\" style=\"margin-top: 8px;\">" + value + "</div>";
+    }
 })

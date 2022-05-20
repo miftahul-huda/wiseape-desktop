@@ -9,6 +9,8 @@ div{
     height: 100%;
     display: flex;
     background-image: url(/images/ocean.jpg);
+    background-repeat: no-repeat;
+    background-size: cover
 }
 
 .desktop-taskbar
@@ -16,9 +18,13 @@ div{
     width: 5%;
     height: 100%;
     background-color: rgb(60, 110, 197);
-    opacity: 0.9;
+    opacity: 0.7;
     text-align: center;
     padding-top: 10px;
+
+    box-shadow: 6px 2px 17px -8px rgba(0,0,0,0.53);
+    -webkit-box-shadow: 6px 2px 17px -8px rgba(0,0,0,0.53);
+    -moz-box-shadow: 6px 2px 17px -8px rgba(0,0,0,0.53);
 }
 
 .desktop-content
@@ -38,9 +44,9 @@ body
     margin: auto;
     width: 50px;
     height: 50px;
-    background-image: url(/images/main-menu.png);
+    background-image: url(/images/wisemonkey.png);
     background-repeat: no-repeat;
-    background-size: 80% auto;
+    background-size: 100% auto;
     background-position: center;
     cursor: pointer;
     padding:3px;
@@ -88,7 +94,7 @@ body
 
 .wiseape-window-title
 {
-    width: 93%;
+    width: 80%;
     color: #fff;
     font-size: 12pt;
     font-weight: bold;
@@ -96,21 +102,28 @@ body
     padding: 1%;
 }
 
-.wiseape-window-button-container
+.wiseape-window-button-container 
 {
-    width: 7%;
-    display: flex;
-    margin-top: 10px;
+    width: 20%;
+    
     padding-right: 20px;
+}
+
+.wiseape-window-button-container > div
+{
+    display: flex;
+    width: auto;
+    float:right;
+    margin-top: 3%;
 }
 
 .wiseape-window-button
 {
-    width: 20px;
-    height: 20px;
-    background-size: auto 100%;
-    margin-right: 0px;
-    margin-left: auto;
+    width: 30px;
+    height: 30px;
+    background-size: auto 70% ;
+    background-repeat: no-repeat;
+    background-position: center;
     cursor: pointer;
 }
 
@@ -168,10 +181,9 @@ body
 
 .desktop-menu-item-container
 {
-    width: 100px;
+    width: 130px;
     height: 130px;
     padding: 10px;
-    padding-right: 80px;
     cursor: pointer;
 }
 
@@ -188,13 +200,36 @@ body
 {
     width: 100px;
     height: 100px;
-    background-size: 80% auto;
+    background-size: 70% auto;
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .desktop-menu-text
 {
-    font-size: 10pt;
+    width: 100%;
     text-align: center;
 }
+
+
+.loader
+{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 40%;
+    top: 40%;
+    background: url(/images/process.gif) no-repeat;
+    background-size: 100% auto;
+    background-position: center;
+    z-index: 2000000;
+    display: none;
+}
+
+.wb-header
+{
+    opacity: 0.8
+}
+
+
+

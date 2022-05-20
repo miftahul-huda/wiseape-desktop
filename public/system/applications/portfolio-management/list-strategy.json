@@ -7,22 +7,22 @@
                 "element" : "WiseDiv", "class" : "wise-list-header",
                 "children" : 
                 [
-                    { "element": "WiseMenuButton", "id" : "btnRefreshApplication",  "icon" : "/application-manager/images/refresh.png", "text" : "Refresh the list" },
-                    { "element": "WiseMenuButton", "id" : "btnExportApplication",  "icon" : "/application-manager/images/export.png", "text" : "Export the list to csv or excel"  },
-                    { "element": "WiseMenuButton", "id" : "btnSendApplication",  "icon" : "/application-manager/images/send.png", "text" : "Send this list to email" },
-                    { "element": "WiseMenuButton", "id" : "btnPrintApplication",  "icon" : "/application-manager/images/print.png", "text" : "Print this list" },
+                    { "element": "WiseMenuButton", "id" : "btnRefreshStrategy",  "icon" : "/portfolio-management/images/refresh.png", "text" : "Refresh the list" },
+                    { "element": "WiseMenuButton", "id" : "btnExportStrategy",  "icon" : "/portfolio-management/images/export.png", "text" : "Export the list to csv or excel"  },
+                    { "element": "WiseMenuButton", "id" : "btnSendStrategy",  "icon" : "/portfolio-management/images/send.png", "text" : "Send this list to email" },
+                    { "element": "WiseMenuButton", "id" : "btnPrintStrategy",  "icon" : "/portfolio-management/images/print.png", "text" : "Print this list" },
                     { "element": "WiseMenuVerticalSeparator" },
-                    { "element": "WiseMenuButton", "id" : "btnDetailApplication", "icon" : "/application-manager/images/information.png", "text" : "See the detail information of the selected item" },
-                    { "element": "WiseMenuButton", "id" : "btnAddApplication", "icon" : "/application-manager/images/add.png", "text" : "Add" },
-                    { "element": "WiseMenuButton", "id" : "btnEditApplication", "icon" : "/application-manager/images/edit.png", "text" : "Edit" },
-                    { "element": "WiseMenuButton", "id" : "btnDeleteApplication", "icon" : "/application-manager/images/delete.png", "text" : "Remove" },
-                    { "element": "WiseMenuButton", "id" : "btnCopyApplication", "icon" : "/application-manager/images/copy.png", "text" : "Copy" },
-                    { "element": "WiseMenuButton", "id" : "btnPasteApplication", "icon" : "/application-manager/images/paste.png", "text" : "Paste" },
+                    { "element": "WiseMenuButton", "id" : "btnDetailStrategy", "icon" : "/portfolio-management/images/information.png", "text" : "See the detail information of the selected item" },
+                    { "element": "WiseMenuButton", "id" : "btnAddStrategy", "icon" : "/portfolio-management/images/add.png", "text" : "Add" },
+                    { "element": "WiseMenuButton", "id" : "btnEditStrategy", "icon" : "/portfolio-management/images/edit.png", "text" : "Edit" },
+                    { "element": "WiseMenuButton", "id" : "btnDeleteStrategy", "icon" : "/portfolio-management/images/delete.png", "text" : "Remove" },
+                    { "element": "WiseMenuButton", "id" : "btnCopyStrategy", "icon" : "/portfolio-management/images/copy.png", "text" : "Copy" },
+                    { "element": "WiseMenuButton", "id" : "btnPasteStrategy", "icon" : "/portfolio-management/images/paste.png", "text" : "Paste" },
                     { "element": "WiseMenuVerticalSeparator" },
-                    { "element": "WiseMenuButton", "id" : "btnFindApplication", "icon" : "/application-manager/images/find.png", "text" : "Find" },
-                    { "element": "WiseMenuButton", "id" : "btnAdvanceFindApplication", "icon" : "/application-manager/images/more-find.png", "text" : "Advance Find" },
+                    { "element": "WiseMenuButton", "id" : "btnFindStrategy", "icon" : "/portfolio-management/images/find.png", "text" : "Find" },
+                    { "element": "WiseMenuButton", "id" : "btnAdvanceFindStrategy", "icon" : "/portfolio-management/images/more-find.png", "text" : "Advance Find" },
                     { "element": "WiseMenuVerticalSeparator" },
-                    { "element": "WiseMenuButton", "id" : "btnSummaryApplication", "icon" : "/application-manager/images/summary.png", "text" : "Summary" }
+                    { "element": "WiseMenuButton", "id" : "btnSummaryStrategy", "icon" : "/portfolio-management/images/summary.png", "text" : "Summary" }
                 ]
             }
             ,
@@ -35,13 +35,12 @@
                 "children" : 
                 [
                     { "element": "WiseDataTable", "id" : "tableListOfStrategy", "columns": [
-                        { "datafield" : "id", "text": "ID", "width" : "10" },
                         { "datafield" : "strategyTitle", "text": "Title", "width": "300" },
                         { "datafield" : "description", "text": "Description" },
                         { "datafield" : "scope.scopeTitle", "text": "Scope", "width": "200" },
                         { "datafield" : "risk.riskTitle", "text": "Risk" },
                         { "datafield" : "workestimationmaster.workEstimationTitle", "text": "Work Estimation" },
-                        { "datafield" : "workloadACV", "text": "Workload ACV" }
+                        { "datafield" : "workloadACV", "text": "Workload ACV", "type": "numeric" }
                     ]}
                 ]
             }

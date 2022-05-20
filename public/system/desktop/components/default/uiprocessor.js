@@ -6,6 +6,8 @@ var UIProcessor = Class({
         init: function(callback)
         {
             let css  = ["/system/desktop/components/default/ui-style.css", 
+                "/system/desktop/components/default/winbox.modern.min.css", 
+                "/system/desktop/components/default/winbox.white.min.css", 
                 "/system/desktop/components/default/jqwidgets/jqwidgets/styles/jqx.base.css",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/styles/jqx.office.css",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/styles/jqx.energyblue.css",
@@ -18,6 +20,7 @@ var UIProcessor = Class({
                 "/system/desktop/components/default/jqwidgets/jqwidgets/styles/jqx.bootstrap.css"
             ];
             let js = ["/system/desktop/components/default/window.js", 
+                "/system/desktop/components/default/winbox.bundle.js", 
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxcore.js",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxdata.js",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxbuttons.js",
@@ -28,6 +31,7 @@ var UIProcessor = Class({
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxdropdownlist.js",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxgrid.js",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxgrid.sort.js",
+                "/system/desktop/components/default/jqwidgets/jqwidgets/jqxgrid.filter.js",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxgrid.pager.js",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxgrid.selection.js",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxgrid.edit.js",
@@ -92,9 +96,9 @@ var UIProcessor = Class({
 
     }
     ,
-    createWindow: function(title, icon, handler)
+    createWindow: function(title, icon, handler, options)
     {
-        let newWin = new Window(title, icon, handler)
+        let newWin = new Window(title, icon, handler, options)
         newWin.uiProcessor = this;
         return  newWin;
     }

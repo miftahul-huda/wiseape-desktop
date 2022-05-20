@@ -118,14 +118,25 @@ var Desktop = Class({
         });
     }
     ,
-    createWindow:function(title, icon)
+    createWindow:function(title, icon, options)
     {
         let me = this;
+
+        if(options == null)
+            options = {};
+        let viewPort = {}
+        viewPort.top = 0;
+        viewPort.right = 0;
+        viewPort.left = $(".desktop-taskbar").width();
+        viewPort.bottom = 0;
+
+        options.viewPort = viewPort;
+
         let newWin = me.uiProcessor.createWindow(title, icon, function handleWindow(evt, window){
             me.handleWindowNext(me, evt, window);
-        })
+        }, options)
     
-        GLOBAL.desktopDom.append(newWin.dom)
+        //GLOBAL.desktopDom.append(newWin.dom)
         me.onHeaderClick(me, newWin)
         me.windows.push(newWin)
 
@@ -156,7 +167,7 @@ var Desktop = Class({
                 $(".desktop-menu-container").append(menuItem)
 
             })
-            $(".desktop-menu-container").show("slow");
+            $(".desktop-menu-container").show("fast");
             me.menuShown = true;
             if(parentId != 0)
             {
@@ -234,14 +245,14 @@ var Desktop = Class({
         let appCommand = menu.appCommand;
         let url = "/application/get-by-appid/" + appID;
         $.get(url, function(app){
-            console.log(app)
-            let appConfig = app.appConfig;
+
+            let appConfig = app.payload.appConfig;
+            appConfig = JSON.parse(appConfig)
             let includes = app.payload.appInclude;
             includes = includes.split(",");
             me.includeApplicationFiles(me, includes, 0, function(){
                 let newApp = null;
                 eval("newApp = new " + app.payload.appEndPoint + "('" + app.payload.appTitle + "', '" + app.payload.appIcon + "', me)" )
-                console.log(newApp)
                 newApp.run(menu.appCommand, appConfig);
             })
         })
@@ -279,7 +290,6 @@ var Desktop = Class({
     removeWindowById: function(me, id)
     {
         me.windows.splice(me.windows.findIndex(item => item.id === id), 1)
-        console.log(me.windows)
     }
     ,
     getWindowById: function(me, id)
@@ -296,7 +306,7 @@ var Desktop = Class({
         let taskbarid = "taskbarItem_" + window.id
         me.addTaskbarItem( taskbarid, window.icon, function(){
             let ww = me.getWindowById( me, window.id)
-            console.log(ww)
+
             ww.unhide()
             me.onHeaderClick(me, window)
             me.removeTaskbarItem(taskbarid)

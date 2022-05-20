@@ -1,29 +1,51 @@
     var Window = Class({
 
-    constructor: function(title, icon, eventHandler)
+    constructor: function(title, icon, eventHandler, options)
     {
         this.title = title
         this.icon = icon
+        this.options = options
         this.eventHandler = eventHandler
         this.contentEventHandler = null
         this.id = "window_" + Util.makeId(10);
         this.uiProcessor = null;
         this.content = null;
         this.elements = null;
-        
+        this.winbox = null;
+
+        if(this.options.width == null)
+            this.options.width = '80%';
+        if(this.options.height == null)
+            this.options.height = '80%';
+
+       
+        if(this.options.left == null)
+            this.options.left = 40
+        if(this.options.top == null)
+            this.options.top = 20
+        /*
         let divIcon = "<div class='wiseape-window-icon' style='background-image: url(" + icon + ")'></div>";
         let divHeaderButtonMin = "<div class='wiseape-window-button wiseape-window-button-min'></div>";
         let divHeaderButtonMax = "<div class='wiseape-window-button wiseape-window-button-max'></div>";
         let divHeaderButtonClose = "<div class='wiseape-window-button wiseape-window-button-close'></div>";
         let divSep = "<div style='width: 0px'></div>";
-        let divHeaderButtons = "<div class='wiseape-window-button-container'>" + divHeaderButtonMin + divSep + divHeaderButtonMax + divSep + divHeaderButtonClose + "</div>"
+        let divHeaderButtons = "<div class='wiseape-window-button-container'><div>" + divHeaderButtonMin  + divHeaderButtonMax  + divHeaderButtonClose + "</div></div>"
         let divHeader = "<div class='wiseape-window-header'>" + divIcon + "<div class='wiseape-window-title'>" + this.title + "</div>" + divHeaderButtons + "</div>";
-        let divWindowContent = "<div class='wiseape-window-content'></div>";
+        let divWindowContent = "<div class='loader'></div><div class='wiseape-window-content'></div>";
 
         let divWindow = "<div class='wiseape-window' id='" + this.id + "'>" + divHeader + divWindowContent + "</div>"
 
         this.dom = divWindow
         this.dom = $(this.dom)[0]
+
+        if(options != null && options.width != null)
+            $(this.dom).width(options.width)
+
+        if(options != null && options.height != null)
+            $(this.dom).height(options.height)
+        */
+
+
     }
     ,
     max: function(){
@@ -94,6 +116,62 @@
         }
 
         return newChildren;
+    }
+    ,
+    showWindow: function(me, content)
+    {
+        $(content).append("<div class='loader'></div>")
+        me.content = content
+
+        let viewPort = me.options.viewPort;
+        me.winbox = new WinBox({
+            id: me.id,
+            title: me.title,
+            class: "modern",
+            html: content,
+            root: $(".desktop-content")[0],
+            top: viewPort.top,
+            left: viewPort.left,
+            right: viewPort.right,
+            bottom: viewPort.bottom,
+            width: me.options.width,
+            height: me.options.height,
+            x: me.options.left + me.options.viewPort.left,
+            y: me.options.top,
+            onresize: function(width, height){
+                me.height = height
+                me.width = width
+                console.log(this.min)
+                $(".wb-min").on("click",function(){
+                    alert("mix")
+                });
+            }
+            ,
+            onfocus: function()
+            {
+
+            }
+            ,
+            onmove: function(x, y){
+                me.left = x
+                me.top = y
+            }
+            ,
+            onMinimize: function()
+            {
+                
+            }
+            ,
+            onclose: function(force)
+            {
+                if(this.eventHandler != null)
+                    this.eventHandler("onWindowClosed", me)
+            }
+        });
+
+        me.uiProcessor.initContent();
+        if(me.contentEventHandler != null)
+            me.contentEventHandler( me, me.id, "onLoad")
     }
     ,
     processContent: function(me, content)
@@ -167,7 +245,8 @@
                 me.contentEventHandler(me, elmId, elmId + "_" + event)
             })
             content = me.createDom(me, me.elements)
-            me.processContent(me, content)
+            //me.processContent(me, content)
+            me.showWindow(me, content)
         }
         else
         {
@@ -187,7 +266,17 @@
                         me.contentEventHandler(me, elmId, elmId + "_" + event)
                     })
                     content = me.createDom(me, me.elements)
-                    me.processContent(me, content)
+                    //me.processContent(me, content)
+                    me.showWindow(me, content)
+                })
+            }
+            else if(ss[ss.length-1].toLowerCase() == "html")
+            {
+ 
+                $.get(content, function(html){
+
+                    //me.processContent(me, html)
+                    me.showWindow(me, html)
                 })
             }
         }
@@ -275,6 +364,16 @@
             })
         }
         return elm
+    }
+    ,
+    showProgress: function()
+    {
+        $(".loader").show();
+    }
+    ,
+    hideProgress: function()
+    {
+        $(".loader").hide();
     }
 
 })
