@@ -13,7 +13,7 @@ var DefaultApplication = Class(Application, {
         if(appConfig != null)
             me.appConfig = appConfig;
         
-        let appInfo = me.getDefaultApplicationInfo();
+        let appInfo = me.getDefaultApplicationWindowInfo();
         if(command in appInfo)
         {
             let info = appInfo[command];
@@ -28,7 +28,7 @@ var DefaultApplication = Class(Application, {
 
     }
     ,
-    getDefaultApplicationInfo: function()
+    getDefaultApplicationWindowInfo: function()
     {
         let o = [];
         o["list"]  = { title: "", jsfile: '', className: '', contentFile: '' };

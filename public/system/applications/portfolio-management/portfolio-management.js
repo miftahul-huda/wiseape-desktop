@@ -1,6 +1,6 @@
 var PortfolioManagement = Class(DefaultApplication, {
 
-    getDefaultApplicationInfo: function()
+    getDefaultApplicationWindowInfo: function()
     {
         let o = [];
         o["list"]  = { jsfile: 'list-strategy.js', className: 'ListStrategyPage', contentFile: 'list-strategy.json', config: null };

@@ -10,16 +10,6 @@ var DefaultListPage = Class({
         if(search != null)
             url = url + "/find/" + encodeURIComponent( search);
 
-        url = url + "/" + offset + "/" + limit 
-
-        if(sortColumn != null)
-        {
-            if(sortDirection == null)
-                sortDirection= "asc"
-
-            url = url +  "/" + sortColumn + "/" + sortDirection
-        }
-
         me.displayData(win, tableID, url, offset, limit, sortColumn, sortDirection, search,  win.hideProgress );
         win.get(tableID).elementEventHandler = function(id, event, opt) { me.dataTableEventHandler(me, win, tableID, url, id, event, opt) } 
     }
@@ -38,11 +28,23 @@ var DefaultListPage = Class({
     {
         if(event == "onDataFilterChanged")
         {
+            console.log(opt)
             let offset = opt.displayPerPage * (opt.page - 1)
             let limit = opt.displayPerPage
             let sortColumn = opt.sort.column;
             let sortDirection = opt.sort.direction;
+
+            url = url + "/" + offset + "/" + limit 
+
+            if(sortColumn != null)
+            {
+                if(sortDirection == null)
+                    sortDirection= "asc"
+
+                url = url +  "/" + sortColumn + "/" + sortDirection
+            }
             win.showProgress();
+            console.log("Offset : " + offset + ", Limit : " + limit)
             me.displayData(win, tableID, url, offset, limit, sortColumn, sortDirection, null, win.hideProgress)
         }
     }
