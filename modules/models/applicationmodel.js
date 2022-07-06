@@ -13,7 +13,8 @@ class ApplicationModel extends Model {
             appVersion: DataTypes.STRING,
             company: DataTypes.STRING,
             appWebsite: DataTypes.STRING,
-            appConfig: DataTypes.STRING
+            appConfig: DataTypes.STRING,
+            appRootPath: DataTypes.STRING,
         }, 
         { sequelize, modelName: 'application', tableName: 'application', force: force });
     }

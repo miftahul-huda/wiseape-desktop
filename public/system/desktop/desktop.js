@@ -250,9 +250,16 @@ var Desktop = Class({
             appConfig = JSON.parse(appConfig)
             let includes = app.payload.appInclude;
             includes = includes.split(",");
+
+            for(var i = 0; i < includes.length; i++)
+            {
+                includes[i] = app.payload.appRootPath + "/" + includes[i]; 
+            }
+
             me.includeApplicationFiles(me, includes, 0, function(){
                 let newApp = null;
-                eval("newApp = new " + app.payload.appEndPoint + "('" + app.payload.appTitle + "', '" + app.payload.appIcon + "', me)" )
+                eval("newApp = new " + app.payload.appEndPoint + "('" + app.payload.appTitle + "', '" + app.payload.appRootPath + "/" + app.payload.appIcon + "', me)" )
+                newApp.appRootPath = app.payload.appRootPath;
                 newApp.run(menu.appCommand, appConfig);
             })
         })

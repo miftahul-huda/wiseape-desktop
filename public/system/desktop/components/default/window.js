@@ -275,7 +275,7 @@
                 $.get(content, function(html){
 
                     //me.processContent(me, html)
-                    me.showWindow(me, html)
+                    me.showWindow(me, $(html)[0])
                 })
             }
         }
