@@ -7,27 +7,23 @@
                 "element" : "WiseDiv", "class" : "wise-list-header",
                 "children" : 
                 [
-                    { "element": "WiseMenuButton", "id" : "btnRefreshStrategy",  "icon" : "/portfolio-management/images/refresh.png", "text" : "Refresh the list" },
-                    { "element": "WiseMenuButton", "id" : "btnExportStrategy",  "icon" : "/portfolio-management/images/export.png", "text" : "Export the list to csv or excel"  },
-                    { "element": "WiseMenuButton", "id" : "btnSendStrategy",  "icon" : "/portfolio-management/images/send.png", "text" : "Send this list to email" },
-                    { "element": "WiseMenuButton", "id" : "btnPrintStrategy",  "icon" : "/portfolio-management/images/print.png", "text" : "Print this list" },
+                    { "element": "WiseMenuButton", "id" : "btnRefreshStrategy", "onclick": "btnRefreshStrategy_onClick", "icon" : "/portfolio-management/images/refresh.png", "text" : "Refresh the list" },
+                    { "element": "WiseMenuButton", "id" : "btnExportStrategy", "onclick": "btnExportStrategy_onClick", "icon" : "/portfolio-management/images/export.png", "text" : "Export the list to csv or excel"  },
+                    { "element": "WiseMenuButton", "id" : "btnSendStrategy", "onclick": "btnSendStrategy_onClick",  "icon" : "/portfolio-management/images/send.png", "text" : "Send this list to email" },
+                    { "element": "WiseMenuButton", "id" : "btnPrintStrategy", "onclick": "btnPrintStrategy_onClick",  "icon" : "/portfolio-management/images/print.png", "text" : "Print this list" },
                     { "element": "WiseMenuVerticalSeparator" },
-                    { "element": "WiseMenuButton", "id" : "btnDetailStrategy", "icon" : "/portfolio-management/images/information.png", "text" : "See the detail information of the selected item" },
-                    { "element": "WiseMenuButton", "id" : "btnAddStrategy", "icon" : "/portfolio-management/images/add.png", "text" : "Add" },
-                    { "element": "WiseMenuButton", "id" : "btnEditStrategy", "icon" : "/portfolio-management/images/edit.png", "text" : "Edit" },
-                    { "element": "WiseMenuButton", "id" : "btnDeleteStrategy", "icon" : "/portfolio-management/images/delete.png", "text" : "Remove" },
-                    { "element": "WiseMenuButton", "id" : "btnCopyStrategy", "icon" : "/portfolio-management/images/copy.png", "text" : "Copy" },
-                    { "element": "WiseMenuButton", "id" : "btnPasteStrategy", "icon" : "/portfolio-management/images/paste.png", "text" : "Paste" },
+                    { "element": "WiseMenuButton", "id" : "btnDetailStrategy","onclick": "btnDetailStrategy_onClick", "icon" : "/portfolio-management/images/information.png", "text" : "See the detail information of the selected item" },
+                    { "element": "WiseMenuButton", "id" : "btnAddStrategy", "onclick": "btnAddStrategy_onClick", "icon" : "/portfolio-management/images/add.png", "text" : "Add" },
+                    { "element": "WiseMenuButton", "id" : "btnEditStrategy", "onclick": "btnEditStrategy_onClick", "icon" : "/portfolio-management/images/edit.png", "text" : "Edit" },
+                    { "element": "WiseMenuButton", "id" : "btnDeleteStrategy", "onclick": "btnDeleteStrategy_onClick", "icon" : "/portfolio-management/images/delete.png", "text" : "Remove" },
+                    { "element": "WiseMenuButton", "id" : "btnCopyStrategy", "onclick": "btnCopyStrategy_onClick", "icon" : "/portfolio-management/images/copy.png", "text" : "Copy" },
+                    { "element": "WiseMenuButton", "id" : "btnPasteStrategy", "onclick": "btnPasteStrategy_onClick", "icon" : "/portfolio-management/images/paste.png", "text" : "Paste" },
                     { "element": "WiseMenuVerticalSeparator" },
-                    { "element": "WiseMenuButton", "id" : "btnFindStrategy", "icon" : "/portfolio-management/images/find.png", "text" : "Find" },
-                    { "element": "WiseMenuButton", "id" : "btnAdvanceFindStrategy", "icon" : "/portfolio-management/images/more-find.png", "text" : "Advance Find" },
+                    { "element": "WiseMenuButton", "id" : "btnFindStrategy", "onclick": "btnFindStrategy_onClick", "icon" : "/portfolio-management/images/find.png", "text" : "Find" },
+                    { "element": "WiseMenuButton", "id" : "btnAdvanceFindStrategy", "onclick": "btnAdvanceFindStrategy_onClick", "icon" : "/portfolio-management/images/more-find.png", "text" : "Advance Find" },
                     { "element": "WiseMenuVerticalSeparator" },
-                    { "element": "WiseMenuButton", "id" : "btnSummaryStrategy", "icon" : "/portfolio-management/images/summary.png", "text" : "Summary" }
+                    { "element": "WiseMenuButton", "id" : "btnSummaryStrategy", "onclick": "btnSummaryStrategy_onClick",  "icon" : "/portfolio-management/images/summary.png", "text" : "Summary" }
                 ]
-            }
-            ,
-            {
-                "element": "WiseDiv", "class":"vertical-separator"
             }
             ,
             {

@@ -28,6 +28,11 @@ var WiseDataTable = Class(WiseElement, {
         let divGridButtons = document.createElement('div')
         $(divGridButtons).addClass("wise-grid-buttons")
 
+        let firstDiv = document.createElement("div")
+        $(firstDiv).css("width", "70%")
+
+        $(divGridButtons).append(firstDiv);
+
         let divCmbPerPageLabel = document.createElement("div")
         $(divCmbPerPageLabel).addClass("grid-button-text")
         $(divCmbPerPageLabel).html("Display/page")
@@ -36,7 +41,7 @@ var WiseDataTable = Class(WiseElement, {
         let cmbPerPage = document.createElement("select")
         $(cmbPerPage).width(100)
         $(cmbPerPage).append("<option value='10'>10</option>")
-        $(cmbPerPage).append("<option value='50'>50</option>")
+        $(cmbPerPage).append("<option selected value='50'>50</option>")
         $(cmbPerPage).append("<option value='100'>100</option>")
         $(cmbPerPage).append("<option value='200'>200</option>")
         $(cmbPerPage).append("<option value='200'>300</option>")
@@ -257,5 +262,33 @@ var WiseDataTable = Class(WiseElement, {
             page = 1
         let opt = { sort: { column: me.sortColumn, direction: me.sortDirection  }, displayPerPage: $(me.cmbPerPage).val(), page: page };
         return opt;
+    }
+    ,
+    export: function(fileName)
+    {
+        let ext = fileName.slice((fileName.lastIndexOf(".") - 1 >>> 0) + 2);
+        if(ext.trim().length == 0)
+            ext = "xls";
+        
+        fileName = fileName.replace("."  + ext, "")
+        $("#" + this.id).jqxGrid('exportdata', ext, fileName);
+    }
+    ,
+    print:  function()
+    {
+        var gridContent = $("#" + this.id).jqxGrid('exportdata', 'html');
+                var newWindow = window.open('', '', 'width=800, height=500'),
+                document = newWindow.document.open(),
+                pageContent =
+                    '<!DOCTYPE html>\n' +
+                    '<html>\n' +
+                    '<head>\n' +
+                    '<meta charset="utf-8" />\n' +
+                    '<title>jQWidgets Grid</title>\n' +
+                    '</head>\n' +
+                    '<body>\n' + gridContent + '\n</body>\n</html>';
+                document.write(pageContent);
+                document.close();
+                newWindow.print();
     }
 })

@@ -20,6 +20,16 @@ var ListStrategyPage =  Class(DefaultListPage, {
     {
         this.showDetail(win)
     }
+    ,
+    btnExportStrategy_onClick: function(win, id)
+    {
+        this.export(win, "tableListOfStrategy", "list-of-strategy")
+    }
+    ,
+    btnPrintStrategy_onClick: function(win, id)
+    {
+        this.print(win, "tableListOfStrategy");
+    }
     //------- End of  event handlers ------------
     ,
     refresh: function(win) {

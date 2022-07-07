@@ -1,0 +1,36 @@
+{
+    "root" :
+    {
+        "children" : 
+        [
+            {
+                "element" : "WiseLabel", "text": "What kind of file you want this data exported to?"
+            }
+            ,
+            {
+                "element" : "WiseOptionGroup", "id": "exportOptionGroup",
+                "options" : 
+                [
+                    { "value" : "xls", "label": "Excel", "selected" : "true" },
+                    { "value" : "csv", "label": "CSV" },
+                    { "value" : "xml", "label": "XML" },
+                    { "value" : "json", "label": "JSON" }
+                ]
+            }
+            ,
+            {
+                "element": "WiseDiv", "class":"vertical-separator"
+            }
+            ,
+            {
+                "element" : "WiseDiv", "class" : "flex-div",
+                "children": 
+                [
+                    { "element": "WiseButton", "id" : "btnOkSelectExportOption", "onclick": "btnOkSelectExportOption_onClick", "icon" : "fa fa-check", "text" : "Ok" },
+                    { "element": "WiseButton", "id" : "btnCancelSelectExportOption", "onclick": "btnCancelSelectExportOption_onClick", "icon" : "fa fa-ban", "text" : "Cancel" }
+                ]
+            }
+
+        ]
+    }
+}

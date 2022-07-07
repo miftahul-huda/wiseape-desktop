@@ -1,6 +1,7 @@
 div{
     font-family: Roboto, Tahoma, Geneva, Verdana, sans-serif;
-    color: #666;
+    color: #777;
+    font-size: 11pt;
 }
 
 .desktop
@@ -236,5 +237,8 @@ body
     opacity: 1
 }
 
-
+.window-title
+{
+    color: #fff;
+}
 

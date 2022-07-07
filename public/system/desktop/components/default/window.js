@@ -12,11 +12,12 @@
         this.content = null;
         this.elements = null;
         this.winbox = null;
+        this.winClosedCallbacks = [];
 
         if(this.options.width == null)
             this.options.width = '80%';
         if(this.options.height == null)
-            this.options.height = '80%';
+            this.options.height = '90%';
 
        
         if(this.options.left == null)
@@ -123,10 +124,16 @@
         $(content).append("<div class='loader'></div>")
         me.content = content
 
+        let title = me.title;
+        if(me.icon != null)
+        {
+            title = "<div style='display: inline-flex;'><div style='width:30px;height:30px;background: url(" + me.icon + ") no-repeat; background-size: auto 70%;background-position: center'></div><div class='window-title'>" + title + "</div></div>"
+        }
+
         let viewPort = me.options.viewPort;
         me.winbox = new WinBox({
             id: me.id,
-            title: me.title,
+            title: title,
             class: "modern",
             html: content,
             root: $(".desktop-content")[0],
@@ -166,6 +173,16 @@
             {
                 if(this.eventHandler != null)
                     this.eventHandler("onWindowClosed", me)
+
+                if(me.contentEventHandler != null)
+                    me.contentEventHandler( me, me.id, "onWindowClosed")
+
+                if(me.winClosedCallbacks != null)
+                {
+                    me.winClosedCallbacks.map( (callback) => {
+                        callback(me.returnValue);
+                    })
+                }
             }
         });
 
@@ -231,9 +248,15 @@
             me.contentEventHandler( me, me.id, "onLoad")
     }
     ,
-    show: function(content)
+    show: function(content, winClosedCallback)
     {
         var me =  this;
+
+        if(winClosedCallback != null)
+        {
+            me.winClosedCallbacks.push(winClosedCallback);
+            me.modal  = true;
+        }
 
         if( typeof content === 'object')
         {
@@ -242,7 +265,7 @@
             me.elements = uiProcessor.createElement(content, me, function(elmId, event){
                 elmId = elmId.split("___")
                 elmId = elmId[elmId.length - 1]
-                me.contentEventHandler(me, elmId, elmId + "_" + event)
+                me.contentEventHandler(me, elmId, event)
             })
             content = me.createDom(me, me.elements)
             //me.processContent(me, content)
@@ -262,7 +285,7 @@
                     me.elements = uiProcessor.createElement(content, me, function(elmId, event){
                         elmId = elmId.split("___")
                         elmId = elmId[elmId.length - 1]
-                        me.contentEventHandler(me, elmId, elmId + "_" + event)
+                        me.contentEventHandler(me, elmId, event)
                     })
                     content = me.createDom(me, me.elements)
                     //me.processContent(me, content)
@@ -279,7 +302,6 @@
                 })
             }
         }
-
     }
     ,
     createDom: function(me, root){
@@ -306,10 +328,26 @@
     close: function()
     {
         var me = this;
+        //alert(this.dom)
+        me.winbox.close();
+        /*
         $(this.dom).fadeOut(function(){
             $("#" + this.id).remove()
             me.eventHandler("onWindowClosed", me)
+            if(me.contentEventHandler != null)
+            {
+                me.contentEventHandler(me, me.id, "onWindowClosed")
+            }
+            
+            if(me.winClosedCallbacks != null)
+            {
+                me.winClosedCallbacks.map( (callback) => {
+                    callback(me.returnValue);
+                })
+            }
+            
         });
+        */
     }
     ,
     min: function()

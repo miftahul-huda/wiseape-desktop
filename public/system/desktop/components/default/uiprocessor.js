@@ -37,11 +37,19 @@ var UIProcessor = Class({
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxgrid.edit.js",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxgrid.columnsresize.js",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxgrid.grouping.js",
+                "/system/desktop/components/default/jqwidgets/jqwidgets/jqxgrid.selection.js",
+                "/system/desktop/components/default/jqwidgets/jqwidgets/jqxdata.export.js",
+                "/system/desktop/components/default/jqwidgets/jqwidgets/jqxgrid.export.js",
+                "/system/desktop/components/default/jqwidgets/jqwidgets/jqxexport.js",
+                "/system/desktop/components/default/jqwidgets/scripts/jszip.min.js",
                 "/system/desktop/components/default/WiseElement.js",
                 "/system/desktop/components/default/WiseDataTable.js",
                 "/system/desktop/components/default/WiseDiv.js",    
                 "/system/desktop/components/default/WiseGroup.js",
+                "/system/desktop/components/default/WiseButton.js",
+                "/system/desktop/components/default/WiseLabel.js",
                 "/system/desktop/components/default/WiseMenuButton.js",
+                "/system/desktop/components/default/WiseOptionGroup.js",
                 "/system/desktop/components/default/WiseMenuVerticalSeparator.js"
             ]
 

@@ -48,4 +48,21 @@ var DefaultListPage = Class({
             me.displayData(win, tableID, url, offset, limit, sortColumn, sortDirection, null, win.hideProgress)
         }
     }
+    ,
+    export: function(win, id, filename)
+    {
+        this.application.showExportOptions(function(ext){
+            if(ext != null)
+            {
+                filename = filename  + "." + ext;
+                win.get(id).export(filename)
+            }
+            
+        });
+    }
+    ,
+    print: function(win, id)
+    {
+        win.get(id).print()
+    }
 })

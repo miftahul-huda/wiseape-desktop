@@ -40,7 +40,7 @@ var WiseMenuButton = Class(WiseElement, {
         $(div).on("click", function()
         {
             if(me.elementEventHandler != null)
-                me.elementEventHandler(me.id, "onClick")
+                me.elementEventHandler(me.id, me.onclick)
         })
 
         return div;

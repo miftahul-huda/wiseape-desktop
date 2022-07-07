@@ -10,22 +10,26 @@ var Application = Class({
     setWindowEventHandlerObject: function(win, file, className)
     {
         var me = this;
+        
         win.contentEventHandler = function(win, id, event)
         {
-            if(me.windowHandlerObject == null)
+            if(win.windowHandlerObject == null)
             {
                 $.getScript(file, function (){
-                    me.windowHandlerObject = eval("new " + className + "(me)");
-                    me.windowHandlerObject.appConfig = me.appConfig;
-                    //me.windowHandlerObject.run(win, id, event)
-                    eval("me.windowHandlerObject." + event + "(win, id)");
+                    win.windowHandlerObject = eval("new " + className + "(me)");
+                    win.windowHandlerObject.appConfig = me.appConfig;
+                    //win.windowHandlerObject.run(win, id, event)
+                    if(event != null && event in win.windowHandlerObject)
+                        eval("win.windowHandlerObject." + event + "(win, id)");
                 })
             }
             else
             {
-                me.windowHandlerObject.appConfig = me.appConfig;    
+                win.windowHandlerObject.appConfig = me.appConfig;    
                 //me.windowHandlerObject.run(win, id, event)
-                eval("me.windowHandlerObject." + event + "(win, id)");
+
+                if(event != null && event in win.windowHandlerObject)
+                    eval("win.windowHandlerObject." + event + "(win, id)");
             }
         }
     }
