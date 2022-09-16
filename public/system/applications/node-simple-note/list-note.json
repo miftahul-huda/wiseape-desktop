@@ -1,0 +1,47 @@
+{
+    "root" :
+    {
+        "children" : 
+        [
+            {
+                "element" : "WiseDiv", "class" : "wise-list-header",
+                "children" : 
+                [
+                    { "element": "WiseMenuButton", "id" : "btnRefreshNote", "onclick": "btnRefreshNote_onClick", "icon" : "/portfolio-management/images/refresh.png", "text" : "Refresh the list" },
+                    { "element": "WiseMenuButton", "id" : "btnExportNote", "onclick": "btnExportNote_onClick", "icon" : "/portfolio-management/images/export.png", "text" : "Export the list to csv or excel"  },
+                    { "element": "WiseMenuButton", "id" : "btnSendNote", "onclick": "btnSendNote_onClick",  "icon" : "/portfolio-management/images/send.png", "text" : "Send this list to email" },
+                    { "element": "WiseMenuButton", "id" : "btnPrintNote", "onclick": "btnPrintNote_onClick",  "icon" : "/portfolio-management/images/print.png", "text" : "Print this list" },
+                    { "element": "WiseMenuVerticalSeparator" },
+                    { "element": "WiseMenuButton", "id" : "btnDetailNote","onclick": "btnDetailNote_onClick", "icon" : "/portfolio-management/images/information.png", "text" : "See the detail information of the selected item" },
+                    { "element": "WiseMenuButton", "id" : "btnAddNote", "onclick": "btnAddNote_onClick", "icon" : "/portfolio-management/images/add.png", "text" : "Add" },
+                    { "element": "WiseMenuButton", "id" : "btnEditNote", "onclick": "btnEditNote_onClick", "icon" : "/portfolio-management/images/edit.png", "text" : "Edit" },
+                    { "element": "WiseMenuButton", "id" : "btnDeleteNote", "onclick": "btnDeleteNote_onClick", "icon" : "/portfolio-management/images/delete.png", "text" : "Remove" },
+                    { "element": "WiseMenuButton", "id" : "btnCopyNote", "onclick": "btnCopyNote_onClick", "icon" : "/portfolio-management/images/copy.png", "text" : "Copy" },
+                    { "element": "WiseMenuButton", "id" : "btnPasteNote", "onclick": "btnPasteNote_onClick", "icon" : "/portfolio-management/images/paste.png", "text" : "Paste" },
+                    { "element": "WiseMenuVerticalSeparator" },
+                    { "element": "WiseMenuButton", "id" : "btnFindNote", "onclick": "btnFindNote_onClick", "icon" : "/portfolio-management/images/find.png", "text" : "Find" },
+                    { "element": "WiseMenuButton", "id" : "btnAdvanceFindNote", "onclick": "btnAdvanceFindNote_onClick", "icon" : "/portfolio-management/images/more-find.png", "text" : "Advance Find" },
+                    { "element": "WiseMenuVerticalSeparator" },
+                    { "element": "WiseMenuButton", "id" : "btnSummaryNote", "onclick": "btnSummaryNote_onClick",  "icon" : "/portfolio-management/images/summary.png", "text" : "Summary" }
+                ]
+            }
+            ,
+            {
+                "element" : "WiseGroup", "title" : "List of Notes", "description" : "This is the list of note items",
+                "children" : 
+                [
+                    { "element": "WiseDataTable", "id" : "tableListOfNote", "columns": [
+                        { "datafield" : "no", "text": "#", "width": "30" },
+                        { "datafield" : "title", "text": "Title", "width": "300" },
+                        { "datafield" : "short_desc", "text": "Short description" },
+                        { "datafield" : "tags", "text": "Tags", "width": "200" },
+                        { "datafield" : "category.category_name", "text": "Category", "width": "200" },
+                        { "datafield" : "project.project_name", "text": "Project", "width": "200" } ,
+                        { "datafield" : "createdAt", "text": "Created At", "width": "200" },
+                        { "datafield" : "modifiedAt", "text": "Modified At", "width": "200" }                   
+                    ]}
+                ]
+            }
+        ]
+    }
+}

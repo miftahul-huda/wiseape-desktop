@@ -102,11 +102,13 @@ var Desktop = Class({
 
             if(me.menuShown == false)
             {
-                $(".desktop-menu-container").show("fast", "swing")
-                me.menuShown = true;
+                $(".taskbar-start-menu").css("opacity", 0.5)
                 me.getAllMenu().then((response)=>{
+                    $(".taskbar-start-menu").css("opacity", 1)
                     me.menus = response.payload.rows;
                     me.loadMenu(me);
+                    $(".desktop-menu-container").show("fast", "swing")
+                    me.menuShown = true;
                 })
                 
             }

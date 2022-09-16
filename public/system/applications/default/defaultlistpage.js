@@ -10,18 +10,40 @@ var DefaultListPage = Class({
         if(search != null)
             url = url + "/find/" + encodeURIComponent( search);
 
-        me.displayData(win, tableID, url, offset, limit, sortColumn, sortDirection, search,  win.hideProgress );
+        me.displayData(me, win, tableID, url, offset, limit, sortColumn, sortDirection, search,  win.hideProgress );
         win.get(tableID).elementEventHandler = function(id, event, opt) { me.dataTableEventHandler(me, win, tableID, url, id, event, opt) } 
     }
     ,
-    displayData: function(win, tableID,  url, offset, limit, sortColumn, sortDirection, search=null, callback)
+    displayData: function(me, win, tableID,  url, offset, limit, sortColumn, sortDirection, search=null, callback)
     {
+        url = url + "?offset=" + offset + "&limit=" + limit 
+        if(sortColumn != null)
+        {
+            if(sortDirection == null)
+                sortDirection= "asc"
+
+            url = url +  "&sort=" + sortColumn + "," + sortDirection
+        }
+
         console.log(url)
         $.get(url, function(response){
-            win.get(tableID).loadData(response.payload.rows, response.payload.count);
+            let rows = response.payload.rows;
+            rows = me.initRows(rows, offset, limit, sortColumn, sortDirection)
+            win.get(tableID).loadData(rows, response.payload.count);
             if(callback != null)
                 callback()
         })
+    }
+    ,
+    initRows: function(rows, offset, limit, sortColumn, sortDirection)
+    {
+        let no = offset + 1;
+        rows.map((row)=>{
+            row.no = no + ". ";
+            no++;
+        })
+
+        return rows;
     }
     ,
     dataTableEventHandler: function(me, win, tableID, url, id, event, opt)
@@ -34,18 +56,10 @@ var DefaultListPage = Class({
             let sortColumn = opt.sort.column;
             let sortDirection = opt.sort.direction;
 
-            url = url + "/" + offset + "/" + limit 
-
-            if(sortColumn != null)
-            {
-                if(sortDirection == null)
-                    sortDirection= "asc"
-
-                url = url +  "/" + sortColumn + "/" + sortDirection
-            }
+            
             win.showProgress();
             console.log("Offset : " + offset + ", Limit : " + limit)
-            me.displayData(win, tableID, url, offset, limit, sortColumn, sortDirection, null, win.hideProgress)
+            me.displayData(me, win, tableID, url, offset, limit, sortColumn, sortDirection, null, win.hideProgress)
         }
     }
     ,

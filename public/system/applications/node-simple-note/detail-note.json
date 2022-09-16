@@ -1,0 +1,57 @@
+{
+    "root" :
+    {
+        "children" : 
+        [
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseLabel", "text" : "Strategy Title" },
+                    { "element": "WiseText", "id": "strategyTitle", "data" : "strategyTitle" }
+                   
+                ]
+            }
+            ,
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseLabel", "text" : "Description" },
+                    { "element": "WiseText", "id": "description", "data" : "description" }
+                   
+                ]
+            }
+            ,
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseLabel", "text" : "Description" },
+                    { "element": "WiseText", "id": "description", "data" : "description" }
+                   
+                ]
+            }
+            ,
+            {
+                "element": "WiseDiv", "class":"vertical-separator"
+            }
+            ,
+            {
+                "element" : "WiseGroup", "title" : "List of Strategy", "description" : "This is the list of strategy items",
+                "children" : 
+                [
+                    { "element": "WiseDataTable", "id" : "tableListOfStrategy", "columns": [
+                        { "datafield" : "id", "text": "ID", "width" : "10" },
+                        { "datafield" : "strategyTitle", "text": "Title", "width": "300" },
+                        { "datafield" : "description", "text": "Description" },
+                        { "datafield" : "scope.scopeTitle", "text": "Scope", "width": "200" },
+                        { "datafield" : "risk.riskTitle", "text": "Risk" },
+                        { "datafield" : "workestimationmaster.workEstimationTitle", "text": "Work Estimation" },
+                        { "datafield" : "workloadACV", "text": "Workload ACV" }
+                    ]}
+                ]
+            }
+        ]
+    }
+}
