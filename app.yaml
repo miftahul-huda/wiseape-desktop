@@ -4,11 +4,11 @@ env: standard
 env_variables:
   DBHOST: "34.67.143.103"
   DBNAME: "wiseape-client"
-  DBUSER: "<dbuser>"
-  DBPASSWORD: "<dbpassword>"
+  DBUSER: "nodeuser"
+  DBPASSWORD: "RotiKeju98*"
   DBENGINE: "postgresql"
-  APPLICATION_NAME : "<appname>"
-  APPLICATION_TITLE : "<apptitle>"
+  APPLICATION_NAME : "Wiseape Desktop"
+  APPLICATION_TITLE : "Wiseape Desktop"
   APPLICATION_PORT : "8080"
   PROJECT : "huda-playground"
 
