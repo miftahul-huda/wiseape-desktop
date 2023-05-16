@@ -210,6 +210,16 @@ var WiseDataTable = Class(WiseElement, {
             $(this.cmbPage).append(opt)
         }
 
+        if(totalPage == 0)
+        {
+            let opt = document.createElement("option")
+            $(opt).attr("value", 1)
+            $(opt).html(1)
+            $(this.cmbPage).append(opt)
+        }
+
+        if(this.pageNo == null)
+            this.pageNo = 1;
         
         if(this.pageNo != null)
             $(this.cmbPage).val(this.pageNo);
