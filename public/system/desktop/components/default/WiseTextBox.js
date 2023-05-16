@@ -10,6 +10,8 @@ var WiseTextBox = Class(WiseElement, {
         if(this.type == null)
             this.type = "text";
         this.placeholder = json.placeholder;
+        if(this.placeholder == null)
+            this.placeholder = "";
         WiseTextBox.$superp.init.call(this, json, "WiseTextBox");
     }
     ,

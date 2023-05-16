@@ -39,7 +39,7 @@ var DefaultApplication = Class(Application, {
     showExportOptions: function(callback)
     {
         var me =  this;
-        let exportOptionWin  = me.desktop.createWindow("Select file format", null, { width: 400, height: 280 });
+        let exportOptionWin  = me.desktop.createWindow("Select file format", null, { width: 400, height: 280, left: '10%', top: '10%' });
         me.setWindowEventHandlerObject(exportOptionWin, "/system/applications/default/exportoptions.js", "ExportOptionsPage");
         exportOptionWin.show("/system/applications/default/exportoptions.json", function(returnValue){
             if(callback != null)

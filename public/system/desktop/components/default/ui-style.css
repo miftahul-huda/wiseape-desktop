@@ -123,11 +123,12 @@
 
 .grid-button-text
 {
-    display: inline-block;
     line-height: normal;
     vertical-align: middle;
-    margin-top: 1%;
+    line-height: 100%;
     font-size: 12;
+    justify-content: center;
+    align-items: center;
 }
 
 .wise-datatable-wrapper

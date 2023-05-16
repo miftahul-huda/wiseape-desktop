@@ -1,4 +1,4 @@
-    var Window = Class({
+var Window = Class({
 
     constructor: function(title, icon, eventHandler, options)
     {
@@ -19,11 +19,6 @@
         if(this.options.height == null)
             this.options.height = '90%';
 
-       
-        if(this.options.left == null)
-            this.options.left = 40
-        if(this.options.top == null)
-            this.options.top = 20
         /*
         let divIcon = "<div class='wiseape-window-icon' style='background-image: url(" + icon + ")'></div>";
         let divHeaderButtonMin = "<div class='wiseape-window-button wiseape-window-button-min'></div>";
@@ -130,7 +125,52 @@
             title = "<div style='display: inline-flex;'><div style='width:30px;height:30px;background: url(" + me.icon + ") no-repeat; background-size: auto 70%;background-position: center'></div><div class='window-title'>" + title + "</div></div>"
         }
 
+        let www = me.options.width + "";
+        let lll = 0;
+        let hhh = me.options.height + "";
+        let ttt = 0;
+
+        console.log("viewPort")
+        console.log(me.options.viewPort)
+
+        if(www.indexOf("%") > -1)
+        {
+            www = www.replace("%", "");
+            www = parseFloat( me.options.viewPort.width) * parseFloat(www) / 100;   
+        }
+        else
+        {
+            www = www.replace("px", "");
+        }
+
+        lll = (this.options.viewPort.width - www) / 2;
+        lll = lll + me.options.viewPort.left
+
+        if(hhh.indexOf("%") > -1)
+        {
+            hhh = hhh.replace("%", "");
+            hhh = parseFloat( me.options.viewPort.height) * parseFloat(hhh) / 100;   
+        }
+        else
+        {
+            hhh = hhh.replace("px", "");
+        }
+
+        ttt = (this.options.viewPort.height - hhh) / 2;
+        ttt = ttt + me.options.viewPort.top;
+
+        if(me.options.top != null)
+            ttt = me.options.top;
+        
+        if(me.options.left != null)
+        {
+            lll = me.options.left;
+        }
+            
+        
+
         let viewPort = me.options.viewPort;
+        console.log(me.options.viewPort)
         me.winbox = new WinBox({
             id: me.id,
             title: title,
@@ -143,8 +183,9 @@
             bottom: viewPort.bottom,
             width: me.options.width,
             height: me.options.height,
-            x: me.options.left + me.options.viewPort.left,
-            y: me.options.top,
+            //x: me.options.left + me.options.viewPort.left,
+            x: lll,
+            y: ttt,
             onresize: function(width, height){
                 me.height = height
                 me.width = width

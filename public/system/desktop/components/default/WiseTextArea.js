@@ -12,6 +12,10 @@ var WiseTextArea = Class(WiseElement, {
         if(this.type == null)   
             this.type = "text";
         this.placeholder = json.placeholder;
+
+        if(this.placeholder == null)
+            this.placeholder = "";
+            
         WiseTextArea.$superp.init.call(this, json, "WiseTextArea");
     }
     ,

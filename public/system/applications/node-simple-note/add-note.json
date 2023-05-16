@@ -1,0 +1,65 @@
+{
+    "root" :
+    {
+        "children" : 
+        [
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseTextBox", "id": "title", "data" : "title", "label" : "Title" }
+                   
+                ]
+            }
+            ,
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseTextArea", "id": "shortDescription", "data" : "short_desc", "label" : "Short Description" }
+                   
+                ]
+            }
+            ,
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseHtmlEditor", "id": "content", "data" : "content", "label" : "Content", "height": "500px" }
+                   
+                ]
+            }
+            ,
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseTextBox", "id": "category", "data" : "category_id", "label" : "Category" }
+                   
+                ]
+            }
+            ,
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseTextBox", "id": "project_id", "data" : "project_id", "label" : "Project" }
+                   
+                ]
+            }
+            ,
+            {
+                "element": "WiseDiv", "class":"vertical-separator"
+            }
+            ,
+            {
+                "element" : "WiseGroup", "title" : "", "description" : "This is the list of strategy items",
+                "children" : 
+                [
+                    { "element": "WiseButton", "id" : "btnSave", "text" : "Save" },
+                    { "element": "WiseButton", "id" : "btnCancel", "text" : "Cancel" }
+                ]
+            }
+        ]
+    }
+}

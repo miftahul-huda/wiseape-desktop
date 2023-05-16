@@ -131,6 +131,8 @@ var Desktop = Class({
         viewPort.right = 0;
         viewPort.left = $(".desktop-taskbar").width();
         viewPort.bottom = 0;
+        viewPort.width = $(".desktop-content").width();
+        viewPort.height = $(".desktop-content").height();
 
         options.viewPort = viewPort;
 
