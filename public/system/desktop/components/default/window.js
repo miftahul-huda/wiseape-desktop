@@ -2,6 +2,7 @@ var Window = Class({
 
     constructor: function(title, icon, eventHandler, options)
     {
+        this.className = "window";
         this.title = title
         this.icon = icon
         this.options = options
@@ -117,12 +118,13 @@ var Window = Class({
     showWindow: function(me, content)
     {
         $(content).append("<div class='loader'></div>")
+        $(content).prepend("<div class='notification-box'><div class='notification-text'></div><div style='width: 30px;'></div><div class='notification-icon'></div></div>")
         me.content = content
 
         let title = me.title;
         if(me.icon != null)
         {
-            title = "<div style='display: inline-flex;'><div style='width:30px;height:30px;background: url(" + me.icon + ") no-repeat; background-size: auto 70%;background-position: center'></div><div class='window-title'>" + title + "</div></div>"
+            title = "<div style='display: inline-flex;'><div style='width:40px;height:40px;background: url(" + me.icon + ") no-repeat; background-size: auto 70%;background-position: center'></div><div class='window-title'>" + title + "</div></div>"
         }
 
         let www = me.options.width + "";
@@ -174,7 +176,7 @@ var Window = Class({
         me.winbox = new WinBox({
             id: me.id,
             title: title,
-            class: "modern",
+            class: ["no-animation", "no-full"],
             html: content,
             root: $(".desktop-content")[0],
             top: viewPort.top,
@@ -227,9 +229,14 @@ var Window = Class({
             }
         });
 
-        me.uiProcessor.initContent();
+        $("#" + me.id).append("<div class='wb-footer'></div>")
+
+
         if(me.contentEventHandler != null)
             me.contentEventHandler( me, me.id, "onLoad")
+
+        me.uiProcessor.initContent(me);
+
     }
     ,
     processContent: function(me, content)
@@ -240,7 +247,7 @@ var Window = Class({
         //$(GLOBAL.desktop).append(this.dom)
 
         $("#" + this.id + " .wiseape-window-content").append(content)
-        me.uiProcessor.initContent();
+        me.uiProcessor.initContent(me);
         
         $("#" + this.id + "").fadeIn();
 
@@ -348,6 +355,7 @@ var Window = Class({
     createDom: function(me, root){
 
         let parentDom = document.createElement("div");
+        $(parentDom).css("padding", "20px")
         parentDom = me.createDomStructure(me, parentDom, root.children)
         return parentDom;
     }
@@ -452,6 +460,34 @@ var Window = Class({
     hideProgress: function()
     {
         $(".loader").hide();
+    }
+    ,
+    notify: function(title, content, theme="success")
+    {
+        let me = this;
+        $("#" + this.id + " .notification-text").html(content)
+        if(theme == "success")
+        {
+            console.log($("#" + this.id + " .notification-icon"))
+            $("#" + this.id + " .notification-icon").addClass("notification-icon-success")
+        }
+        else if(theme == "warning")
+        {
+            $("#" + this.id + " .notification-icon").addClass("notification-icon-warning")
+        }
+        else if(theme == "error")
+        {
+            $("#" + this.id + " .notification-icon").addClass("notification-icon-error")
+        }
+        else if(theme == "info")
+        {
+            $("#" + this.id + " .notification-icon").addClass("notification-icon-info")
+        }
+
+        $("#" + this.id + " .notification-box").show("fast");
+        setTimeout(function(){
+            $("#" + me.id + " .notification-box").hide("fast");
+        }, 3000)
     }
 
 })

@@ -8,11 +8,11 @@ var WiseMenuVerticalSeparator = Class(WiseElement, {
     {
         let parentDiv = document.createElement("div")
         $(parentDiv).css("display", "flex")
-        $(parentDiv).css("width", "16px")
+        $(parentDiv).css("width", "20px")
         let leftDiv = document.createElement("div")
-        $(leftDiv).css("width", "8px")
+        $(leftDiv).css("width", "10px")
         let rightDiv = document.createElement("div")
-        $(rightDiv).css("width", "8px")
+        $(rightDiv).css("width", "10px")
 
         let div = document.createElement("div")
         $(div).addClass("wise-menu-verical-separator")

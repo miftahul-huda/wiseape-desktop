@@ -48,7 +48,7 @@ var WiseTextBox = Class(WiseElement, {
         })
 
         $(dom).on("keyup", function(){
-            me.value = $(this).val();
+            //me._value = $(this).val();
             if(me.elementEventHandler != null)
                 me.elementEventHandler(me.id, "onKeyUp")
         })
@@ -58,7 +58,10 @@ var WiseTextBox = Class(WiseElement, {
     value: function(val=null)
     {
         if(val == null)
-            return this.value;
+        {
+            return $("#" + this.id).val()
+
+        }
         else
         {
             $("#" + this.id).val(val)

@@ -26,7 +26,7 @@ var WiseMenuButton = Class(WiseElement, {
             setTimeout(function(){
                 if($(div).attr("hover") == "true")
                     $(divInfo).show()
-            }, 1000)
+            }, 500)
             
         })
 

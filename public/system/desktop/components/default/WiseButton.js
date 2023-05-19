@@ -13,15 +13,18 @@ var WiseButton = Class(WiseElement, {
         let div = document.createElement("div")
         //$(div).css("padding", "4px")
 
-        let btn = $("<button type=\"button\" class=\"btn btn-primary btn-block\"><i class=\"" + this.icon + "\"></i>" + this.text + "</button>");
+        let btn = $("<div class='wise-button-container'>" +
+        "<button type=\"button\" class=\"btn btn-primary btn-block\"><i class=\"" + this.icon + "\"></i>" + this.text + "</button>" +
+        "</div>");
+
         $(btn).on("click", function()
         {
             if(me.elementEventHandler != null)
                 me.elementEventHandler(me.id, me.onclick)
         })
 
-        $(div).append(btn)
-        return div;
+        //$(div).append(btn)
+        return btn;
     }
 
 })

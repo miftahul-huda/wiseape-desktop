@@ -1,7 +1,24 @@
+@font-face {
+    font-family: Dosis;
+    src: url(font/dosis/Dosis-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: Redhat;
+    src: url(font/Red_Hat_Display/RedHatDisplay-VariableFont_wght.ttf);
+}
+  
+
 div{
-    font-family: Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Redhat, Tahoma, Geneva, Verdana, sans-serif, Tahoma, Geneva, Verdana, sans-serif;
     color: #777;
-    font-size: 11pt;
+    font-size: 12pt;
+}
+
+span{
+    font-family: Redhat, Tahoma, Geneva, Verdana, sans-serif, Tahoma, Geneva, Verdana, sans-serif;
+    color: #777;
+    font-size: 12pt;
 }
 
 .desktop
@@ -18,7 +35,7 @@ div{
 {
     width: 5%;
     height: 100%;
-    background-color: rgb(60, 110, 197);
+    background-color: #58abf9;
     opacity: 0.7;
     text-align: center;
     padding-top: 10px;
@@ -32,6 +49,33 @@ div{
 {
     width: 95%;
     height: 100%;
+}
+
+
+.wise-menu-button-info
+{
+    background-color: rgb(227, 231, 177);
+    color: #666;
+    display: none;
+    font-size: 10pt;
+    white-space: nowrap;
+    opacity: 1;
+    padding: 6px;
+    width: fit-content;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    
+    margin-top: -8%;
+    margin-left: 90%;
+    
+    z-index: 2147483647;
+    border-radius: 6px;
+
+
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(143,143,143,1);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(143,143,143,1);
+    box-shadow: 2px 2px 5px 0px rgba(143,143,143,1);
 }
 
 body
@@ -73,7 +117,7 @@ body
     width: 100%;
     height: 45px;
     display: flex;
-    background-color: rgb(60, 110, 197);
+    background-color: #58abf9;
     opacity: 0.95;
     -webkit-border-top-left-radius: 10px;
     -webkit-border-top-right-radius: 10px;
@@ -192,8 +236,8 @@ body
 {
     width: 100px;
     height: 100px;
-    background: url(/images/folder.png) no-repeat;
-    background-size: 80% auto;
+    background: url(images/folder.png) no-repeat;
+    background-size: 70% auto;
     background-position: center;
 }
 
@@ -210,6 +254,7 @@ body
 {
     width: 100%;
     text-align: center;
+    font-weight: bold;
 }
 
 
@@ -229,20 +274,137 @@ body
 
 .wb-header
 {
-    opacity: 0.8
+    opacity: 1;
+    height: 40px;
+    background-color: #58abf9;
+    /*background-color: white;*/
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+
+    background-image: url(images/winheader.png);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    
+}
+
+.winbox {
+    border-radius: 15px;
+}
+
+.wb-icon
+{
+    height: 100%;
+}
+
+.wb-title
+{
+    padding-left: 20px;
 }
 
 .wb-body
 {
-    opacity: 1
+    opacity: 1;
+    top: 40px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.wb-icon
+{
+    margin-right: 15px;
 }
 
 .window-title
 {
+    line-height: 40px;
     color: #fff;
+    padding-left: 10px;
 }
 
 .wb-body
 {
-    padding: 25px !important;
+    contain: none !important;
+}
+
+input.form-control:focus
+{
+    color: #666;
+}
+
+input.form-control
+{
+    color: #666;
+}
+
+textarea.form-control:focus
+{
+    color: #666;
+}
+
+textarea.form-control
+{
+    color: #666;
+}
+
+.btn-primary
+{
+    background-color: #58abf9;
+}
+
+
+
+.notification-box
+{
+    position: fixed;
+    height: 40px;
+    width: 80%;
+    background-color: rgb(127, 208, 186);
+    z-index: 12000;
+    vertical-align: middle;
+    padding-left: 20px;
+    border-radius: 6px;
+    display: flex;
+}
+
+.notification-text
+{
+    height: 100%;
+    width: 95%;
+    line-height: 40px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.notification-icon 
+{
+    width: 40px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-size: 70% auto;
+    background-position: center;
+    opacity: 0.9;
+}
+
+.notification-icon-success
+{
+    background-image: url(images/ok.png);
+
+}
+
+.notification-icon-warning
+{
+    background-image: url(images/warning.png);
+
+}
+
+.notification-icon-error
+{
+    background-image: url(images/error.png);
+
+}
+
+.notification-icon-info
+{
+    background-image: url(images/information.png);
+
 }

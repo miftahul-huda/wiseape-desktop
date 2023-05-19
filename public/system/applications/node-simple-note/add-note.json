@@ -4,10 +4,25 @@
         "children" : 
         [
             {
-                "element" : "WiseDiv",
+                "element" : "WiseDiv", "style" : "display: flex; position:fixed; width: 100%; margin-top: -20px; left:0px; background-color: #fff; z-index: 1000; padding: 10px; border: solid 1px #ccc", 
                 "children" : 
                 [
-                    { "element": "WiseTextBox", "id": "title", "data" : "title", "label" : "Title" }
+                    { "element" : "WiseDiv", "style" : "width: 90%" },  
+                    { "element": "WiseMenuButton", "id" : "btnSave", "icon" : "/node-simple-note/images/save-icon.png", "text" : "Save", "onclick": "btnSave_onClick" },
+                    { "element": "WiseMenuButton", "id" : "btnCancel", "icon" : "/node-simple-note/images/close-icon.png", "text" : "Close", "onclick": "btnClose_onClick" }
+                ]
+            }
+            ,
+            {
+                "element": "WiseDiv", "style" : "height: 60px"
+            }
+            ,
+            {
+                "element" : "WiseDiv", "style" : "display: flex",
+                "children" : 
+                [
+                    { "element": "WiseComboBox", "id": "project", "data" : "project_id", "label" : "Project" },
+                    { "element": "WiseComboBox", "id": "category", "data" : "category_id", "label" : "Category" }
                    
                 ]
             }
@@ -16,7 +31,16 @@
                 "element" : "WiseDiv",
                 "children" : 
                 [
-                    { "element": "WiseTextArea", "id": "shortDescription", "data" : "short_desc", "label" : "Short Description" }
+                    { "element": "WiseTextBox", "id": "title", "data" : "title", "label" : "Title", "placeholder" : "Enter the title for the note" }
+                   
+                ]
+            }
+            ,
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseTextArea", "id": "shortDescription", "data" : "short_desc", "label" : "Short Description", "placeholder" : "Enter short description" }
                    
                 ]
             }
@@ -31,34 +55,7 @@
             }
             ,
             {
-                "element" : "WiseDiv",
-                "children" : 
-                [
-                    { "element": "WiseTextBox", "id": "category", "data" : "category_id", "label" : "Category" }
-                   
-                ]
-            }
-            ,
-            {
-                "element" : "WiseDiv",
-                "children" : 
-                [
-                    { "element": "WiseTextBox", "id": "project_id", "data" : "project_id", "label" : "Project" }
-                   
-                ]
-            }
-            ,
-            {
                 "element": "WiseDiv", "class":"vertical-separator"
-            }
-            ,
-            {
-                "element" : "WiseGroup", "title" : "", "description" : "This is the list of strategy items",
-                "children" : 
-                [
-                    { "element": "WiseButton", "id" : "btnSave", "text" : "Save" },
-                    { "element": "WiseButton", "id" : "btnCancel", "text" : "Cancel" }
-                ]
             }
         ]
     }

@@ -36,6 +36,7 @@ var WiseElement = Class({
     createDom: function(json)
     {
         let div = document.createElement("div")
+        $(div).addClass("input-div");
         div = this.defaultInit(json, div)
         return div;
     }
@@ -53,4 +54,5 @@ var WiseElement = Class({
             $(dom).attr("style", this.style)
         return dom;
     }
+    
 })

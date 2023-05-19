@@ -23,6 +23,7 @@ var UIProcessor = Class({
             ];
             let js = ["/system/desktop/components/default/window.js", 
                 "/system/desktop/components/default/winbox.bundle.js", 
+                "/system/desktop/components/default/notify/notify.js", 
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxcore.js",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxdata.js",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxbuttons.js",
@@ -59,7 +60,9 @@ var UIProcessor = Class({
                 "/system/desktop/components/default/WiseMenuVerticalSeparator.js",
                 "/system/desktop/components/default/WiseTextBox.js",
                 "/system/desktop/components/default/WiseTextArea.js",
-                "/system/desktop/components/default/WiseHtmlEditor.js"
+                "/system/desktop/components/default/WiseHtmlEditor.js",
+                "/system/desktop/components/default/WiseComboBox.js",
+                "/system/applications/shared/AppUtil.js"
 
             ]
 
@@ -224,23 +227,43 @@ var UIProcessor = Class({
         return element;
     }
     ,
-    initContent:function()
+    initContent:function(win)
     {
         var me = this;
-        me.initBootStrap();
+        me.initBootStrap(win);
+        $(".notification-box").hide();
     }
     ,
-    initBootStrap: function()
+    initBootStrap: function(win)
     {
         //Initialize Select2 Elements
-        $('select').select2()
+        try{
+            let selects = $("#" + win.id).find('select');
+            console.log(selects)
+            if(selects.length > 0)
+                $("#" + win.id).find('select').select2("destroy")
+
+        }
+        catch(err)
+        {
+
+        }
+        $("#" + win.id).find('select').select2()
+
 
         //Initialize Select2 Elements
-        $('.select2bs4').select2({
+        $("#" + win.id).find('.select2bs4').select2({
             theme: 'bootstrap4'
         })
 
-        let eds = document.getElementsByClassName("wise-editor");
+        this.initEditor(this, win);
+
+    }
+    ,
+    initEditor: function(me, win)
+    {
+    
+        let eds = $("#" + win.id).find(".wise-editor");
         if(eds.length > 0)
         {
             let ed = eds[0];
@@ -252,7 +275,8 @@ var UIProcessor = Class({
             */
            for(var i = 0; i < eds.length; i++)
            {
-                SUNEDITOR.create(eds[i], {
+                let id = $(eds[i]).attr("id");
+                SUNEDITOR.create(id, {
                     // plugins to load
                     plugins: [
                       "font",
@@ -566,7 +590,6 @@ var UIProcessor = Class({
            }
             
         }
-
 
     }
     ,
