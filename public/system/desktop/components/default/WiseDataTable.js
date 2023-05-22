@@ -3,6 +3,12 @@ var WiseDataTable = Class(WiseElement, {
     init: function(json)
     {
         this.columns = json.columns
+        for(var i =0; i < this.columns.length; i++)
+        {
+            this.columns[i].editable = false;
+        }
+        this.columns.unshift({ datafield: "selected",text: "", columntype: 'checkbox', editable: true });
+
         this.gridTheme = "energyblue"
         this.displayPerPage = 10
         this.page = 1
@@ -29,43 +35,25 @@ var WiseDataTable = Class(WiseElement, {
         $(divGridButtons).addClass("wise-grid-buttons")
 
         let firstDiv = document.createElement("div")
-        $(firstDiv).css("width", "70%")
+        $(firstDiv).css("width", "80%");
+
+
+        let selectAllDiv = this.getSelectAllDom();
+        $(firstDiv).append(selectAllDiv);
 
         $(divGridButtons).append(firstDiv);
 
-        let divCmbPerPageLabel = document.createElement("div")
-        $(divCmbPerPageLabel).addClass("grid-button-text")
-        $(divCmbPerPageLabel).html("Display/page")
+        let res = this.getPaginationDom();
+        console.log("RES")
+        console.log(res)
+        let divPagination = res.div;
+        let cmbPage = res.cmbPage;
+        let cmbPerPage = res.cmbPerPage;
 
-        let divCmbPerPage = document.createElement('div')
-        let cmbPerPage = document.createElement("select")
-        $(cmbPerPage).width(100)
-        $(cmbPerPage).append("<option value='10'>10</option>")
-        $(cmbPerPage).append("<option selected value='50'>50</option>")
-        $(cmbPerPage).append("<option value='100'>100</option>")
-        $(cmbPerPage).append("<option value='200'>200</option>")
-        $(cmbPerPage).append("<option value='200'>300</option>")
-        $(cmbPerPage).append("<option value='200'>500</option>")
-        $(cmbPerPage).append("<option value='200'>1000</option>")
+        console.log("divPagination");
+        console.log(divPagination);
 
-        $(divCmbPerPage).append(cmbPerPage);
-
-        let divCmbPageLabel = document.createElement("div")
-        $(divCmbPageLabel).addClass("grid-button-text")
-        $(divCmbPageLabel).html("Page")
-
-        let divCmbPage = document.createElement('div')
-        let cmbPage = document.createElement("select")
-        $(cmbPage).width(70)
-
-        $(divCmbPerPage).append(cmbPerPage);
-        $(divCmbPage).append(cmbPage);
-
-        $(divGridButtons).append(divCmbPerPageLabel)
-        $(divGridButtons).append(divCmbPerPage)
-
-        $(divGridButtons).append(divCmbPageLabel)
-        $(divGridButtons).append(divCmbPage)
+        $(divGridButtons).append(divPagination)
 
         $(divWrapper).append(divGridButtons)
         $(divWrapper).append(div)
@@ -76,6 +64,108 @@ var WiseDataTable = Class(WiseElement, {
         this.handleEvents(cmbPerPage, cmbPage)
 
         return divWrapper;
+    }
+    ,
+    getPaginationDom: function()
+    {
+        let div = document.createElement("div");
+        $(div).css("height", "100%");
+        $(div).css("display", "flex");
+        $(div).css("align-items", "center");
+
+        let divCmbPerPageLabel = document.createElement("div")
+        $(divCmbPerPageLabel).addClass("grid-button-text")
+        $(divCmbPerPageLabel).html("Display/page")
+
+        $(div).append(divCmbPerPageLabel);
+
+        let divSep = document.createElement("div");
+        $(divSep).css("width", "10px");
+        $(div).append(divSep);
+
+        let cmbPerPage = document.createElement("select")
+        $(cmbPerPage).width(100)
+        $(cmbPerPage).append("<option value='10'>10</option>")
+        $(cmbPerPage).append("<option selected value='50'>50</option>")
+        $(cmbPerPage).append("<option value='100'>100</option>")
+        $(cmbPerPage).append("<option value='200'>200</option>")
+        $(cmbPerPage).append("<option value='200'>300</option>")
+        $(cmbPerPage).append("<option value='200'>500</option>")
+        $(cmbPerPage).append("<option value='200'>1000</option>")
+        $(div).append(cmbPerPage);
+
+        divSep = document.createElement("div");
+        $(divSep).css("width", "10px");
+        $(div).append(divSep);
+
+        let divCmbPageLabel = document.createElement("div")
+        $(divCmbPageLabel).addClass("grid-button-text")
+        $(divCmbPageLabel).html("Page")
+        $(div).append(divCmbPageLabel);
+
+        divSep = document.createElement("div");
+        $(divSep).css("width", "10px");
+        $(div).append(divSep);
+
+        let cmbPage = document.createElement("select")
+        $(cmbPage).width(70)
+        $(div).append(cmbPage);
+
+        console.log("getPaginationDom")
+        console.log(div);
+
+        return {div: div, cmbPage: cmbPage, cmbPerPage: cmbPerPage};
+
+    }
+    ,
+    getSelectAllDom: function()
+    {
+        var me = this;
+        let div = document.createElement("div");
+        $(div).css("display", "flex");
+        $(div).css("align-items", "center");
+        $(div).css("height", "100%");
+
+
+        let divCheck = document.createElement("div");
+        $(divCheck).addClass("selectAll");
+
+        let divCheckText = document.createElement("div");
+        $(divCheckText).addClass("selectAllText");
+        $(divCheckText).html("Select All");
+
+        let divSeprator = document.createElement("div");
+        $(divSeprator).css("width", "20px");
+
+
+        let divUnCheck = document.createElement("div");
+        $(divUnCheck).addClass("deSelectAll");
+
+        let divUnCheckText = document.createElement("div");
+        $(divUnCheckText).addClass("selectAllText");
+        $(divUnCheckText).html("Deselect All");
+
+        $(div).append(divCheck);
+        $(div).append(divCheckText);
+        $(div).append(divSeprator);
+        $(div).append(divUnCheck);
+        $(div).append(divUnCheckText);
+
+        $(divCheck).on("click", function(){
+            me.selectAll();
+        })
+        $(divCheckText).on("click", function(){
+            me.selectAll();
+        })
+
+        $(divUnCheck).on("click", function(){
+            me.deselectAll();
+        })
+        $(divUnCheckText).on("click", function(){
+            me.deselectAll();
+        })
+
+        return div;
     }
     ,
     handleEvents: function(cmbPerPage, cmbPage)
@@ -102,6 +192,18 @@ var WiseDataTable = Class(WiseElement, {
         let columns = this.columns
         columns = this.setColumnsRenderer(columns)
 
+        for(var i=0; i < data.length; i++)
+        {
+            data[i].selected = false;
+        }
+
+
+        console.log("this.columns")
+        console.log(this.columns)
+
+        console.log("data")
+        console.log(data)
+
         var source =
         {   
             localdata: data,
@@ -125,7 +227,8 @@ var WiseDataTable = Class(WiseElement, {
             sorttogglestates: 1,
             filterable: true,
             altrows: true,
-            columns: columns
+            columns: columns,
+            editable: true
         });       
 
         $("#" + id).on('rowselect', function (event) 
@@ -247,9 +350,57 @@ var WiseDataTable = Class(WiseElement, {
         return datafields;
     }
     ,
-    data: function()
+    getData: function()
     {
         return this.data;
+    }
+    ,
+    getSelectedData: function()
+    {
+        let selectedData = [];
+        for(let i = 0; i < this.data.length; i++)
+        {
+            if(this.data[i].selected)
+            {
+                selectedData.push(this.data[i]);
+            }
+        }
+        return selectedData;
+    }
+    ,
+    getSelectedItem: function()
+    {
+        var rowindex = $("#" + this.id).jqxGrid('getselectedrowindex');
+        return this.data[rowindex - 1];
+    }
+    ,
+    getSelectedRowIndex: function()
+    {
+        var rowindex = $("#" + this.id).jqxGrid('getselectedrowindex');
+        return rowindex;
+    }
+    ,
+    selectAll: function()
+    {
+        for(let i = 0; i < this.data.length; i++)
+        {
+            this.data[i].selected = true;
+        }        
+        this.refresh();
+    }
+    ,
+    deselectAll: function()
+    {
+        for(let i = 0; i < this.data.length; i++)
+        {
+            this.data[i].selected = false;
+        }        
+        this.refresh();
+    }
+    ,
+    refresh: function()
+    {
+        $("#" + this.id).jqxGrid("updatebounddata");
     }
     ,
     imageRenderer: function (row, datafield, value) 

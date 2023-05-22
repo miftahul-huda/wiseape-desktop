@@ -408,3 +408,24 @@ textarea.form-control
     background-image: url(images/information.png);
 
 }
+
+.empty-window
+{
+    width: 30%;
+    height: 30%;
+    /*background: url(images/animated-walk.gif) no-repeat;*/
+    background-size: auto 100%;
+    background-position: center;
+    margin-left: 30%;
+    margin-top: 20%;
+    opacity: 0.8;
+}
+
+#winTemp
+{
+    opacity: 0.6;
+    box-shadow: 2px 7px 16px 2px rgba(135,129,129,0.75);
+    -webkit-box-shadow: 2px 7px 16px 2px rgba(135,129,129,0.75);
+    -moz-box-shadow: 2px 7px 16px 2px rgba(135,129,129,0.75);
+    border-radius: 6px;
+}

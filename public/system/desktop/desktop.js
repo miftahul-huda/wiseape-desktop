@@ -80,7 +80,7 @@ var Desktop = Class({
     loadDesktop: function()
     {
         
-        let div = "<div id='mydesktop' class='desktop'><div class='desktop-taskbar'></div><div class='desktop-content'></div></div><div class='desktop-menu-container'></div>"
+        let div = "<div id='mydesktop' class='desktop'><div class='desktop-taskbar'></div><div class='desktop-content'></div></div><div class='desktop-menu-container'></div><div style=\"display: none;position: absolute; background-color: #fff;align-items: center;\" id=\"winTemp\"><div class='empty-window'></div></div>";
         //let div = "<div class='desktop' style='background-image: url(/images/ocean.jpg)'></div>"
         $(document.body).html(div);
         $(".desktop-menu-container").hide()

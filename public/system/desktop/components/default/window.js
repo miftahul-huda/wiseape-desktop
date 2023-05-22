@@ -115,7 +115,7 @@ var Window = Class({
         return newChildren;
     }
     ,
-    showWindow: function(me, content)
+    showWindowAfter: function(me, content)
     {
         $(content).append("<div class='loader'></div>")
         $(content).prepend("<div class='notification-box'><div class='notification-text'></div><div style='width: 30px;'></div><div class='notification-icon'></div></div>")
@@ -214,6 +214,19 @@ var Window = Class({
             ,
             onclose: function(force)
             {
+                $("#winTemp").css("width", $("#" + me.id).width() );
+                $("#winTemp").css("height", $("#" + me.id).height() );
+                $("#winTemp").css("left", me.winbox.x );
+                $("#winTemp").css("top", me.winbox.y );
+                //$("#winTemp").css("display", "block" );
+        
+                $("#winTemp").show();
+                setTimeout(function(){
+                    $("#winTemp").effect("scale", { percent: 50 }, 100, function(){
+                        $("#winTemp").hide();
+                    })
+                }, 100)
+
                 if(this.eventHandler != null)
                     this.eventHandler("onWindowClosed", me)
 
@@ -231,11 +244,77 @@ var Window = Class({
 
         $("#" + me.id).append("<div class='wb-footer'></div>")
 
-
         if(me.contentEventHandler != null)
             me.contentEventHandler( me, me.id, "onLoad")
 
         me.uiProcessor.initContent(me);
+
+        //$("#" + me.id).hide();
+
+        /*
+        setTimeout(function(){
+            $("#" + me.id).effect( "slide", {}, 500, null );
+
+        }, 100)
+        */
+    }
+    ,
+    showWindow: function(me, content)
+    {
+
+        let www = me.options.width + "";
+        let lll = 0;
+        let hhh = me.options.height + "";
+        let ttt = 0;
+
+        console.log("viewPort")
+        console.log(me.options.viewPort)
+
+        if(www.indexOf("%") > -1)
+        {
+            www = www.replace("%", "");
+            www = parseFloat( me.options.viewPort.width) * parseFloat(www) / 100;   
+        }
+        else
+        {
+            www = www.replace("px", "");
+        }
+
+        lll = (this.options.viewPort.width - www) / 2;
+        lll = lll + me.options.viewPort.left
+
+        if(hhh.indexOf("%") > -1)
+        {
+            hhh = hhh.replace("%", "");
+            hhh = parseFloat( me.options.viewPort.height) * parseFloat(hhh) / 100;   
+        }
+        else
+        {
+            hhh = hhh.replace("px", "");
+        }
+
+        ttt = (this.options.viewPort.height - hhh) / 2;
+        ttt = ttt + me.options.viewPort.top;
+
+        if(me.options.top != null)
+            ttt = me.options.top;
+        
+        if(me.options.left != null)
+        {
+            lll = me.options.left;
+        }
+
+        $("#winTemp").css("height", hhh);
+        $("#winTemp").css("width", www);
+        $("#winTemp").css("left", lll);
+        $("#winTemp").css("top", ttt);
+        $("#winTemp").css("z-index", 1000000);
+
+        //$("#winTemp").hide();
+        $("#winTemp").show( "scale", { percent: 60 }, 100, function(){
+            me.showWindowAfter(me, content);
+            $("#winTemp").hide();
+        } );
 
     }
     ,
@@ -356,6 +435,9 @@ var Window = Class({
 
         let parentDom = document.createElement("div");
         $(parentDom).css("padding", "20px")
+        $(parentDom).css("height", "100%")
+        $(parentDom).css("overflow", "auto")
+
         parentDom = me.createDomStructure(me, parentDom, root.children)
         return parentDom;
     }
@@ -374,11 +456,31 @@ var Window = Class({
         return parentDom;
     }
     ,
-    close: function()
+    closeOld: function()
     {
         var me = this;
-        //alert(this.dom)
         me.winbox.close();
+        $("#winTemp").show( "scale", { percent: 50 }, 500, function(){
+            me.closeAfter(me);
+            //$("#winTemp").hide();
+        } );
+        
+    }
+    ,
+    close: function()
+    {
+        //var me = this;
+        //alert(this.dom)
+
+        
+        this.winbox.close();
+        //
+
+        
+        
+
+        //$("#" + this.id).effect("explode", {}, 500)
+
         /*
         $(this.dom).fadeOut(function(){
             $("#" + this.id).remove()
@@ -487,7 +589,7 @@ var Window = Class({
         $("#" + this.id + " .notification-box").show("fast");
         setTimeout(function(){
             $("#" + me.id + " .notification-box").hide("fast");
-        }, 3000)
+        }, 2000)
     }
 
 })

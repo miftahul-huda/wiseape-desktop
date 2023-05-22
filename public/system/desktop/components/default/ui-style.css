@@ -80,53 +80,6 @@
 }
 
 
-.wise-datatable > div
-{
-    border-radius: 0px;
-}
-
-.vertical-separator
-{
-    height: 10px;
-}
-
-.jqx-widget-content-glacier
-{
-    border-width: 0px !important;
-}
-
-.wise-grid-buttons
-{
-    display: flex;    
-}
-
-.wise-grid-buttons > div
-{
-    height: 100%;
-    line-height: 100%;
-    padding: 6px;    
-}
-
-.grid-button-text
-{
-    line-height: normal;
-    vertical-align: middle;
-    line-height: 100%;
-    font-size: 12;
-    justify-content: center;
-    align-items: center;
-}
-
-.wise-datatable-wrapper
-{
-    padding: 8px;
-}
-
-.wise-datatable-wrapper  span
-{
-    font-size: 12;
-}
-
 
 .wb-footer
 {
@@ -151,6 +104,7 @@
 
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+    overflow: hidden;
 
 }
 

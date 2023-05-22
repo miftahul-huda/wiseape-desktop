@@ -1,0 +1,84 @@
+.selectAll
+{
+    width: 20px;
+    height: 20px;
+    background: url(../images/check.png) no-repeat;
+    background-size: 90% 90%;
+    background-position: center;
+    cursor: pointer;
+}
+
+.selectAllText
+{
+    height: 20px;
+    line-height: 20px;
+    padding-left: 6px;
+    cursor: pointer;
+}
+
+.deSelectAll
+{
+    width: 20px;
+    height: 20px;
+    background: url(../images/uncheck.png) no-repeat;
+    background-size: 90% 90%;
+    background-position: center;
+    cursor: pointer;
+}
+
+.deSelectAllText
+{
+    height: 20px;
+    line-height: 20px;
+    padding-left: 6px;
+    cursor: pointer;
+}
+
+
+.wise-datatable > div
+{
+    border-radius: 0px;
+}
+
+.vertical-separator
+{
+    height: 10px;
+}
+
+.jqx-widget-content-glacier
+{
+    border-width: 0px !important;
+}
+
+.wise-grid-buttons
+{
+    display: flex;    
+    height: 50px;
+
+}
+
+.wise-grid-buttons > div
+{
+    height: 100%;
+    line-height: 100%;
+    padding: 6px;    
+}
+
+.grid-button-text
+{
+    line-height: normal;
+    vertical-align: middle;
+    line-height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.wise-datatable-wrapper
+{
+    padding: 8px;
+}
+
+.wise-datatable-wrapper  span
+{
+    font-size: 12;
+}

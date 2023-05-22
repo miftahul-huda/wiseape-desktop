@@ -6,6 +6,7 @@ var UIProcessor = Class({
         init: function(callback)
         {
             let css  = ["/system/desktop/components/default/ui-style.css", 
+                "/system/desktop/components/default/css/wisedatatable.css", 
                 "/system/desktop/components/default/winbox.modern.min.css", 
                 "/system/desktop/components/default/winbox.white.min.css", 
                 "/system/desktop/components/default/jqwidgets/jqwidgets/styles/jqx.base.css",
