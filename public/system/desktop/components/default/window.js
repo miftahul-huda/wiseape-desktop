@@ -1,8 +1,9 @@
 var Window = Class({
 
-    constructor: function(title, icon, eventHandler, options)
+    constructor: function(title, icon, eventHandler, options, app)
     {
         this.className = "window";
+        this.application = app;
         this.title = title
         this.icon = icon
         this.options = options
@@ -132,8 +133,6 @@ var Window = Class({
         let hhh = me.options.height + "";
         let ttt = 0;
 
-        console.log("viewPort")
-        console.log(me.options.viewPort)
 
         if(www.indexOf("%") > -1)
         {
@@ -172,7 +171,6 @@ var Window = Class({
         
 
         let viewPort = me.options.viewPort;
-        console.log(me.options.viewPort)
         me.winbox = new WinBox({
             id: me.id,
             title: title,
@@ -231,7 +229,7 @@ var Window = Class({
                     this.eventHandler("onWindowClosed", me)
 
                 if(me.contentEventHandler != null)
-                    me.contentEventHandler( me, me.id, "onWindowClosed")
+                    me.contentEventHandler( me, me.id, "onWindowClosed", {})
 
                 if(me.winClosedCallbacks != null)
                 {
@@ -244,10 +242,10 @@ var Window = Class({
 
         $("#" + me.id).append("<div class='wb-footer'></div>")
 
-        if(me.contentEventHandler != null)
-            me.contentEventHandler( me, me.id, "onLoad")
-
         me.uiProcessor.initContent(me);
+
+        if(me.contentEventHandler != null)
+            me.contentEventHandler( me, me.id, "onLoad", {})
 
         //$("#" + me.id).hide();
 
@@ -372,7 +370,7 @@ var Window = Class({
         });*/
 
         if(me.contentEventHandler != null)
-            me.contentEventHandler( me, me.id, "onLoad")
+            me.contentEventHandler( me, me.id, "onLoad", {})
     }
     ,
     show: function(content, winClosedCallback)
@@ -389,10 +387,10 @@ var Window = Class({
         {
             let uiProcessor = me.uiProcessor;
             content = me.setIds(me, content)
-            me.elements = uiProcessor.createElement(content, me, function(elmId, event){
+            me.elements = uiProcessor.createElement(content, me, function(elmId, event, param){
                 elmId = elmId.split("___")
                 elmId = elmId[elmId.length - 1]
-                me.contentEventHandler(me, elmId, event)
+                me.contentEventHandler(me, elmId, event, param)
             })
             content = me.createDom(me, me.elements)
             //me.processContent(me, content)
@@ -402,17 +400,16 @@ var Window = Class({
         {
            
             let ss = content.split(".")
-
             if(ss[ss.length-1].toLowerCase() == "json")
             {
                 $.getJSON(content, function(json){
 
                     let uiProcessor = me.uiProcessor;   
                     content = me.setIds(me, json)
-                    me.elements = uiProcessor.createElement(content, me, function(elmId, event){
+                    me.elements = uiProcessor.createElement(content, me, function(elmId, event, param){
                         elmId = elmId.split("___")
                         elmId = elmId[elmId.length - 1]
-                        me.contentEventHandler(me, elmId, event)
+                        me.contentEventHandler(me, elmId, event, param)
                     })
                     content = me.createDom(me, me.elements)
                     //me.processContent(me, content)
@@ -564,7 +561,7 @@ var Window = Class({
         $(".loader").hide();
     }
     ,
-    notify: function(title, content, theme="success")
+    notify: function(title, content, theme="success", opt)
     {
         let me = this;
         $("#" + this.id + " .notification-text").html(content)
@@ -586,10 +583,55 @@ var Window = Class({
             $("#" + this.id + " .notification-icon").addClass("notification-icon-info")
         }
 
+        if(opt != null && opt.left != null)
+        {
+            //$("#" + this.id + " .notification-box").css("position", "absolute");
+            $("#" + this.id + " .notification-box").css("left", opt.left);
+            $("#" + this.id + " .notification-box").css("top", opt.top);
+
+            if(opt.width != null)
+                $("#" + this.id + " .notification-box").css("width", opt.width);
+            if(opt.height != null)
+                $("#" + this.id + " .notification-box").css("width", opt.height);
+        }
+
         $("#" + this.id + " .notification-box").show("fast");
         setTimeout(function(){
             $("#" + me.id + " .notification-box").hide("fast");
         }, 2000)
+    }
+    ,
+    setEventHandlerObject: function(file, className)
+    {
+        var me = this;
+        
+        me.contentEventHandler = function(win, id, event, param)
+        {
+
+            if(param != null)
+                param.event = event;    
+            if(win.windowHandlerObject == null)
+            {
+                
+                $.getScript(file, function (){
+
+                    win.windowHandlerObject = eval("new " + className + "(me.application)");
+                    //win.windowHandlerObject.appConfig = appConfig;
+                    //win.windowHandlerObject.run(win, id, event)
+                    //alert(event)
+                    if(event != null && event in win.windowHandlerObject)
+                        eval("win.windowHandlerObject." + event + "(win, id, param)");
+                })
+            }
+            else
+            {
+                //win.windowHandlerObject.appConfig = appConfig;    
+                //me.windowHandlerObject.run(win, id, event)
+     
+                if(event != null && event in win.windowHandlerObject)
+                    eval("win.windowHandlerObject." + event + "(win, id, param)");
+            }
+        }
     }
 
 })

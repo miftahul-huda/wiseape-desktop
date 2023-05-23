@@ -241,6 +241,27 @@ var WiseDataTable = Class(WiseElement, {
             var rowData = args.row;
         });
 
+        $("#" + id).on('cellendedit', function (event) 
+        {
+            // event arguments.
+            var args = event.args;
+            // column data field.
+            var dataField = event.args.datafield;
+            // row's bound index.
+            var rowBoundIndex = args.rowindex;
+            // row's data. The row's data object or null(when all rows are being selected or unselected with a single action). If you have a datafield called "firstName", to access the row's firstName, use var firstName = rowData.firstName;
+            var rowData = args.row;
+
+            console.log(args)
+
+            console.log("rowData")
+            console.log(rowData);
+
+            me.data[args.rowindex][dataField] = args.value;
+        });
+
+
+
         if(me.sortDone != true)
         {
             $("#" + id).on('sort', function (event) 
@@ -452,4 +473,16 @@ var WiseDataTable = Class(WiseElement, {
                 document.close();
                 newWindow.print();
     }
+    ,
+    search: function(callback)
+    {
+        var me =  this;
+        let searchWin  = me.desktop.createWindow("Search by keyword", null, { width: 800, height: 260, top:'10%' }, me.window.application);
+        searchWin.setEventHandlerObject("/system/applications/default/search.js", "SearchPage");
+        searchWin.show("/system/applications/default/search.json", function(returnValue){
+            if(callback != null)
+                callback(returnValue);
+        });
+    }
+
 })

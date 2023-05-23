@@ -120,7 +120,7 @@ var Desktop = Class({
         });
     }
     ,
-    createWindow:function(title, icon, options)
+    createWindow:function(title, icon, options, app)
     {
         let me = this;
 
@@ -139,6 +139,8 @@ var Desktop = Class({
         let newWin = me.uiProcessor.createWindow(title, icon, function handleWindow(evt, window){
             me.handleWindowNext(me, evt, window);
         }, options)
+        newWin.desktop = this;
+        newWin.application = app;   
     
         //GLOBAL.desktopDom.append(newWin.dom)
         me.onHeaderClick(me, newWin)

@@ -1,6 +1,10 @@
 var WiseTextArea = Class(WiseElement, {
     init: function(json) {
         this.onclick = json.onclick;
+        this.onkeyup = json.onkeyup;
+        this.onkeydown = json.onkeydown;
+        this.onkeypress = json.onkeypress;
+        
         this.icon = json.icon;
         this.text = json.text;
         this.label = json.label;

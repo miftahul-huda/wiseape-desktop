@@ -1,6 +1,10 @@
 var WiseTextBox = Class(WiseElement, {
     init: function(json) {
         this.onclick = json.onclick;
+        this.onkeyup = json.onkeyup;
+        this.onkeydown = json.onkeydown;
+        this.onkeypress = json.onkeypress;
+        
         this.icon = json.icon;
         this.text = json.text;
         this.label = json.label;
@@ -37,20 +41,19 @@ var WiseTextBox = Class(WiseElement, {
 
         let dom = $(html)[0]
 
-        $(dom).on("keypress", function(){
+        $(dom).find("input").on("keypress", function(event){
             if(me.elementEventHandler != null)
-                me.elementEventHandler(me.id, "onKeyPress")
+                me.elementEventHandler(me.id, me.onkeypress, event);
         })
 
-        $(dom).on("keydown", function(){
+        $(dom).find("input").on("keydown", function(event){
             if(me.elementEventHandler != null)
-                me.elementEventHandler(me.id, "onKeyDown")
+                me.elementEventHandler(me.id, me.onkeydown, event)
         })
 
-        $(dom).on("keyup", function(){
-            //me._value = $(this).val();
+        $(dom).find("input").on("keyup", function(event){
             if(me.elementEventHandler != null)
-                me.elementEventHandler(me.id, "onKeyUp")
+                me.elementEventHandler(me.id, me.onkeyup, event)
         })
         return dom;
     }
@@ -66,6 +69,12 @@ var WiseTextBox = Class(WiseElement, {
         {
             $("#" + this.id).val(val)
         }
+    }
+    ,
+    focus: function()
+    {
+        let elm = $("#" + this.id);
+        $(elm).focus();
     }
 
 })

@@ -1,5 +1,5 @@
 var DefaultApplication = Class(Application, {
-    run: function(command, appConfig)
+    run: function(command, appConfig, parameter, callback)
     {
         var me = this;
         let win = null;
@@ -17,13 +17,17 @@ var DefaultApplication = Class(Application, {
         if(command in appInfo)
         {
             let info = appInfo[command];
-            win = me.desktop.createWindow(info.title,  me.appRootPath + "/" + info.icon, info.config);
-            me.setWindowEventHandlerObject(win, me.appRootPath + "/" + info.jsfile, info.className)
-            win.show(me.appRootPath + "/" + info.contentFile)
+            win = me.desktop.createWindow(info.title,  me.appRootPath + "/" + info.icon, info.config, me);
+            //me.setWindowEventHandlerObject(win, me.appRootPath + "/" + info.jsfile, info.className)
+            win.setEventHandlerObject( me.appRootPath + "/" + info.jsfile, info.className)
+            win.show(me.appRootPath + "/" + info.contentFile, function(returnValue){
+                if(callback != null)
+                    callback(returnValue);
+            });
         }
         else
         {
-            me.execute(command, appConfig)
+            me.execute(command, appConfig, parameter, callback)
         }
 
     }
@@ -39,11 +43,17 @@ var DefaultApplication = Class(Application, {
     showExportOptions: function(callback)
     {
         var me =  this;
-        let exportOptionWin  = me.desktop.createWindow("Select file format", null, { width: 400, height: 280, left: '10%', top: '10%' });
+        let exportOptionWin  = me.desktop.createWindow("Select file format", null, { width: 500, height: 320, top: '10%' });
         me.setWindowEventHandlerObject(exportOptionWin, "/system/applications/default/exportoptions.js", "ExportOptionsPage");
         exportOptionWin.show("/system/applications/default/exportoptions.json", function(returnValue){
             if(callback != null)
                 callback(returnValue);
         });
+    }
+    ,
+    execute: function(command, appConfig, parameter, callback)
+    {
+        var me = this;
+        eval("me." + command + "(appConfig, parameter, callback);")
     }
 })

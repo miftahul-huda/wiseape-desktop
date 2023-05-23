@@ -7,7 +7,7 @@
 .jqx-widget-energyblue .jqx-grid-column-header-energyblue, .jqx-grid-cell-energyblue, .jqx-widget-energyblue .jqx-grid-cell-energyblue, .jqx-widget-energyblue .jqx-grid-group-cell-energyblue, .jqx-grid-group-cell-energyblue{border-color:#a4bed4}
 .jqx-tabs-title-selected-bottom-energyblue, .jqx-tabs-selection-tracker-bottom-energyblue, .jqx-tabs-title-selected-top-energyblue, .jqx-tabs-selection-tracker-top-energyblue{border-color:#a4bed4; border-bottom:1px solid #fff; background:#fff}
 .jqx-grid-cell-sort-alt-energyblue, .jqx-grid-cell-filter-alt-energyblue, .jqx-grid-cell-pinned-energyblue, .jqx-grid-cell-alt-energyblue, .jqx-grid-cell-sort-energyblue{ background-color:#e7eef8}
-.jqx-grid-cell-selected-energyblue{ background-color:#4b81b1 !important;  color:#fff !important;}
+.jqx-grid-cell-selected-energyblue{ background-color:#4b81b1;  color:#fff;}
 .jqx-grid-cell-selected-energyblue div { color:#fff }
 .jqx-grid-cell-hover-energyblue{ background-color:#cfdde9 !important;}
 .jqx-menu-vertical-energyblue{background: #e0e9f5;}

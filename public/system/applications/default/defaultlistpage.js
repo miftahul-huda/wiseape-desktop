@@ -1,20 +1,27 @@
 var DefaultListPage = Class({
-    loadAndDisplayData: function(win, tableID, url, search=null, sortColumn, sortDirection)
+    loadAndDisplayData: function(win, tableID, url, callback)
     {
         var me = this;
         win.showProgress();
         let dataFilterOpt = win.get(tableID).getDataFilterOption();
         let offset = dataFilterOpt.displayPerPage * (dataFilterOpt.page - 1);
         let limit = dataFilterOpt.displayPerPage;
+        let sortColumn = null;
+        let sortDirection = null;
         
-        if(search != null)
-            url = url + "/find/" + encodeURIComponent( search);
+        
+        //if(search != null)
+        //    url = url + "/find/" + encodeURIComponent( search);
 
-        me.displayData(me, win, tableID, url, offset, limit, sortColumn, sortDirection, search,  win.hideProgress );
+        me.displayData(me, win, tableID, url, offset, limit, sortColumn, sortDirection,  function(data){
+            if(callback != null)
+                callback(data)
+        } );
         win.get(tableID).elementEventHandler = function(id, event, opt) { me.dataTableEventHandler(me, win, tableID, url, id, event, opt) } 
+
     }
     ,
-    displayData: function(me, win, tableID,  url, offset, limit, sortColumn, sortDirection, search=null, callback)
+    displayData: function(me, win, tableID,  url, offset, limit, sortColumn, sortDirection, callback)
     {
         url = url + "?offset=" + offset + "&limit=" + limit 
         if(sortColumn != null)
@@ -24,14 +31,15 @@ var DefaultListPage = Class({
 
             url = url +  "&sort=" + sortColumn + "," + sortDirection
         }
-
+        win.showProgress();
         console.log(url)
         $.get(url, function(response){
+            win.hideProgress();
             let rows = response.payload.rows;
             rows = me.initRows(rows, offset, limit, sortColumn, sortDirection)
             win.get(tableID).loadData(rows, response.payload.count);
             if(callback != null)
-                callback()
+                callback(rows)
         })
     }
     ,
@@ -57,7 +65,6 @@ var DefaultListPage = Class({
             let sortDirection = opt.sort.direction;
 
             
-            win.showProgress();
             console.log("Offset : " + offset + ", Limit : " + limit)
             me.displayData(me, win, tableID, url, offset, limit, sortColumn, sortDirection, null, win.hideProgress)
         }

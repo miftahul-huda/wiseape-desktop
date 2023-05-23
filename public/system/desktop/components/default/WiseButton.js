@@ -14,7 +14,7 @@ var WiseButton = Class(WiseElement, {
         //$(div).css("padding", "4px")
 
         let btn = $("<div class='wise-button-container'>" +
-        "<button type=\"button\" class=\"btn btn-primary btn-block\"><i class=\"" + this.icon + "\"></i>" + this.text + "</button>" +
+        "<button type=\"button\" class=\"btn btn-primary btn-block\"><div class=\"btn-icon " + this.icon + "\"></div><div class='btn-text'>" + this.text + "</div></button>" +
         "</div>");
 
         $(btn).on("click", function()

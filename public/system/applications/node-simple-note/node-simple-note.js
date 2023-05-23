@@ -9,5 +9,56 @@ var NodeSimpleNote = Class(DefaultApplication, {
 
         return o;
     }
+    ,
+    deleteNote: function(appConfig, parameter, callback)
+    {
+        let me = this;
+        let ids = "";
+        let selectedData = parameter;
+
+        if(selectedData.length > 0)
+        {
+            selectedData.map((row)=>{
+                ids += row.id + ",";
+            });
+
+            if(ids.length > 0)
+            {
+                ids = ids.substr(0, ids.length - 1);
+                let url = me.appConfig.BASE_API_URL + "/notes/" + ids;
+                console.log(url);
+                me.remoteDelete(url, function(response)
+                {
+                    if(callback != null)
+                        callback(response);
+
+                }, function(e){
+                    if(callback != null)
+                        callback({ success: false, error: e, message: e.message });
+                });
+            }
+        }
+    }
+    ,
+    remoteDelete: function( url, callback, callbackFail)
+    {
+        var me = this;
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            success: function(result) {
+                if(callback != null)
+                    callback(result);
+            },
+            fail: function(e)
+            {
+                if(callbackFail != null)
+                    callbackFail(e);
+            },
+            done: function()
+            {
+            }
+        });
+    }
     
 })

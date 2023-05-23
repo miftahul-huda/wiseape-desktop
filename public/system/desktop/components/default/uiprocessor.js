@@ -137,6 +137,7 @@ var UIProcessor = Class({
     createElement: function(json, win, elementEventHandler)
     {
         this.window = win;
+        this.application = win.application;
         let root = json.root;
         let children = root.children;
         
@@ -156,7 +157,11 @@ var UIProcessor = Class({
         var me = this;
         elements.map((el)=>{
             let elm = me.createNewElement(el)
-            elm.elementEventHandler = elementEventHandler
+            elm.elementEventHandler = elementEventHandler;
+            elm.window = me.window;
+            elm.desktop = me.window.desktop;
+            elm.application = me.window.application;
+
             if(el.children != null && el.children.length > 0)
                 elm = me.createElements(elm, el.children, elementEventHandler)
 
