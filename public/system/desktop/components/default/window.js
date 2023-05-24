@@ -452,7 +452,7 @@ var Window = Class({
     createDom: function(me, root){
 
         let parentDom = document.createElement("div");
-        $(parentDom).css("padding", "20px")
+        $(parentDom).css("padding", "30px")
         $(parentDom).css("height", "100%")
         $(parentDom).css("overflow", "auto")
 

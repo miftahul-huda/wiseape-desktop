@@ -66,16 +66,14 @@
 
     </head>
     <title>Wiseape Desktop</title>
-    <body>
+    <body style="background-color: rgb(248, 252, 252);background: url(../system/theme/ocean/images/loading-animation.gif) no-repeat; background-position: center;">
 
-
+        <div style="position: absolute; top: 30%; left: 45%;font-size: 16pt;">Loading desktop.....</div>
     </body>
 
 
     <script>
         $(document).ready(function() {
-
-            console.log(document.cookie)
 
             let serverConfig = "<%=config%>";
             serverConfig = serverConfig.replace(/&#34;/gi, "\"");

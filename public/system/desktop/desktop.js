@@ -23,8 +23,6 @@ var Desktop = Class({
         this.loadUILibraries(me,  config, function(){
             me.loadDesktop();
         })
-        
-
     }
     ,
     loadUILibraries: function(me, config, callback)
@@ -81,13 +79,15 @@ var Desktop = Class({
     loadDesktop: function()
     {
         
-        let div = "<div id='mydesktop' class='desktop'><div class='desktop-taskbar'></div><div class='desktop-content'></div></div><div class='desktop-menu-container'></div><div style=\"display: none;position: absolute; background-color: #fff;align-items: center;\" id=\"winTemp\"><div class='empty-window'></div></div>";
+        let div = "<div id='mydesktop' style='display:none' class='desktop'><div class='desktop-taskbar'></div><div class='desktop-content'></div></div><div class='desktop-menu-container'></div><div style=\"display: none;position: absolute; background-color: #fff;align-items: center;\" id=\"winTemp\"><div class='empty-window'></div></div>";
         //let div = "<div class='desktop' style='background-image: url(/images/ocean.jpg)'></div>"
         $(document.body).html(div);
         $(".desktop-menu-container").hide()
         GLOBAL.desktopDom =  $(".desktop-content")[0]
         this.addLogoutToTaskbar();
         this.loadTaskbar();
+
+        $("#mydesktop").show("puff");
 
         //this.initRipple();
         
@@ -128,9 +128,15 @@ var Desktop = Class({
         $(".desktop-taskbar").append(divMenu);        
 
         $(".taskbar-logout-menu").on("click", function(){
+
+            $(".desktop").css("opacity", "0.8")
             $.get("/user/logout", function(response){
                 console.log(response)
-                location = "/";
+
+                $(".desktop").hide('puff', function(){
+                    location = "/";
+                }, 1000)
+                
             })
         })
     }

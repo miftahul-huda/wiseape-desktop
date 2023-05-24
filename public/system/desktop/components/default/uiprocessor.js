@@ -63,18 +63,12 @@ var UIProcessor = Class({
                 "/system/desktop/components/default/WiseTextArea.js",
                 "/system/desktop/components/default/WiseHtmlEditor.js",
                 "/system/desktop/components/default/WiseComboBox.js",
-                "/system/desktop/components/default/WiseText.js",
-                "/system/applications/shared/AppUtil.js"
-
+                "/system/desktop/components/default/WiseText.js"
             ]
 
             UIProcessor.loadCss(css, 0, function(){
                 UIProcessor.loadJs(js, 0, callback)
             })
-
-            if(callback != null)
-                    callback();
-            
         }
         ,
         loadCss: function(csss, idx, callback)

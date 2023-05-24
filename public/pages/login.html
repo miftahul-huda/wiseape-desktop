@@ -582,18 +582,18 @@ $(document).ready(function () {
     $(that).addClass("processing");
     setTimeout(function(){
         login(function(response){
+            $(that).removeClass("processing");
             console.log(response)
             animating = false;
             if(response.success)
             {
-                $(that).addClass("success");
                 location = "/";
             }
             else
             {
                 $("#message").html(response.message)
-                $(that).removeClass("processing");
             }
+
 
         })
     }, 1000)
