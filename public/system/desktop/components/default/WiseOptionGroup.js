@@ -26,7 +26,6 @@ var WiseOptionGroup = Class(WiseElement, {
             $(opt).attr("id", me.id + "_" + counter);
             $(opt).attr("value", o.value);
 
-            console.log(o)
             if(o.selected != null)
                 $(opt).attr("checked", "1")
             //$(opt).html(o.label + "<br />");s

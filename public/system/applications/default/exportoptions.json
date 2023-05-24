@@ -13,8 +13,9 @@
                 [
                     { "value" : "xls", "label": "Excel", "selected" : "true" },
                     { "value" : "csv", "label": "CSV" },
-                    { "value" : "xml", "label": "XML" },
-                    { "value" : "json", "label": "JSON" }
+                    { "value" : "json", "label": "JSON" },
+                    { "value" : "html", "label": "HTML" }
+
                 ]
             }
             ,

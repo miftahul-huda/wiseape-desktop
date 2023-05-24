@@ -21,7 +21,6 @@ class CrudLogic {
     static async create(o)
     {
         const CurrentModel = this.getModel();
-        console.log(CurrentModel);
 
         let result = await this.validateCreate(o);
         if(result.success){
@@ -76,8 +75,6 @@ class CrudLogic {
                     opt.where,
                     where 
             ]}
-
-            console.log(opt)
 
             let os  = await CurrentModel.findAndCountAll(opt)
             os = JSON.stringify(os)

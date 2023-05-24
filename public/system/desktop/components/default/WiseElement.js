@@ -28,6 +28,9 @@ var WiseElement = Class({
         if(json.onclick != null)
             this.onClickName = json.onclick
 
+        if(json.data != null)
+            this.data = json.data;
+
         this.tag = tag;
 
     }
@@ -54,5 +57,5 @@ var WiseElement = Class({
             $(dom).attr("style", this.style)
         return dom;
     }
-    
+
 })

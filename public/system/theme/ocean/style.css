@@ -36,9 +36,10 @@ span{
     width: 5%;
     height: 100%;
     background-color: #58abf9;
-    opacity: 0.7;
+    opacity: 0.8;
     text-align: center;
     padding-top: 10px;
+    align-items: center;
 
     box-shadow: 6px 2px 17px -8px rgba(0,0,0,0.53);
     -webkit-box-shadow: 6px 2px 17px -8px rgba(0,0,0,0.53);
@@ -87,15 +88,36 @@ body
 .taskbar-start-menu
 {
     margin: auto;
-    width: 50px;
-    height: 50px;
-    background-image: url(/images/wisemonkey.png);
+    margin-top: 10px;
+    width: 40px;
+    height: 40px;
+    background-image: url(images/play-button.png);
     background-repeat: no-repeat;
     background-size: 100% auto;
     background-position: center;
     cursor: pointer;
     padding:3px;
 }
+
+.taskbar-logout-menu
+{
+    position: absolute;
+    margin: auto;
+    bottom: 3%;
+    width: 40px;
+    height: 40px;
+    background-image: url(images/off-button.png);
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: center;
+    cursor: pointer;
+    padding:3px;
+    align-self: center;
+    transform: translate(55%, 0);
+
+}
+
+
 
 .wiseape-window
 {
@@ -380,6 +402,10 @@ textarea.form-control
 {
     position: fixed;
     width: 80%;
+    left: 5%;
+    top: 40%;
+    width: 90%;
+
     background-color: rgb(127, 208, 186);
     z-index: 12000;
     padding: 10px;
@@ -390,6 +416,7 @@ textarea.form-control
     box-shadow: -9px -4px 104px -14px rgba(0,0,0,0.74);
     -webkit-box-shadow: -9px -4px 104px -14px rgba(0,0,0,0.74);
     -moz-box-shadow: -9px -4px 104px -14px rgba(0,0,0,0.74);
+    cursor: pointer;
 }
 
 .notification-text
@@ -415,25 +442,37 @@ textarea.form-control
 .notification-icon-success
 {
     background-image: url(images/ok.png);
-
+}
+.notification-box-success
+{
+    background-color: rgb(127, 208, 186);
 }
 
 .notification-icon-warning
 {
     background-image: url(images/warning.png);
-
+}
+.notification-box-warnings
+{
+    background-color: rgb(207, 245, 56);
 }
 
 .notification-icon-error
 {
     background-image: url(images/error.png);
-
+}
+.notification-box-error
+{
+    background-color: rgb(176, 39, 39);
 }
 
-.notification-icon-info
+.notification-icon-infos
 {
     background-image: url(images/information.png);
-
+}
+.notification-box-info
+{
+    background-color: rgb(68, 130, 238);
 }
 
 .empty-window
@@ -459,5 +498,13 @@ textarea.form-control
 
 .jqx-grid-cell-selected-energyblue 
 {
-    background-color: #9db7d0 !important;
+    background-color: #98c9f7 !important;
+    color: #666 !important;
+}
+
+.jqx-grid-cell-selected-energyblue div
+{
+    color: #666 !important;
+    font-weight: bold;
+
 }

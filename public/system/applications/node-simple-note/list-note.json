@@ -32,13 +32,13 @@
                 [
                     { "element": "WiseDataTable", "id" : "tableListOfNote", "columns": [
                         { "datafield" : "no", "text": "#", "width": "30" },
-                        { "datafield" : "title", "text": "Title", "width": "300" },
+                        { "datafield" : "title", "text": "Title", "width": "500" },
                         { "datafield" : "short_desc", "text": "Short description" },
-                        { "datafield" : "tags", "text": "Tags", "width": "200" },
-                        { "datafield" : "category.category_name", "text": "Category", "width": "200" },
-                        { "datafield" : "project.project_name", "text": "Project", "width": "200" } ,
-                        { "datafield" : "createdAt", "text": "Created At", "width": "200" },
-                        { "datafield" : "modifiedAt", "text": "Modified At", "width": "200" }                   
+                        { "datafield" : "tags", "text": "Tags", "width": "100" },
+                        { "datafield" : "category.category_name", "text": "Category", "width": "100" },
+                        { "datafield" : "project.project_name", "text": "Project", "width": "100" } ,
+                        { "datafield" : "createdAt", "text": "Created At", "width": "50" },
+                        { "datafield" : "modifiedAt", "text": "Modified At", "width": "50" }                   
                     ]}
                 ]
             }

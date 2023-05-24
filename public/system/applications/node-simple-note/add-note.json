@@ -22,7 +22,9 @@
                 "children" : 
                 [
                     { "element": "WiseComboBox", "id": "project", "data" : "project_id", "label" : "Project" },
-                    { "element": "WiseComboBox", "id": "category", "data" : "category_id", "label" : "Category" }
+                    { "element": "WiseComboBox", "id": "category", "data" : "category_id", "label" : "Category" },
+                    { "element": "WiseTextBox", "id": "tags", "data" : "tags", "label" : "Tags", "placeholder" : "Enter the tags for the note" }
+
                    
                 ]
             }

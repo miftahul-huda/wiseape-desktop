@@ -46,7 +46,6 @@ var WiseComboBox = Class(WiseElement, {
     ,
     addItems: function(items)
     {
-        console.log(items)
         items.map((item)=>{
             let opt = document.createElement("option");
             $(opt).attr("value", item.value);
@@ -76,7 +75,7 @@ var WiseComboBox = Class(WiseElement, {
             return $("#" + this.id).val()
         else
         {
-            $("#" + this.id).val(val)
+            $("#" + this.id).val(val).trigger("change")
         }
     }
 

@@ -14,8 +14,6 @@ var ApplicationManager = Class(Application, {
     ,
     handleEvent: function(win, id, event)
     {
-        console.log(id)
-        console.log(event)
         if(event == "onLoad")
         {
             this.onLoad(win)

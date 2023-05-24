@@ -35,14 +35,14 @@ app.use(express.json({type: '*/*'}));
 // parse application/json
 app.use(bodyParser.json())
 
-/*
+
 app.use(session({
   store: new DatastoreStore({
     dataset: new Datastore(),
     kind: 'express-sessions',
   }),
-  secret: 'levenshtein',saveUninitialized: true,resave: false}));
-*/
+secret: 'wiseape-client',saveUninitialized: true,resave: false}));
+
 
 //Dynamic routing based on configuration
 const fs = require('fs');

@@ -32,15 +32,19 @@ var DefaultListPage = Class({
             url = url +  "&sort=" + sortColumn + "," + sortDirection
         }
         win.showProgress();
-        console.log(url)
-        $.get(url, function(response){
+        let headers = {
+            user: me.application.session.user
+        }
+
+        console.log(headers)
+        AppUtil.get(url, function(response){
             win.hideProgress();
             let rows = response.payload.rows;
             rows = me.initRows(rows, offset, limit, sortColumn, sortDirection)
             win.get(tableID).loadData(rows, response.payload.count);
             if(callback != null)
                 callback(rows)
-        })
+        }, headers )
     }
     ,
     initRows: function(rows, offset, limit, sortColumn, sortDirection)
@@ -58,14 +62,11 @@ var DefaultListPage = Class({
     {
         if(event == "onDataFilterChanged")
         {
-            console.log(opt)
             let offset = opt.displayPerPage * (opt.page - 1)
             let limit = opt.displayPerPage
             let sortColumn = opt.sort.column;
             let sortDirection = opt.sort.direction;
 
-            
-            console.log("Offset : " + offset + ", Limit : " + limit)
             me.displayData(me, win, tableID, url, offset, limit, sortColumn, sortDirection, null, win.hideProgress)
         }
     }

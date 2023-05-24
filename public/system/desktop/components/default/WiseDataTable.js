@@ -7,7 +7,8 @@ var WiseDataTable = Class(WiseElement, {
         {
             this.columns[i].editable = false;
         }
-        this.columns.unshift({ datafield: "selected",text: "", columntype: 'checkbox', editable: true });
+        
+        //this.columns.unshift({ datafield: "selected",text: "", columntype: 'checkbox', editable: true });
 
         this.gridTheme = "energyblue"
         this.displayPerPage = 10
@@ -44,14 +45,10 @@ var WiseDataTable = Class(WiseElement, {
         $(divGridButtons).append(firstDiv);
 
         let res = this.getPaginationDom();
-        console.log("RES")
-        console.log(res)
+
         let divPagination = res.div;
         let cmbPage = res.cmbPage;
         let cmbPerPage = res.cmbPerPage;
-
-        console.log("divPagination");
-        console.log(divPagination);
 
         $(divGridButtons).append(divPagination)
 
@@ -110,9 +107,6 @@ var WiseDataTable = Class(WiseElement, {
         let cmbPage = document.createElement("select")
         $(cmbPage).width(70)
         $(div).append(cmbPage);
-
-        console.log("getPaginationDom")
-        console.log(div);
 
         return {div: div, cmbPage: cmbPage, cmbPerPage: cmbPerPage};
 
@@ -198,12 +192,6 @@ var WiseDataTable = Class(WiseElement, {
         }
 
 
-        console.log("this.columns")
-        console.log(this.columns)
-
-        console.log("data")
-        console.log(data)
-
         var source =
         {   
             localdata: data,
@@ -219,6 +207,7 @@ var WiseDataTable = Class(WiseElement, {
             width: '100%',
             height: '90%',
             theme: this.gridTheme,
+            selectionmode: 'multiplerowsadvanced',
             groupable: true,
             showcolumnlines: false,
             source: dataAdapter,
@@ -228,8 +217,15 @@ var WiseDataTable = Class(WiseElement, {
             filterable: true,
             altrows: true,
             columns: columns,
-            editable: true
+            editable: false
         });       
+
+
+        let ii = 0;
+        me.data.map((item)=>{
+            $("#" + this.id).jqxGrid('unselectrow', ii);
+            ii++;
+        })
 
         $("#" + id).on('rowselect', function (event) 
         {
@@ -252,15 +248,19 @@ var WiseDataTable = Class(WiseElement, {
             // row's data. The row's data object or null(when all rows are being selected or unselected with a single action). If you have a datafield called "firstName", to access the row's firstName, use var firstName = rowData.firstName;
             var rowData = args.row;
 
-            console.log(args)
-
-            console.log("rowData")
-            console.log(rowData);
-
             me.data[args.rowindex][dataField] = args.value;
         });
 
-
+        $("#" + id).bind('rowselect', function (event) {
+            var selectedRowIndex = event.args.rowindex;
+            me.data[selectedRowIndex].selected = true;
+        });
+        $("#" + id).bind('rowunselect', function (event) {
+            var unselectedRowIndex = event.args.rowindex;
+            if(unselectedRowIndex in me.data)
+                me.data[unselectedRowIndex].selected = false;
+        });
+        
 
         if(me.sortDone != true)
         {
@@ -392,7 +392,7 @@ var WiseDataTable = Class(WiseElement, {
     getSelectedItem: function()
     {
         var rowindex = $("#" + this.id).jqxGrid('getselectedrowindex');
-        return this.data[rowindex - 1];
+        return this.data[rowindex];
     }
     ,
     getSelectedRowIndex: function()
@@ -422,6 +422,18 @@ var WiseDataTable = Class(WiseElement, {
     refresh: function()
     {
         $("#" + this.id).jqxGrid("updatebounddata");
+        let i = 0;
+        this.data.map((item)=>{
+            if(item.selected)
+            {
+                $("#" + this.id).jqxGrid('selectrow', i);
+            }
+            else
+            {
+                $("#" + this.id).jqxGrid('unselectrow', i);
+            }
+            i++;
+        })
     }
     ,
     imageRenderer: function (row, datafield, value) 

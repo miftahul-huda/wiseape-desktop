@@ -63,6 +63,7 @@ var UIProcessor = Class({
                 "/system/desktop/components/default/WiseTextArea.js",
                 "/system/desktop/components/default/WiseHtmlEditor.js",
                 "/system/desktop/components/default/WiseComboBox.js",
+                "/system/desktop/components/default/WiseText.js",
                 "/system/applications/shared/AppUtil.js"
 
             ]
@@ -118,9 +119,9 @@ var UIProcessor = Class({
 
     }
     ,
-    createWindow: function(title, icon, handler, options)
+    createWindow: function(title, icon, handler, options, app)
     {
-        let newWin = new Window(title, icon, handler, options)
+        let newWin = new Window(title, icon, handler, options, app)
         newWin.uiProcessor = this;
         return  newWin;
     }
@@ -245,10 +246,10 @@ var UIProcessor = Class({
         //Initialize Select2 Elements
         try{
             let selects = $("#" + win.id).find('select');
-            console.log(selects)
             if(selects.length > 0)
-                $("#" + win.id).find('select').select2("destroy")
-
+            {
+                //$("#" + win.id).find('select').select2("destroy")
+            }
         }
         catch(err)
         {
@@ -282,7 +283,7 @@ var UIProcessor = Class({
            for(var i = 0; i < eds.length; i++)
            {
                 let id = $(eds[i]).attr("id");
-                SUNEDITOR.create(id, {
+                let editor = SUNEDITOR.create(id, {
                     // plugins to load
                     plugins: [
                       "font",
@@ -592,7 +593,10 @@ var UIProcessor = Class({
                     // execute a function when the save button is clicked.
                     callBackSave: function(){}
                     
-                  });
+                });
+
+                eds[i].editor = editor;
+                    
            }
             
         }

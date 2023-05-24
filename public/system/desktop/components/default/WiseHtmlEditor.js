@@ -51,11 +51,15 @@ var WiseHtmlEditor = Class(WiseElement, {
     ,
     value: function(val=null)
     {
+        let elm = $("#" + this.id)[0];
+        //console.log("elemen editor")
+        //console.log(elm)
+        let editor = elm.editor;
         if(val == null)
-            return $("#" + this.id).val()
+            return editor.getContents();    
         else
         {
-            $("#" + this.id).val(val)
+            editor.setContents(val);
         }
     }
 

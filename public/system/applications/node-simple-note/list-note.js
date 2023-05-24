@@ -2,8 +2,6 @@ var ListNotePage =  Class(DefaultListPage, {
 
     constructor: function(app)
     {
-        console.log("ListNotePage.constructor")
-        console.log(app);
         this.application = app;
     }
     ,
@@ -38,6 +36,11 @@ var ListNotePage =  Class(DefaultListPage, {
         this.showAddNote(win);   
     }
     ,
+    btnEditNote_onClick: function(win, id)
+    {
+        this.showEditNote(win);   
+    }
+    ,
     btnDeleteNote_onClick: function(win, id)
     {
         this.deleteNote(win, id);
@@ -50,15 +53,24 @@ var ListNotePage =  Class(DefaultListPage, {
     //------- End of  event handlers ------------
     ,
     refresh: function(win, callback) {
-        console.log(this.application)
         let url = this.application.appConfig.BASE_API_URL + "/notes";
-        console.log("refresh")
         this.loadAndDisplayData(win, "tableListOfNote", url, callback)
     }
     ,
     showDetail: function(win)
     {
-        this.application.run("detail")
+        var me = this;
+        let selectedItem = win.get("tableListOfNote").getSelectedItem();
+        if(selectedItem != null)
+        {
+            let idNote = selectedItem.id;
+            this.application.run("detail", null, idNote, function(item){
+            })
+        }
+        else
+        {
+            win.notify("Error", "Please select an item to view", "error")
+        }    
     }
     ,
     showAddNote: function(win)
@@ -67,6 +79,24 @@ var ListNotePage =  Class(DefaultListPage, {
         this.application.run("add", null, null, function(item){
             me.refresh(win);
         })
+    }
+    ,
+    showEditNote: function(win)
+    {
+        var me = this;
+        let selectedItem = win.get("tableListOfNote").getSelectedItem();
+        if(selectedItem != null)
+        {
+            let idNote = selectedItem.id;
+            this.application.run("edit", null, idNote, function(item){
+                me.refresh(win);
+            })
+        }
+        else
+        {
+            win.notify("Error", "Please select an item to edit", "error")
+        }
+
     }
     ,
     findNote: function(win)
@@ -97,22 +127,18 @@ var ListNotePage =  Class(DefaultListPage, {
                 if(result.success)
                 {
                     me.refresh(win, function(data){
-                        win.notify("Deletion successfull","The data has been deleted!", "success", {
-                            left: '5%',
-                            top: '40%',
-                            width: '90%'
-                        })
+                        win.notify("Deletion successfull","The data has been deleted!", "success")
                     });
                 }
                 else
                 {
-                    win.notify("Error","The deletion has failed! Reason: " + result.message, "error", {
-                        left: '5%',
-                        top: '40%',
-                        width: '90%'
-                    })
+                    win.notify("Error","The deletion has failed! Reason: " + result.message, "error")
                 }
             });
+        }
+        else 
+        {
+            win.notify("Error", "Please select items to delete", "error")
         }
     }
 

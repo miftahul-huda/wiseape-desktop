@@ -4,8 +4,9 @@ var NodeSimpleNote = Class(DefaultApplication, {
     {
         let o = [];
         o["list"]  = { jsfile: 'list-note.js', className: 'ListNotePage', contentFile: 'list-note.json', title: "List of Notes", "icon" : "images/note.png",  config: { width: '90%', height: '90%' }  };
-        o["detail"]  = { jsfile: 'detail-note.js', className: 'DetailNotePage', contentFile: 'detail-note.json', config: { width: '50%', height: '70%' }  };
+        o["detail"]  = { jsfile: 'detail-note.js', className: 'DetailNotePage', title:'Note Detail Information', contentFile: 'detail-note.json', config: { width: '80%', height: '95%' }  };
         o["add"]  = { jsfile: 'add-note.js', className: 'AddNotePage', contentFile: 'add-note.json', title: "Add Note", config: { width: '80%', height: '95%' }  };
+        o["edit"]  = { jsfile: 'add-note.js', className: 'AddNotePage', contentFile: 'add-note.json', title: "Edit Note", config: { width: '80%', height: '95%' }  };
 
         return o;
     }
@@ -26,39 +27,25 @@ var NodeSimpleNote = Class(DefaultApplication, {
             {
                 ids = ids.substr(0, ids.length - 1);
                 let url = me.appConfig.BASE_API_URL + "/notes/" + ids;
-                console.log(url);
                 me.remoteDelete(url, function(response)
                 {
                     if(callback != null)
                         callback(response);
 
-                }, function(e){
-                    if(callback != null)
-                        callback({ success: false, error: e, message: e.message });
                 });
             }
         }
     }
     ,
-    remoteDelete: function( url, callback, callbackFail)
+    remoteDelete: function( url, callback)
     {
         var me = this;
-        $.ajax({
-            url: url,
-            type: 'DELETE',
-            success: function(result) {
-                if(callback != null)
-                    callback(result);
-            },
-            fail: function(e)
-            {
-                if(callbackFail != null)
-                    callbackFail(e);
-            },
-            done: function()
-            {
-            }
-        });
+        AppUtil.delete(url, function(response){
+            if(callback != null)
+                callback(response);
+
+        },{user: me.session.user});
+
     }
     
 })

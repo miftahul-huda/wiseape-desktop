@@ -19,6 +19,7 @@ var Desktop = Class({
         stylesheet.appendTo("head");
 
         var me = this;
+        me.session = config.serverConfig;
         this.loadUILibraries(me,  config, function(){
             me.loadDesktop();
         })
@@ -85,6 +86,7 @@ var Desktop = Class({
         $(document.body).html(div);
         $(".desktop-menu-container").hide()
         GLOBAL.desktopDom =  $(".desktop-content")[0]
+        this.addLogoutToTaskbar();
         this.loadTaskbar();
 
         //this.initRipple();
@@ -120,6 +122,19 @@ var Desktop = Class({
         });
     }
     ,
+    addLogoutToTaskbar: function()
+    {
+        let divMenu = "<div class='taskbar-item taskbar-logout-menu'></div>"
+        $(".desktop-taskbar").append(divMenu);        
+
+        $(".taskbar-logout-menu").on("click", function(){
+            $.get("/user/logout", function(response){
+                console.log(response)
+                location = "/";
+            })
+        })
+    }
+    ,
     createWindow:function(title, icon, options, app)
     {
         let me = this;
@@ -138,7 +153,7 @@ var Desktop = Class({
 
         let newWin = me.uiProcessor.createWindow(title, icon, function handleWindow(evt, window){
             me.handleWindowNext(me, evt, window);
-        }, options)
+        }, options, app)
         newWin.desktop = this;
         newWin.application = app;   
     

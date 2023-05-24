@@ -3,10 +3,12 @@ var AddNotePage =  Class(DefaultListPage, {
     constructor: function(app)
     {
         this.application = app;
+        this.idNote = null;
     }
     ,
-    onLoad: function(win)
+    onLoad: function(win, id, param)
     {
+        this.idNote = param.data;
 
         let cmbProject = win.get("project");
         let cmbCategory = win.get("category");
@@ -22,16 +24,48 @@ var AddNotePage =  Class(DefaultListPage, {
                 cmbCategory.addItems(optcategories);
                 win.hideProgress();
 
-                cmbCategory.selectedIndex(-1);
-                cmbProject.selectedIndex(-1);
+                //cmbCategory.selectedIndex(-1);
+                //cmbProject.selectedIndex(-1);
 
+                if(this.idNote != null)
+                {
+                    this.loadAndDisplayNote(win);
+                }
 
 
             })
         })
+    }
+    ,
+    loadAndDisplayNote: function(win)
+    {
+        this.loadNote(this.idNote).then((response)=>{
+            this.displayNote(win, response.payload)
+        }).catch((err)=>{
+            win.notify("Error", err.message, "error");
+        })
+    }
+    ,
+    displayNote: function(win, data)
+    {
+        win.fill(data);
+    }
+    ,
+    loadNote: function(id)
+    {
+        let me = this;
+        let promise = new Promise((resolve, reject)=>{
+            let url = this.application.appConfig.BASE_API_URL + "/notes/" + id; 
 
-
-
+            AppUtil.get(url, function(response){
+                if(response.success)
+                    resolve(response);
+                else
+                    reject(response);
+            }, 
+            { user: me.application.session.user })
+        });
+        return promise;
     }
     ,
     getProjects: function()
@@ -39,7 +73,6 @@ var AddNotePage =  Class(DefaultListPage, {
         let me = this;
         let promise = new Promise((resolve, reject)=>{
             let url = me.application.appConfig.BASE_API_URL + "/projects";
-            console.log(url)
             $.get(url, function(response){
                 resolve(response.payload.rows)
             })
@@ -75,21 +108,43 @@ var AddNotePage =  Class(DefaultListPage, {
     //------- End of  event handlers ------------
     saveNote: function(win)
     {
-        console.log(win)
+        let me = this;
         let url = this.application.appConfig.BASE_API_URL + "/notes/create";
-        let note = {};
-        note.title = win.get("title").value();
-        note.short_desc = win.get("shortDescription").value();
-        note.category_id = win.get("category").value();
-        note.project_id = win.get("project").value();
-        note.user = "miftahul.huda@devoteam.com";
-        note.content = win.get("content").value();
-        console.log(note);
+        let send = AppUtil.post;
+
+        if(me.idNote != null)
+        {
+            url = this.application.appConfig.BASE_API_URL + "/notes/" + me.idNote;
+            send = AppUtil.put;
+        }
+        let note = win.getData();
+
+        if(note.user == null)
+            note.user = me.application.session.user.username;
+        else 
+        {
+            if(note.user.indexOf(me.application.session.user.username) == -1)
+            {
+                note.user += "," + me.application.session.user.username;
+            }
+        }
+
         win.showProgress();
-        $.post(url, JSON.stringify(note), function(response){
+        send(url, note, function(response){
             console.log(response)
             win.hideProgress();
-            win.notify("Success", "Note is saved");
+
+            if(response.success)
+            {
+                me.idNote = response.payload.id;
+                win.notify("Success", "Note is saved");
+            }
+            else 
+            {
+                win.notify("Fail", "Note can not be saved: " + response.message, "error");
+            }
+        }, {
+            user: me.application.session.user
         })
     }
     ,

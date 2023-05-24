@@ -1,10 +1,16 @@
+const { config } = require("dotenv");
 const CrudRouter = require("./crudrouter");
 
 class WebRouter {
 
-    static getConfig()
+    static getConfig(session)
     {
-        return {};
+        let config = {
+            user: session.user
+        };
+
+        config = JSON.stringify(config)
+        return config;
     }
 
     static getRouter(logic)
@@ -16,9 +22,20 @@ class WebRouter {
         let me = this;
 
         router.get('', (req, res)=>{
-            var dir = __dirname;
-            var p = path.resolve( dir, "../public/pages/", "index");
-            res.render(p, { config: me.getConfig() } )
+
+            if(req.session.login)
+            {
+                var dir = __dirname;
+                var p = path.resolve( dir, "../public/pages/", "index");
+                res.render(p, { config: me.getConfig(req.session) } )
+            }
+            else
+            {
+                var dir = __dirname;
+                var p = path.resolve( dir, "../public/pages/", "login");
+                res.render(p, { config: me.getConfig(req.session) } )
+            }
+
         });
 
         return router;

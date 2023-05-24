@@ -292,7 +292,6 @@ var TableResizer = {
                 
                 start = $(this).parents(tagname);
     
-                console.log(start)
                 pressedcol = true;
                 startX = e.pageX;
                 startWidth = $(this).parents(tagname).css("width");
@@ -313,13 +312,10 @@ var TableResizer = {
     
                 start = $(this).parents(tagname);
     
-                console.log(start[0])
                 pressedrow = true;
                 startY = e.pageY;
                 startWidth = $(this).parents(tagname).css("width");
                 startHeight = $(this).parents(tagname).css("height");
-                console.log("startHeight")
-                console.log(startHeight)
                 //$(start).addClass("resizing");
             }
         });
@@ -338,7 +334,6 @@ var TableResizer = {
                 $("th[col-idx=" + colIdx + "] .coladddel-container").css("left", posx + (ww - 0));
             }
             if(pressedrow) {
-                console.log("here")
                 let hh  = parseFloat( startHeight)+(e.pageY-startY);
                 let rowIdx = $(start).attr("row-idx");
                 $("td[row-idx=" + rowIdx + "]").height(hh);

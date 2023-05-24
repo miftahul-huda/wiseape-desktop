@@ -28,9 +28,7 @@ var SearchPage = Class({
     ,
     keyword_onKeyUp: function(win, id, param)
     {
-        console.log("param")
-        console.log(param);
-        
+
         if(param.keyCode == 13)
         {
             this.keyword = win.get("keyword").value();

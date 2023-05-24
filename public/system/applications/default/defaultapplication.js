@@ -4,12 +4,6 @@ var DefaultApplication = Class(Application, {
         var me = this;
         let win = null;
 
-        console.log("appConfig")
-        console.log(appConfig)
-
-        console.log("command")
-        console.log(command)
-
         if(appConfig != null)
             me.appConfig = appConfig;
         
@@ -17,7 +11,13 @@ var DefaultApplication = Class(Application, {
         if(command in appInfo)
         {
             let info = appInfo[command];
-            win = me.desktop.createWindow(info.title,  me.appRootPath + "/" + info.icon, info.config, me);
+            if(info.config == null)
+                info.config = {};
+            info.config.parameter = parameter;
+            let icon = me.appRootPath + "/" + info.icon;
+            if(info.icon == null)
+                icon = null;
+            win = me.desktop.createWindow(info.title, icon, info.config, me);
             //me.setWindowEventHandlerObject(win, me.appRootPath + "/" + info.jsfile, info.className)
             win.setEventHandlerObject( me.appRootPath + "/" + info.jsfile, info.className)
             win.show(me.appRootPath + "/" + info.contentFile, function(returnValue){
@@ -43,8 +43,8 @@ var DefaultApplication = Class(Application, {
     showExportOptions: function(callback)
     {
         var me =  this;
-        let exportOptionWin  = me.desktop.createWindow("Select file format", null, { width: 500, height: 320, top: '10%' });
-        me.setWindowEventHandlerObject(exportOptionWin, "/system/applications/default/exportoptions.js", "ExportOptionsPage");
+        let exportOptionWin  = me.desktop.createWindow("Select file format", null, { width: 500, height: 320, top: '10%' }, me);
+        exportOptionWin.setEventHandlerObject("/system/applications/default/exportoptions.js", "ExportOptionsPage");
         exportOptionWin.show("/system/applications/default/exportoptions.json", function(returnValue){
             if(callback != null)
                 callback(returnValue);

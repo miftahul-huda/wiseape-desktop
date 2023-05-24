@@ -123,9 +123,13 @@ var Window = Class({
         me.content = content
 
         let title = me.title;
-        if(me.icon != null)
+        if(me.icon != null && me.icon.length > 0)
         {
             title = "<div style='display: inline-flex;'><div style='width:40px;height:40px;background: url(" + me.icon + ") no-repeat; background-size: auto 70%;background-position: center'></div><div class='window-title'>" + title + "</div></div>"
+        }
+        else
+        {
+            title = "<div style='display: inline-flex;'><div class='window-title'>" + title + "</div></div>"
         }
 
         let www = me.options.width + "";
@@ -189,7 +193,6 @@ var Window = Class({
             onresize: function(width, height){
                 me.height = height
                 me.width = width
-                console.log(this.min)
                 $(".wb-min").on("click",function(){
                     alert("mix")
                 });
@@ -197,7 +200,6 @@ var Window = Class({
             ,
             onfocus: function()
             {
-
             }
             ,
             onmove: function(x, y){
@@ -229,7 +231,7 @@ var Window = Class({
                     this.eventHandler("onWindowClosed", me)
 
                 if(me.contentEventHandler != null)
-                    me.contentEventHandler( me, me.id, "onWindowClosed", {})
+                    me.contentEventHandler( me, me.id, "onWindowClosed",  { data: me.options.parameter }    )
 
                 if(me.winClosedCallbacks != null)
                 {
@@ -242,10 +244,16 @@ var Window = Class({
 
         $("#" + me.id).append("<div class='wb-footer'></div>")
 
+
         me.uiProcessor.initContent(me);
 
         if(me.contentEventHandler != null)
-            me.contentEventHandler( me, me.id, "onLoad", {})
+            me.contentEventHandler( me, me.id, "onLoad", { data: me.options.parameter })
+
+        //me.uiProcessor.initContent(me);
+
+        me.setWindowHeaderEvent();
+
 
         //$("#" + me.id).hide();
 
@@ -257,6 +265,20 @@ var Window = Class({
         */
     }
     ,
+    setWindowHeaderEvent: function()
+    {
+
+        let me = this;
+        let elm = $("#" + me.id + " > .wb-header > .wb-title");
+
+        elm.off("click");
+        elm.on("click", function(event){
+
+            me.reloadWindow();
+            
+        })
+    }
+    ,
     showWindow: function(me, content)
     {
 
@@ -264,9 +286,6 @@ var Window = Class({
         let lll = 0;
         let hhh = me.options.height + "";
         let ttt = 0;
-
-        console.log("viewPort")
-        console.log(me.options.viewPort)
 
         if(www.indexOf("%") > -1)
         {
@@ -376,6 +395,8 @@ var Window = Class({
     show: function(content, winClosedCallback)
     {
         var me =  this;
+        me.__CONTENT = content;
+        me.__WINCLOSEDCALLBACK = winClosedCallback;
 
         if(winClosedCallback != null)
         {
@@ -551,6 +572,56 @@ var Window = Class({
         return elm
     }
     ,
+    fill: function(data)
+    {
+        this.fillWithData(this.elements.children, data);
+    }
+    ,
+    fillWithData:function( children, data)
+    {
+        let elm = null;
+        var me = this;
+        if(children != null && children.length > 0)
+        {
+            children.forEach(function(el){
+                let fieldname = el.data;
+                if(fieldname != null)
+                {
+                    let value = null;
+                    console.log(fieldname)  
+                    eval("value = data." + fieldname + ";")                        
+
+                    el.value(value);
+                }
+                me.fillWithData(el.children, data) 
+            })
+        }
+    }
+    ,
+    getData: function()
+    {
+        let data = this.getDataDetail(this.elements.children, {});
+        return data;
+    }
+    ,
+    getDataDetail: function(children, data)
+    {
+        let elm = null;
+        var me = this;
+        if(children != null && children.length > 0)
+        {
+            children.forEach(function(el){
+                let fieldname = el.data;
+                if(fieldname != null)
+                {
+                    data[fieldname] = el.value();
+                }
+                me.getDataDetail(el.children, data) 
+            })
+        }  
+        return data;
+    }
+    ,
     showProgress: function()
     {
         $(".loader").show();
@@ -565,22 +636,43 @@ var Window = Class({
     {
         let me = this;
         $("#" + this.id + " .notification-text").html(content)
+
+
+        $("#" + this.id + " .notification-icon").removeClass("notification-icon-success")
+        $("#" + this.id + " .notification-icon").removeClass("notification-icon-error")
+        $("#" + this.id + " .notification-icon").removeClass("notification-icon-warning")
+        $("#" + this.id + " .notification-icon").removeClass("notification-icon-info")
+
+        $("#" + this.id + " .notification-box").removeClass("notification-box-success")
+        $("#" + this.id + " .notification-box").removeClass("notification-box-error")
+        $("#" + this.id + " .notification-box").removeClass("notification-box-warning")
+        $("#" + this.id + " .notification-box").removeClass("notification-box-info")
+
+
+
         if(theme == "success")
         {
-            console.log($("#" + this.id + " .notification-icon"))
             $("#" + this.id + " .notification-icon").addClass("notification-icon-success")
+            $("#" + this.id + " .notification-box").addClass("notification-box-success")
+
         }
         else if(theme == "warning")
         {
             $("#" + this.id + " .notification-icon").addClass("notification-icon-warning")
+            $("#" + this.id + " .notification-box").addClass("notification-box-warning")
+
         }
         else if(theme == "error")
         {
             $("#" + this.id + " .notification-icon").addClass("notification-icon-error")
+            $("#" + this.id + " .notification-box").addClass("notification-box-error")
+
         }
         else if(theme == "info")
         {
             $("#" + this.id + " .notification-icon").addClass("notification-icon-info")
+            $("#" + this.id + " .notification-box").addClass("notification-box-info")
+
         }
 
         if(opt != null && opt.left != null)
@@ -597,7 +689,19 @@ var Window = Class({
 
         $("#" + this.id + " .notification-box").show("fast");
         setTimeout(function(){
-            $("#" + me.id + " .notification-box").hide("fast");
+            if(theme == "error")
+            {
+                
+                $("#" + me.id + " .notification-box").off("click");
+                $("#" + me.id + " .notification-box").on("click", function(){
+                    $("#" + me.id + " .notification-box").hide("fast");
+                })
+            }
+            else 
+            {
+                $("#" + me.id + " .notification-box").hide("fast");
+            }
+                
         }, 2000)
     }
     ,
@@ -612,7 +716,6 @@ var Window = Class({
                 param.event = event;    
             if(win.windowHandlerObject == null)
             {
-                
                 $.getScript(file, function (){
 
                     win.windowHandlerObject = eval("new " + className + "(me.application)");
@@ -632,6 +735,14 @@ var Window = Class({
                     eval("win.windowHandlerObject." + event + "(win, id, param)");
             }
         }
+    }
+    ,
+    reloadWindow: function()
+    {
+        let me = this;
+        me.winbox.close();
+        me.show(me.__CONTENT)
+        
     }
 
 })
