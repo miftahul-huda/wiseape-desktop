@@ -13,6 +13,7 @@ var WiseElement = Class({
         this.onKeyPress = null;
         this.onKeyUp = null;
         this.onChange = null;
+        this.visible = true;
         this.elementEventHandler = null;
     }
     ,
@@ -56,6 +57,14 @@ var WiseElement = Class({
         if(this.style != null)
             $(dom).attr("style", this.style)
         return dom;
+    }
+    ,
+    show: function(value)
+    {
+        if(value)
+            $("#" + this.id + "").parent(".element-container").css("display", "");
+        else 
+            $("#" + this.id + "").parent(".element-container").css("display", "none");
     }
 
 })

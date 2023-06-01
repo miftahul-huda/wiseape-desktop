@@ -17,10 +17,16 @@ var DefaultApplication = Class(Application, {
             let icon = me.appRootPath + "/" + info.icon;
             if(info.icon == null)
                 icon = null;
-            win = me.desktop.createWindow(info.title, icon, info.config, me);
-            //me.setWindowEventHandlerObject(win, me.appRootPath + "/" + info.jsfile, info.className)
-            win.setEventHandlerObject( me.appRootPath + "/" + info.jsfile, info.className)
-            win.show(me.appRootPath + "/" + info.contentFile, function(returnValue){
+            
+            info.config.icon = icon;
+            info.config.contentInfo = {
+                contentSource: me.appRootPath + "/" + info.contentFile,
+                contentHandlerFile: me.appRootPath + "/" + info.jsfile,
+                contentHandlerClass: info.className
+            }
+
+            win = me.desktop.createWindow(info.title, info.config, me);
+            win.show( function(returnValue){
                 if(callback != null)
                     callback(returnValue);
             });
@@ -43,9 +49,18 @@ var DefaultApplication = Class(Application, {
     showExportOptions: function(callback)
     {
         var me =  this;
-        let exportOptionWin  = me.desktop.createWindow("Select file format", null, { width: 500, height: 320, top: '10%' }, me);
-        exportOptionWin.setEventHandlerObject("/system/applications/default/exportoptions.js", "ExportOptionsPage");
-        exportOptionWin.show("/system/applications/default/exportoptions.json", function(returnValue){
+        let exportOptionWin  = me.desktop.createWindow("Select file format", 
+            { 
+                width: 500, 
+                height: 320, 
+                top: '10%',
+                contentInfo: {
+                    contentSource: "/system/applications/default/exportoptions.json",
+                    contentHandlerFile: "/system/applications/default/exportoptions.js",
+                    contentHandlerClass:  "ExportOptionsPage"
+                }
+            }, me);
+        exportOptionWin.show( function(returnValue){
             if(callback != null)
                 callback(returnValue);
         });
@@ -55,5 +70,27 @@ var DefaultApplication = Class(Application, {
     {
         var me = this;
         eval("me." + command + "(appConfig, parameter, callback);")
+    }
+    ,
+    prompt: function(title, content, type="YES|NO", callback)
+    {
+        var me = this;
+        let win = me.desktop.createWindow(title, 
+            { 
+                icon: null, 
+                width: '50%', 
+                height: '210px', 
+                parameter: { type: type, content: content },
+                contentInfo: {
+                    contentSource: "/system/applications/default/prompt.json",
+                    contentHandlerFile:"/system/applications/default/prompt.js",
+                    contentHandlerClass:"PromptPage"
+                }
+            }, me);
+        //win.setEventHandlerObject( "/system/applications/default/prompt.js", "PromptPage");
+        win.show(function(returnValue){
+            if(callback != null)
+                callback(returnValue);
+        });
     }
 })

@@ -1,4 +1,4 @@
-var DefaultListPage = Class({
+var DefaultListPage = Class(DefaultPage, {
     loadAndDisplayData: function(win, tableID, url, callback)
     {
         var me = this;

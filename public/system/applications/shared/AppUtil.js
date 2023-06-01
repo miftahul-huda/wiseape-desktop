@@ -1,5 +1,6 @@
 var AppUtil =
 {
+    scripts: null,
     data2Options: function(items, valueCol, labelCol, placeholder)
     {
         let options = [];
@@ -129,4 +130,23 @@ var AppUtil =
             }
         });
     }
+    ,
+    getScript: function(url, callback)
+    {
+        if(AppUtil.scripts == null)
+            AppUtil.scripts = [];
+        
+        if(AppUtil.scripts.indexOf(url) == -1)
+        {
+            AppUtil.scripts.push(url);
+            $.getScript(url, callback);
+
+        }
+        else
+        {
+            if(callback != null)
+                callback();
+        }
+    }
+
 }

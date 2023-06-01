@@ -43,7 +43,12 @@ var ListNotePage =  Class(DefaultListPage, {
     ,
     btnDeleteNote_onClick: function(win, id)
     {
-        this.deleteNote(win, id);
+        let me = this;
+        this.application.prompt("Confirmation", "Are you sure?", "YES|NO", function(result){
+            if(result == "YES") 
+                me.deleteNote(win, id);
+
+        });
     }
     ,
     btnFindNote_onClick: function(win, id)

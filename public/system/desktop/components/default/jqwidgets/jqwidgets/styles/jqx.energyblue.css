@@ -9,7 +9,7 @@
 .jqx-grid-cell-sort-alt-energyblue, .jqx-grid-cell-filter-alt-energyblue, .jqx-grid-cell-pinned-energyblue, .jqx-grid-cell-alt-energyblue, .jqx-grid-cell-sort-energyblue{ background-color:#e7eef8}
 .jqx-grid-cell-selected-energyblue{ background-color:#4b81b1;  color:#fff;}
 .jqx-grid-cell-selected-energyblue div { color:#fff }
-.jqx-grid-cell-hover-energyblue{ background-color:#cfdde9 !important;}
+.jqx-grid-cell-hover-energyblue{ background-color:#cfdde9;}
 .jqx-menu-vertical-energyblue{background: #e0e9f5;}
 .jqx-layout-energyblue
 {
@@ -17,13 +17,13 @@
 }
 .jqx-fill-state-normal-energyblue, .jqx-widget-header-energyblue
 {
-    border-color: #ccc !important;
-    background-color: #fff !important;
+    border-color: #ccc;
+    background-color: #fff;
     
 }
 
 .jqx-widget-content-energyblue {
-    border-color: #ccc  !important;
+    border-color: #ccc;
 }
 
 .jqx-grid-column-header
@@ -34,7 +34,7 @@
 .jqx-grid-column-header > div > div > span
 {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-weight: bold !important;
+    font-weight: bold;
     font-size: 10pt;
     padding-left: 4%;
 }
@@ -51,7 +51,7 @@
 
 .jqx-grid
 {
-    border-radius: 10px !important;
+    border-radius: 10px;
 }
 
 .jqx-grid-groups-row > span

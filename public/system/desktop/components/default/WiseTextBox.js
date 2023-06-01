@@ -22,14 +22,14 @@ var WiseTextBox = Class(WiseElement, {
     createDom: function()
     {
         let me = this;
-        let html = "<div class='form-group'>" +
+        let html = "<div class='form-group' id='wise-textbox-container-" + this.id + "'>" +
                     "<label for='" + this.id + "'>" + this.label + "</label>" +
                     "<input type='" + this.type + "' class='form-control' id='" + this.id + "' placeholder='" + this.placeholder + "'>" +
                     "</div>"
                     
         if(this.icon != null)
         {
-            html = "<div class='form-group'>" +
+            html = "<div class='form-group'  id='wise-textbox-container-" + this.id + "'>" +
             "<label for='" + this.id + "'>" + this.label + "</label>" +
             "<div class='input-group'>" +
             "<div class='input-group-prepend'><div class='input-group-text'><i class='fas fa-envelope'></i></div>" +
@@ -41,20 +41,26 @@ var WiseTextBox = Class(WiseElement, {
 
         let dom = $(html)[0]
 
+        
+        $(dom).find("input").off("keypress");
         $(dom).find("input").on("keypress", function(event){
             if(me.elementEventHandler != null)
                 me.elementEventHandler(me.id, me.onkeypress, event);
         })
 
+        $(dom).find("input").off("keydown");
         $(dom).find("input").on("keydown", function(event){
             if(me.elementEventHandler != null)
                 me.elementEventHandler(me.id, me.onkeydown, event)
         })
 
+        $(dom).find("input").off("keyup");
         $(dom).find("input").on("keyup", function(event){
             if(me.elementEventHandler != null)
                 me.elementEventHandler(me.id, me.onkeyup, event)
         })
+        
+        
         return dom;
     }
     ,
@@ -75,6 +81,14 @@ var WiseTextBox = Class(WiseElement, {
     {
         let elm = $("#" + this.id);
         $(elm).focus();
+    }
+    ,
+    show: function(value)
+    {
+        if(value)
+            $("wise-textbox-container-" + this.id + "").css("display", "");
+        else 
+            $("wise-textbox-container-" + this.id + "").css("display", "none");
     }
 
 })

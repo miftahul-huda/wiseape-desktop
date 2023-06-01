@@ -19,8 +19,9 @@ var UIProcessor = Class({
                 "/system/desktop/components/default/jqwidgets/jqwidgets/styles/jqx.material-green.css",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/styles/jqx.blue.css",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/styles/jqx.bootstrap.css",
-                "/admin-lte-3/plugins/summernote/summernote-bs4.css",
-                "/system/desktop/components/default/suneditor-master/dist/css/suneditor.min.css"
+                "/system/desktop/components/default/responsive-editor/editor.css",
+                "/system/desktop/components/default/css/fontawesome-free-6.4.0-web/css/all.css"
+
             ];
             let js = ["/system/desktop/components/default/window.js", 
                 "/system/desktop/components/default/winbox.bundle.js", 
@@ -47,9 +48,10 @@ var UIProcessor = Class({
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxgrid.export.js",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxexport.js",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxeditor.js",
-                "/system/desktop/components/default/suneditor-master/dist/suneditor.min.js",
                 "/system/desktop/components/default/jqwidgets/scripts/jszip.min.js",
-                "/admin-lte-3/plugins/summernote/summernote-bs4.min.js",
+                "/system/applications/default/defaultapplication.js",
+                "/system/applications/default/defaultpage.js",
+                "/system/applications/default/defaultlistpage.js",
                 "/system/desktop/components/default/WiseElement.js",
                 "/system/desktop/components/default/WiseDataTable.js",
                 "/system/desktop/components/default/WiseDiv.js",    
@@ -63,7 +65,8 @@ var UIProcessor = Class({
                 "/system/desktop/components/default/WiseTextArea.js",
                 "/system/desktop/components/default/WiseHtmlEditor.js",
                 "/system/desktop/components/default/WiseComboBox.js",
-                "/system/desktop/components/default/WiseText.js"
+                "/system/desktop/components/default/WiseText.js",
+                "/system/desktop/components/default/responsive-editor/editor.js"
             ]
 
             UIProcessor.loadCss(css, 0, function(){
@@ -238,6 +241,7 @@ var UIProcessor = Class({
     initBootStrap: function(win)
     {
         //Initialize Select2 Elements
+        
         try{
             let selects = $("#" + win.id).find('select');
             if(selects.length > 0)
@@ -251,13 +255,44 @@ var UIProcessor = Class({
         }
         $("#" + win.id).find('select').select2()
 
-
+        $("#" + win.id).find(".select2-container").css("width", "100%");
         //Initialize Select2 Elements
         $("#" + win.id).find('.select2bs4').select2({
             theme: 'bootstrap4'
         })
 
-        this.initEditor(this, win);
+        
+
+        
+        let eds = $("#" + win.id).find(".wise-editor");
+        if(eds.length > 0)
+        {
+           for(var i = 0; i < eds.length; i++)
+           {
+                let id = $(eds[i]).attr("id");
+                let h = $(eds[i]).css("height");
+                /*
+                const editor = new toastui.Editor({
+                    el: document.querySelector('#' + id),
+                    height: '500px',
+                    initialEditType: 'wysiwyg'
+                });*/
+
+                /*
+                let editor = $("#" + id).wysiwyg();
+                let elm = $("#" + id).parent().find(".editor-content");
+                $(elm).css("height", h);
+                */
+                
+                let editor = $("#" + id).Editor();
+                $("#" + id).parent().find(".Editor-editor").css("height", h);
+                //eds[i].editor = editor;
+           }
+        }
+        
+        
+
+        //this.initEditor(this, win);
 
     }
     ,
@@ -293,20 +328,16 @@ var UIProcessor = Class({
                       "link",
                       "image",
                       "video",
-                      "template",
                       "textStyle",
                       "blockquote",
                       "paragraphStyle",
-                      "math", // You must add the 'katex' library at options to use the 'math' plugin.
                       "imageGallery"
                     ] 
                     ,
                     // set the initial value
                     value: '',
                     // default tag name of the editor.
-                    defaultTag: 'p',
-                    // When recording the history stack, this is the delay time(miliseconds) since the last input
-                    historyStackDelayTime: 400,
+                    defaultTag: 'br',
                     // Add tags to the default tags whitelist of editor.
                     // _defaultTagsWhitelist : 'br|p|div|pre|blockquote|h[1-6]|ol|ul|li|hr|figure|figcaption|img|iframe|audio|video|table|thead|tbody|tr|th|td|a|b|strong|var|i|em|u|ins|s|span|strike|del|sub|sup'
                     addTagsWhitelist: '',
@@ -411,14 +442,7 @@ var UIProcessor = Class({
                     codeMirror: null,
                     // katex options
                     // https://github.com/KaTeX/KaTeX
-                    katex: null,
-                    // Math plugin font size list.
-                    mathFontSize: [
-                      {text: '1', value: '1em', default: true},
-                      {text: '1.5', value: '1.5em'},
-                      {text: '2', value: '2em'},
-                      {text: '2.5', value: '2.5em'}
-                    ],
+                    
                     // Shows the bottom resizing bar.
                     resizingBar: true,
                     // Font Family array
@@ -580,9 +604,7 @@ var UIProcessor = Class({
                       ['table', 'link', 'image', 'video', 'audio' /** ,'math' */], // You must add the 'katex' library at options to use the 'math' plugin.
                       /** ['imageGallery'] */ // You must add the "imageGalleryUrl".
                       ['fullScreen', 'showBlocks', 'codeView'],
-                      ['preview', 'print'],
-                      ['save', 'template']
-                    ]
+                      ['preview', 'print']                    ]
                     ,
                     // execute a function when the save button is clicked.
                     callBackSave: function(){}

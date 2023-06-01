@@ -4,6 +4,7 @@ var Desktop = Class({
     {
         this.windows = []
         this.uiProcessor = null
+        GLOBAL.desktop = this;
     }
     ,
     start: function(config)
@@ -141,9 +142,12 @@ var Desktop = Class({
         })
     }
     ,
-    createWindow:function(title, icon, options, app)
+    createWindow:function(title, options, app)
     {
         let me = this;
+
+        if(app == null)
+            app = GLOBAL.activeApp;
 
         if(options == null)
             options = {};
@@ -157,11 +161,14 @@ var Desktop = Class({
 
         options.viewPort = viewPort;
 
-        let newWin = me.uiProcessor.createWindow(title, icon, function handleWindow(evt, window){
+        let newWin = me.uiProcessor.createWindow(title, options.icon, function handleWindow(evt, window){
             me.handleWindowNext(me, evt, window);
         }, options, app)
         newWin.desktop = this;
         newWin.application = app;   
+        newWin.contentSource = options.contentInfo.contentSource;
+        newWin.contentHandlerFile = options.contentInfo.contentHandlerFile;
+        newWin.contentHandlerClass = options.contentInfo.contentHandlerClass;  
     
         //GLOBAL.desktopDom.append(newWin.dom)
         me.onHeaderClick(me, newWin)

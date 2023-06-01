@@ -3,7 +3,7 @@ var WiseButton = Class(WiseElement, {
         this.onclick = json.onclick;
         this.icon = json.icon;
         this.text = json.text;
-        WiseMenuButton.$superp.init.call(this, json, "WiseMenuButton");
+        WiseButton.$superp.init.call(this, json, "WiseButton");
     }
     ,
     createDom: function()
@@ -13,8 +13,15 @@ var WiseButton = Class(WiseElement, {
         let div = document.createElement("div")
         //$(div).css("padding", "4px")
 
-        let btn = $("<div class='wise-button-container'>" +
-        "<button type=\"button\" class=\"btn btn-primary btn-block\"><div class=\"btn-icon " + this.icon + "\"></div><div class='btn-text'>" + this.text + "</div></button>" +
+        let visibleCss = "";
+
+        if(me.visible == false)
+        {
+            visibleCss = "style='display: none'";
+        }
+
+        let btn = $("<div " + visibleCss + " class='wise-button-container element-container'>" +
+        "<button id='" + this.id + "' type=\"button\" class=\"btn btn-primary btn-block\"><div class=\"btn-icon " + this.icon + "\"></div><div class='btn-text'>" + this.text + "</div></button>" +
         "</div>");
 
         $(btn).on("click", function()

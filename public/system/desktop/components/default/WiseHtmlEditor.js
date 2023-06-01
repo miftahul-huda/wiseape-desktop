@@ -27,39 +27,25 @@ var WiseHtmlEditor = Class(WiseElement, {
         let me = this;
         let html = "<div class='form-group'>" +
                     "<label for='" + this.id + "'>" + this.label + "</label>" +
-                    "<textarea class='form-control wise-editor' height='" + this.height + "' id='" + this.id + "' placeholder='" + this.placeholder + "'></textarea>" +
+                    "<textarea class='wise-editor' style='display:none;height:" + this.height + ";' id='" + this.id + "' placeholder='" + this.placeholder + "'></textarea>" +
                     "</div>"
         let dom = $(html)[0]
 
-        $(dom).on("keypress", function(){
-            if(me.elementEventHandler != null)
-                me.elementEventHandler(me.id, "onKeyPress")
-        })
-
-        $(dom).on("keydown", function(){
-            if(me.elementEventHandler != null)
-                me.elementEventHandler(me.id, "onKeyDown")
-        })
-
-        $(dom).on("keyup", function(){
-            //me._value = $(this).val();
-            if(me.elementEventHandler != null)
-                me.elementEventHandler(me.id, "onKeyUp")
-        })
+      
         return dom;
     }
     ,
     value: function(val=null)
     {
         let elm = $("#" + this.id)[0];
-        //console.log("elemen editor")
-        //console.log(elm)
-        let editor = elm.editor;
         if(val == null)
-            return editor.getContents();    
+        {
+            return $(elm).Editor("getHTML");  
+        }
         else
         {
-            editor.setContents(val);
+            //$(elm).val(val);
+            $(elm).Editor("setHTML", val);
         }
     }
 

@@ -77,7 +77,7 @@ var WiseDataTable = Class(WiseElement, {
         $(div).append(divCmbPerPageLabel);
 
         let divSep = document.createElement("div");
-        $(divSep).css("width", "10px");
+        $(divSep).css("width", "60px");
         $(div).append(divSep);
 
         let cmbPerPage = document.createElement("select")
@@ -92,7 +92,7 @@ var WiseDataTable = Class(WiseElement, {
         $(div).append(cmbPerPage);
 
         divSep = document.createElement("div");
-        $(divSep).css("width", "10px");
+        $(divSep).css("width", "60px");
         $(div).append(divSep);
 
         let divCmbPageLabel = document.createElement("div")
@@ -101,7 +101,7 @@ var WiseDataTable = Class(WiseElement, {
         $(div).append(divCmbPageLabel);
 
         divSep = document.createElement("div");
-        $(divSep).css("width", "10px");
+        $(divSep).css("width", "60px");
         $(div).append(divSep);
 
         let cmbPage = document.createElement("select")
@@ -489,9 +489,38 @@ var WiseDataTable = Class(WiseElement, {
     search: function(callback)
     {
         var me =  this;
-        let searchWin  = me.desktop.createWindow("Search by keyword", null, { width: 800, height: 260, top:'10%' }, me.window.application);
-        searchWin.setEventHandlerObject("/system/applications/default/search.js", "SearchPage");
-        searchWin.show("/system/applications/default/search.json", function(returnValue){
+        let searchWin  = me.desktop.createWindow("Search by keyword", 
+            { 
+                width: 800, 
+                height: 260, 
+                top:'10%' ,
+                contentInfo: {
+                    contentHandlerFile:"/system/applications/default/search.js",
+                    contentHandlerClass:"SearchPage",
+                    contentSource: "/system/applications/default/search.json"
+                }
+            });
+        searchWin.show( function(returnValue){
+            if(callback != null)
+                callback(returnValue);
+        });
+    }
+    ,
+    getAdvanceSearch: function(callback)
+    {
+        var me =  this;
+        let searchWin  = me.desktop.createWindow("Search by keyword", 
+            { 
+                width: 800, 
+                height: 260, 
+                top:'10%' ,
+                contentInfo: {
+                    contentHandlerFile:"/system/applications/default/search.js",
+                    contentHandlerClass:"SearchPage",
+                    contentSource: "/system/applications/default/search.json"
+                }
+            });
+        searchWin.show(function(returnValue){
             if(callback != null)
                 callback(returnValue);
         });

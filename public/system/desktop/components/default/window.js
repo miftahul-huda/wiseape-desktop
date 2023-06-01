@@ -15,6 +15,10 @@ var Window = Class({
         this.elements = null;
         this.winbox = null;
         this.winClosedCallbacks = [];
+        this.contentHandlerFile = null;
+        this.contentHandlerClass = null;
+        this.contentSource = null;
+
 
         if(this.options.width == null)
             this.options.width = '80%';
@@ -200,6 +204,7 @@ var Window = Class({
             ,
             onfocus: function()
             {
+                GLOBAL.activeApp = me.application;
             }
             ,
             onmove: function(x, y){
@@ -214,6 +219,10 @@ var Window = Class({
             ,
             onclose: function(force)
             {
+
+                me.content = null;
+                me.elements = null;
+
                 $("#winTemp").css("width", $("#" + me.id).width() );
                 $("#winTemp").css("height", $("#" + me.id).height() );
                 $("#winTemp").css("left", me.winbox.x );
@@ -245,7 +254,6 @@ var Window = Class({
         $("#" + me.id).append("<div class='wb-footer'></div>")
 
 
-        me.uiProcessor.initContent(me);
 
         if(me.contentEventHandler != null)
             me.contentEventHandler( me, me.id, "onLoad", { data: me.options.parameter })
@@ -253,6 +261,8 @@ var Window = Class({
         //me.uiProcessor.initContent(me);
 
         me.setWindowHeaderEvent();
+        me.uiProcessor.initContent(me);
+
 
 
         //$("#" + me.id).hide();
@@ -269,7 +279,7 @@ var Window = Class({
     {
 
         let me = this;
-        let elm = $("#" + me.id + " > .wb-header > .wb-title");
+        let elm = $("#" + me.id + " > .wb-header > .wb-title > div > div");
 
         elm.off("click");
         elm.on("click", function(event){
@@ -392,11 +402,15 @@ var Window = Class({
             me.contentEventHandler( me, me.id, "onLoad", {})
     }
     ,
-    show: function(content, winClosedCallback)
+    show: function( winClosedCallback)
     {
+
+        let content = this.contentSource;        
         var me =  this;
         me.__CONTENT = content;
         me.__WINCLOSEDCALLBACK = winClosedCallback;
+
+        me.setEventHandlerObject(me.contentHandlerFile, me.contentHandlerClass)
 
         if(winClosedCallback != null)
         {
@@ -716,7 +730,7 @@ var Window = Class({
                 param.event = event;    
             if(win.windowHandlerObject == null)
             {
-                $.getScript(file, function (){
+                AppUtil.getScript(file, function (){
 
                     win.windowHandlerObject = eval("new " + className + "(me.application)");
                     //win.windowHandlerObject.appConfig = appConfig;
@@ -744,5 +758,4 @@ var Window = Class({
         me.show(me.__CONTENT)
         
     }
-
 })

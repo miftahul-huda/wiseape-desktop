@@ -82,3 +82,9 @@
 {
     font-size: 12;
 }
+
+
+.jqx-grid
+{
+    border: solid 1px #666;
+}

@@ -1,0 +1,27 @@
+{
+    "root" :
+    {
+        "children" : 
+        [
+            {
+                "element" : "WiseText", "id": "content", "text": "", "noLabel" : true
+            }
+            ,
+            {
+                "element": "WiseDiv", "class":"vertical-separator"
+            }
+            ,
+            {
+                "element" : "WiseDiv", "class" : "flex-div",
+                "children": 
+                [
+                    { "element": "WiseButton", "visible": false, "id" : "btnOk", "onclick": "btnOk_Click", "icon" : "fa fa-check", "text" : "Ok" },
+                    { "element": "WiseButton", "visible": false, "id" : "btnCancel", "onclick": "btnCancel_Click", "icon" : "fa fa-ban", "text" : "Cancel" },
+                    { "element": "WiseButton", "visible": false, "id" : "btnYes", "onclick": "btnYes_Click", "icon" : "fa fa-check", "text" : "Yes" },
+                    { "element": "WiseButton", "visible": false, "id" : "btnNo", "onclick": "btnNo_Click", "icon" : "fa fa-ban", "text" : "No" }
+                ]
+            }
+
+        ]
+    }
+}

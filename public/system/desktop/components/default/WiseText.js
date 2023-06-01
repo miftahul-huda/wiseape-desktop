@@ -11,6 +11,7 @@ var WiseText = Class(WiseElement, {
         this.type = json.type;
         this.disabled = json.disabled;
         this.readOnly = json.readOnly;
+        this.noLabel = json.noLabel;
         if(this.type == null)
             this.type = "text";
         this.placeholder = json.placeholder;
@@ -25,7 +26,14 @@ var WiseText = Class(WiseElement, {
         let html = "<div class='form-group'>" +
                     "<label for='" + this.id + "'>" + this.label + "</label>" +
                     "<div type='" + this.type + "' class='wise-text' id='" + this.id + "'></div>" +
-                    "</div>"
+                    "</div>";
+
+        if(this.noLabel)
+        {
+            html = "<div class='form-group'>" +
+                    "<div type='" + this.type + "' class='wise-text' id='" + this.id + "'></div>" +
+                    "</div>";
+        }
                     
 
 

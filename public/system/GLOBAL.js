@@ -1,4 +1,5 @@
 var GLOBAL = 
 {
-    desktop: null
+    desktop: null,
+    activeApp: null,
 }

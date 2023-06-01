@@ -11,13 +11,13 @@
 
 div{
     font-family: Redhat, Tahoma, Geneva, Verdana, sans-serif, Tahoma, Geneva, Verdana, sans-serif;
-    color: #777;
+    color: #333;
     font-size: 12pt;
 }
 
 span{
     font-family: Redhat, Tahoma, Geneva, Verdana, sans-serif, Tahoma, Geneva, Verdana, sans-serif;
-    color: #777;
+    color: #333;
     font-size: 12pt;
 }
 
@@ -26,9 +26,10 @@ span{
     width: 100%;
     height: 100%;
     display: flex;
-    background-image: url(/images/ocean.jpg);
+    background-image: url(images/ocean-blue.jpeg);
     background-repeat: no-repeat;
-    background-size: cover
+    background-size: cover;
+    background-position: center;
 }
 
 .desktop-taskbar
@@ -141,12 +142,12 @@ body
     display: flex;
     background-color: #58abf9;
     opacity: 0.95;
-    -webkit-border-top-left-radius: 10px;
-    -webkit-border-top-right-radius: 10px;
-    -moz-border-radius-topleft: 10px;
-    -moz-border-radius-topright: 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-top-right-radius: 8px;
+    -moz-border-radius-topleft: 8px;
+    -moz-border-radius-topright: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 .wiseape-window-icon
@@ -213,12 +214,12 @@ body
     height: 95%;
     background-color: #fff;
     padding: 10%;        
-    -webkit-border-bottom-right-radius: 10px;
-    -webkit-border-bottom-left-radius: 10px;
-    -moz-border-radius-bottomright: 10px;
-    -moz-border-radius-bottomleft: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
+    -webkit-border-bottom-right-radius: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    -moz-border-radius-bottomright: 8px;
+    -moz-border-radius-bottomleft: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
 }
 
 .desktop-menu-container
@@ -300,17 +301,17 @@ body
     height: 40px;
     background-color: #58abf9;
     /*background-color: white;*/
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 
     background-image: url(images/winheader.png);
-    background-size: 100% auto;
+    background-size: auto 100%;
     background-repeat: no-repeat;
     
 }
 
 .winbox {
-    border-radius: 15px;
+    border-radius: 10px;
 }
 
 .wb-icon
@@ -327,8 +328,8 @@ body
 {
     opacity: 1;
     top: 40px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 .wb-icon
@@ -346,6 +347,17 @@ body
 .wb-body
 {
     contain: none !important;
+}
+
+.form-control
+{
+    border: solid 1px #666;
+}
+
+.select2-container
+{
+    border: solid 1px #666;
+    border-radius: 3px;
 }
 
 input.form-control:focus
@@ -394,6 +406,8 @@ textarea.form-control
 .btn-primary
 {
     background-color: #58abf9;
+    border-color: #58abf9 !important;
+
 }
 
 
@@ -508,3 +522,35 @@ textarea.form-control
     font-weight: bold;
 
 }
+
+.jqx-grid
+{
+    border-radius: 6px !important;
+    border-color: #666 !important;
+}
+
+
+.jqx-fill-state-normal-energyblue, .jqx-widget-header-energyblue
+{
+    border-color: #c1cbd3 !important;  
+}
+
+.jqx-grid-column-header
+{
+    background-color: #c1cbd3 !important;
+    font-size: 16pt !important;
+    font-family: Redhat !important;
+}
+
+.jqx-grid-column-header span 
+{
+    font-size: 12pt !important;
+    font-family: Redhat !important;   
+    color: #fff !important;
+}
+
+.btn-text
+{
+    font-weight: bold;
+}
+

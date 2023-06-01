@@ -17,7 +17,7 @@ var WiseComboBox = Class(WiseElement, {
     createDom: function()
     {
         let me = this;
-        let html = "<div class='form-group'>" +
+        let html = "<div class='form-group element-container'>" +
                     "<label for='" + this.id + "'>" + this.label + "</label>" +
                     "<select class='form-control' id='" + this.id + "' placeholder='" + this.placeholder + "'>" +
                     "</div>"

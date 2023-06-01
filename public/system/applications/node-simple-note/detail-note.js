@@ -15,7 +15,9 @@ var DetailNotePage =  Class({
     ,
     loadAndDisplayNote: function(win)
     {
+        win.showProgress();
         this.loadNote(this.idNote).then((response)=>{
+            win.hideProgress();
             this.displayNote(win, response.payload)
         }).catch((err)=>{
 
@@ -35,7 +37,7 @@ var DetailNotePage =  Class({
         let promise = new Promise((resolve, reject)=>{
             let url = this.application.appConfig.BASE_API_URL + "/notes/" + id; 
             console.log(url)
-
+            
             AppUtil.get(url, function(response){
                 if(response.success)
                     resolve(response);
