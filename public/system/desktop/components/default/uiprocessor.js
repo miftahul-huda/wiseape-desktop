@@ -67,6 +67,7 @@ var UIProcessor = Class({
                 "/system/desktop/components/default/WiseComboBox.js",
                 "/system/desktop/components/default/WiseText.js",
                 "/system/desktop/components/default/WiseCheckBox.js",
+                "/system/desktop/components/default/WiseDate.js",
                 "/system/desktop/components/default/responsive-editor/editor.js"
             ]
 
@@ -236,6 +237,7 @@ var UIProcessor = Class({
     {
         var me = this;
         me.initBootstrap(win);
+        me.initBootstrapCalendar(win);
         me.initEditor(win);
         $(".notification-box").hide();
 
@@ -264,7 +266,39 @@ var UIProcessor = Class({
         $("#" + win.id).find('.select2bs4').select2({
             theme: 'bootstrap4'
         })
+
+
         console.log("Done initBootstrap")
+    }
+    ,
+    initBootstrapCalendar: function(win)
+    {
+        
+        //Date picker
+        $("#" + win.id).find(".wise-date").datetimepicker({
+            format: 'L'
+        });
+
+        //Date and time picker
+        $("#" + win.id).find(".wise-datetime").datetimepicker({ icons: { time: 'far fa-clock' } });
+
+        //Date range picker
+        console.log(".wise-daterange")
+        console.log($("#" + win.id).find(".wise-daterange"));
+        $("#" + win.id).find(".wise-daterange").daterangepicker({
+            locale: {
+                format: 'YYYY-MM-DD'
+            }
+        });
+
+        //Date range picker with time picker
+        $("#" + win.id).find(".wise-datetimerange").daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'YYYY-MM-DD hh:mm:ss'
+            }
+        })
     }
     ,
     initEditor: function(win)

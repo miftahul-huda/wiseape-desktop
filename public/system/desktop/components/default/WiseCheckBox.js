@@ -7,7 +7,7 @@ var WiseCheckBox = Class(WiseElement, {
         this.__value = json.value;
         this.icon = json.icon;
         this.text = json.text;
-        this.checked = json.checked;
+        this.__checked = json.checked;
         if(this.text == null)
             this.text = "";
         this.label = json.label;
@@ -28,8 +28,11 @@ var WiseCheckBox = Class(WiseElement, {
                     "<input $checked type='checkbox' value='" + this.__value + "' id='" + this.id + "' name='" + this.id + "'><label for='" + this.id + "'>" + this.text + "</label>" +
                     "</div></div>";
 
-        if(this.checked)
+        if(this.__checked)
             html = html.replace("$checked", "checked")
+        else
+            html = html.replace("$checked", "")
+
         let dom = $(html)[0]
         return dom;
     }
@@ -49,7 +52,10 @@ var WiseCheckBox = Class(WiseElement, {
     checked: function(val=null)
     {
         if(val == null)
-            $("#" + this.id).prop("checked")
+        {
+            let checked = $("#" + this.id).prop("checked");
+            return checked;
+        }
         else 
         {
             if(val)

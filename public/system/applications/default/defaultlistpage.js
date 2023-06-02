@@ -1,7 +1,9 @@
 var DefaultListPage = Class(DefaultPage, {
-    loadAndDisplayData: function(win, tableID, url, callback)
+    loadAndDisplayData: function(win, tableID, url, callback, options)
     {
         var me = this;
+        if(options == null)
+            options = { method: "GET" }
         win.showProgress();
         let dataFilterOpt = win.get(tableID).getDataFilterOption();
         let offset = dataFilterOpt.displayPerPage * (dataFilterOpt.page - 1);
@@ -13,15 +15,15 @@ var DefaultListPage = Class(DefaultPage, {
         //if(search != null)
         //    url = url + "/find/" + encodeURIComponent( search);
 
-        me.displayData(me, win, tableID, url, offset, limit, sortColumn, sortDirection,  function(data){
+        me.displayData(me, win, tableID, url, offset, limit, sortColumn, sortDirection, function(data){
             if(callback != null)
                 callback(data)
-        } );
+        }, options );
         win.get(tableID).elementEventHandler = function(id, event, opt) { me.dataTableEventHandler(me, win, tableID, url, id, event, opt) } 
 
     }
     ,
-    displayData: function(me, win, tableID,  url, offset, limit, sortColumn, sortDirection, callback)
+    displayData: function(me, win, tableID,  url, offset, limit, sortColumn, sortDirection, callback, options)
     {
         url = url + "?offset=" + offset + "&limit=" + limit 
         if(sortColumn != null)
@@ -36,15 +38,30 @@ var DefaultListPage = Class(DefaultPage, {
             user: me.application.session.user
         }
 
-        console.log(headers)
-        AppUtil.get(url, function(response){
-            win.hideProgress();
-            let rows = response.payload.rows;
-            rows = me.initRows(rows, offset, limit, sortColumn, sortDirection)
-            win.get(tableID).loadData(rows, response.payload.count);
-            if(callback != null)
-                callback(rows)
-        }, headers )
+
+        if(options.method == "GET")
+        {
+            AppUtil.get(url, function(response){
+                win.hideProgress();
+                let rows = response.payload.rows;
+                rows = me.initRows(rows, offset, limit, sortColumn, sortDirection)
+                win.get(tableID).loadData(rows, response.payload.count);
+                if(callback != null)
+                    callback(rows)
+            }, headers )
+        }
+        else if(options.method == "POST")
+        {
+            AppUtil.post(url, options.filter, function(response){
+                console.log(response)
+                win.hideProgress();
+                let rows = response.payload.rows;
+                rows = me.initRows(rows, offset, limit, sortColumn, sortDirection)
+                win.get(tableID).loadData(rows, response.payload.count);
+                if(callback != null)
+                    callback(rows)
+            }, headers )
+        }
     }
     ,
     initRows: function(rows, offset, limit, sortColumn, sortDirection)

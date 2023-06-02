@@ -1,12 +1,14 @@
 var AdvanceSearchPage = Class({
 
     constructor: function() {
-        this.keyword = null;
+        this.filter = null;
     }
     ,
     onLoad: function(win, id, param)
     {
+        console.log("onLoad")
         let columns = param.data;
+        this.columns = columns;
         let elmRoot = this.createControlsFromColumns(win, columns);
         win.get("searchContent").addElement(elmRoot);
         this.fillLookups(win, columns);
@@ -14,18 +16,18 @@ var AdvanceSearchPage = Class({
     ,
     onWindowClosed: function(win, id)
     {
-        win.returnValue = this.keyword;
+        win.returnValue = this.filter;
     }
     ,
     btnOkSearch_Click: function(win, id)
     {
-        this.keyword = win.get("keyword").value();
+        this.filter = this.getData(win, this.columns);
         win.close();
     }
     ,
     btnCancelSearch_Click: function(win, id)
     {
-        this.keyword = null;
+        this.filter = null;
         win.close();
     }
     ,
@@ -73,6 +75,17 @@ var AdvanceSearchPage = Class({
                     id: "ctrl_" + column.datafield
                 })
             }
+            else if(column.type == "date")
+            {
+                elm = new WiseDate();
+                elm.init({
+                    label: column.text,
+                    placeholder: column.placeholder,
+                    data: column.datafield,
+                    id: "ctrl_" + column.datafield,
+                    type: "daterange"
+                })
+            }
 
             else if(column.type == "lookup")
             {
@@ -80,7 +93,7 @@ var AdvanceSearchPage = Class({
                 elm.init({
                     label: column.text,
                     placeholder: column.placeholder,
-                    data: column.datafield,
+                    data: column.lookupfield,
                     id: "ctrl_" + column.datafield.replace(".", "_")
                 })
             }
@@ -91,8 +104,8 @@ var AdvanceSearchPage = Class({
                 let newElm = new WiseCheckBox();
                 newElm.init({
                     value: column.datafield,
-                    id: column.datafield,
-                    checked: true
+                    id: column.datafield.replace(".", "_"),
+                    checked: false
                 })
 
                 let div = new WiseDiv();
@@ -144,9 +157,65 @@ var AdvanceSearchPage = Class({
                         items.push({ value: item[column.lookupvalue], label: item[column.lookuptext] })
                     })
                     win.get("ctrl_" + column.datafield.replace(".", "_")).addItems(items)
-                    //win.initContent();
                 })
             }
         });
+    }
+    ,
+    getData: function(win, columns)
+    {
+        let me = this;
+        let data = [];
+        let field = {};
+        columns.map((column)=>{
+            if(column.search == false)
+            {
+                //Nothing to do
+            }
+            else
+            {
+
+
+                let elm = win.get(column.datafield.replace(".", "_"));
+                let checked = elm.checked();
+
+                if(checked)
+                {
+                    console.log("column")
+                    console.log(column)
+
+                    let value = win.get("ctrl_" + column.datafield.replace(".", "_")).value();
+                    if(column.type == "text" || column.type == "textarea")
+                    {
+                        field = {
+                            datafield: column.datafield,
+                            operand: "like",
+                            value: value
+                        }
+                    }
+                    else if(column.type == "lookup")
+                    {
+                        console.log("here")
+                        field = {
+                            datafield: column.lookupfield,
+                            operand: "equal",
+                            value: value
+                        }
+                    }
+                    else if(column.type == "date" || column.type == "datetime")
+                    {
+                        field = {
+                            datafield: column.datafield,
+                            operand: "between",
+                            value: value
+                        }
+                    }
+    
+                    data.push(field);
+                }
+            }
+        })
+
+        return data;
     }
 })

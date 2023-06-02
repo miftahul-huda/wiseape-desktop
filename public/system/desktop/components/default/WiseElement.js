@@ -108,6 +108,7 @@ var WiseElement = Class({
                     $("#" + this.id).append(dom);
                 })
             }
+            this.window.initContent();
         }
 
     }

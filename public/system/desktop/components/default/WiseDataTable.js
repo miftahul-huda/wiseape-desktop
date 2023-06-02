@@ -512,7 +512,7 @@ var WiseDataTable = Class(WiseElement, {
         let searchWin  = me.desktop.createWindow("Filter Data", 
             { 
                 width: 800, 
-                height: 600, 
+                height: 800, 
                 top:'10%' ,
                 contentInfo: {
                     contentHandlerFile:"/system/applications/default/advance-search.js",

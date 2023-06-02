@@ -58,8 +58,19 @@ var ListNotePage =  Class(DefaultListPage, {
     ,
     btnAdvanceFindNote_onClick: function(win, id)
     {
-        this.showAdvanceSearch(win, "tableListOfNote", function(searchOption){
-            
+        let me = this;
+        this.showAdvanceSearch(win, "tableListOfNote", function(filter){
+            console.log("filter");
+            console.log(filter)
+
+            if(filter != null)
+            {
+                let url = me.application.appConfig.BASE_API_URL + "/notes/find";
+                me.loadAndDisplayData(win, "tableListOfNote", url, null, {
+                    filter: filter,
+                    method: "POST"
+                })
+            }
         });
     }
     //------- End of  event handlers ------------

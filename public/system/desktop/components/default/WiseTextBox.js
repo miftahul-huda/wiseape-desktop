@@ -86,9 +86,9 @@ var WiseTextBox = Class(WiseElement, {
     show: function(value)
     {
         if(value)
-            $("wise-textbox-container-" + this.id + "").css("display", "");
+            $("#wise-textbox-container-" + this.id + "").css("display", "");
         else 
-            $("wise-textbox-container-" + this.id + "").css("display", "none");
+            $("#wise-textbox-container-" + this.id + "").css("display", "none");
     }
 
 })

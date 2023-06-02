@@ -31,12 +31,12 @@
                 "children" : 
                 [
                     { "element": "WiseDataTable", "id" : "tableListOfNote", "columns": [
-                        { "datafield" : "no", "text": "#", "width": "30", "search": false },
+                        { "datafield" : "no", "text": "#", "width": "40", "search": false },
                         { "datafield" : "title", "text": "Title", "width": "500", "type": "text", "placeholder": "Enter title to search" },
                         { "datafield" : "short_desc", "text": "Short description", "type": "textarea", "placeholder": "Enter short desc to search" },
                         { "datafield" : "tags", "text": "Tags", "width": "100", "type": "text", "placeholder": "Enter tag to search" },
-                        { "datafield" : "category.category_name", "text": "Category", "width": "100", "type": "lookup", "lookupurl": "/categories", "lookupvalue": "id", "lookuptext": "category_name" },
-                        { "datafield" : "project.project_name", "text": "Project", "width": "100", "type": "lookup", "lookupurl": "/projects", "lookupvalue": "id", "lookuptext": "project_name" } ,
+                        { "datafield" : "category.category_name", "text": "Category", "width": "100", "type": "lookup", "lookupurl": "/categories", "lookupvalue": "id", "lookuptext": "category_name", "lookupfield" : "category_id" },
+                        { "datafield" : "project.project_name", "text": "Project", "width": "100", "type": "lookup", "lookupurl": "/projects", "lookupvalue": "id", "lookuptext": "project_name", "lookupfield" : "project_id" } ,
                         { "datafield" : "createdAt", "text": "Created At", "width": "50", "type": "date" },
                         { "datafield" : "modifiedAt", "text": "Modified At", "width": "50", "type": "date" }                   
                     ]}
