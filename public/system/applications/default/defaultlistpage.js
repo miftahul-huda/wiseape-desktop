@@ -87,4 +87,9 @@ var DefaultListPage = Class(DefaultPage, {
     {
         win.get(id).print()
     }
+    ,
+    showAdvanceSearch: function(win, id, callback)
+    {
+        win.get(id).advanceSearch(callback);
+    }
 })

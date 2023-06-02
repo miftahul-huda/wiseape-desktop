@@ -149,6 +149,11 @@ var Desktop = Class({
         if(app == null)
             app = GLOBAL.activeApp;
 
+        console.log("window title")
+        console.log(title)
+        console.log("app")
+        console.log(app)
+
         if(options == null)
             options = {};
         let viewPort = {}
@@ -262,7 +267,6 @@ var Desktop = Class({
         html = "<div menu-item-id='" + item.id + "' class='desktop-menu-item-container'>" + html + "<div class='desktop-menu-text'>" + item.title + "</div></div>"
         return $(html)[0];
     }
-
     ,
     getBackMenuItem: function()
     {

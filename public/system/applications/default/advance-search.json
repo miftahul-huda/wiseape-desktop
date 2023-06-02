@@ -1,0 +1,25 @@
+{
+    "root" :
+    {
+        "children" : 
+        [
+            {
+                "element" : "WiseDiv", "id": "searchContent"
+            }
+            ,
+            {
+                "element": "WiseDiv", "class":"vertical-separator"
+            }
+            ,
+            {
+                "element" : "WiseDiv", "class" : "flex-div",
+                "children": 
+                [
+                    { "element": "WiseButton", "id" : "btnOkSearch", "onclick": "btnOkSearch_Click", "icon" : "fa fa-check", "text" : "Ok" },
+                    { "element": "WiseButton", "id" : "btnCancelSearch", "onclick": "btnCancelSearch_Click", "icon" : "fa fa-ban", "text" : "Cancel" }
+                ]
+            }
+
+        ]
+    }
+}

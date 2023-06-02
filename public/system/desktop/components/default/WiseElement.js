@@ -66,5 +66,50 @@ var WiseElement = Class({
         else 
             $("#" + this.id + "").parent(".element-container").css("display", "none");
     }
+    ,
+    createDomWithChildren: function(root)
+    {
+        let me = this;
+        if(root == null)
+            root = this;
+
+        let dom = root.createDom();
+        
+        if(root.children != null && root.children.length > 0)
+        {
+            root.children.map((child)=>{
+                let childDom = me.createDomWithChildren(child);
+                $(dom).append(childDom);
+            })
+        }
+
+        return dom;
+    }
+    ,
+    addElement: function( elm)
+    {
+        if(this.id != null)
+        {
+            let id = this.id.split("___");
+            id = id[id.length - 1]
+    
+
+            let content = {};
+            content.root = elm;
+            content = this.window.setIds(this.window, content);
+            elm = content.root;
+
+            this.window.addElement(id, elm);
+
+            if(elm.children != null)
+            {
+                elm.children.map((item)=>{
+                    let dom = item.createDomWithChildren();
+                    $("#" + this.id).append(dom);
+                })
+            }
+        }
+
+    }
 
 })

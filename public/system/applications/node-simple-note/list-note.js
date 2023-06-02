@@ -55,6 +55,13 @@ var ListNotePage =  Class(DefaultListPage, {
     {
         this.findNote(win);   
     }
+    ,
+    btnAdvanceFindNote_onClick: function(win, id)
+    {
+        this.showAdvanceSearch(win, "tableListOfNote", function(searchOption){
+            
+        });
+    }
     //------- End of  event handlers ------------
     ,
     refresh: function(win, callback) {

@@ -506,19 +506,21 @@ var WiseDataTable = Class(WiseElement, {
         });
     }
     ,
-    getAdvanceSearch: function(callback)
+    advanceSearch: function(callback)
     {
         var me =  this;
-        let searchWin  = me.desktop.createWindow("Search by keyword", 
+        let searchWin  = me.desktop.createWindow("Filter Data", 
             { 
                 width: 800, 
-                height: 260, 
+                height: 600, 
                 top:'10%' ,
                 contentInfo: {
-                    contentHandlerFile:"/system/applications/default/search.js",
-                    contentHandlerClass:"SearchPage",
-                    contentSource: "/system/applications/default/search.json"
+                    contentHandlerFile:"/system/applications/default/advance-search.js",
+                    contentHandlerClass:"AdvanceSearchPage",
+                    contentSource: "/system/applications/default/advance-search.json"
                 }
+                ,
+                parameter: me.columns
             });
         searchWin.show(function(returnValue){
             if(callback != null)

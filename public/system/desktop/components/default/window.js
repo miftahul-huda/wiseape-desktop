@@ -562,8 +562,11 @@ var Window = Class({
     get: function(elmName)
     {
         let elm = this.findElementById(elmName, this.elements.children)
+        
         if(elm == null)
-            throw "Element " + elmName + "does not exist"
+            throw "Element '" + elmName + "' does not exist"
+        
+        elm.window = this;
         return elm;
     }
     ,
@@ -584,6 +587,51 @@ var Window = Class({
             })
         }
         return elm
+    }
+    ,
+    setElementById:function(elmName, children, newElm)
+    {
+        let elm = null;
+        var me = this;
+        if(children != null && children.length > 0)
+        {
+            children.forEach(function(el){
+                let oName = me.id + "___" + elmName;
+                if(el.id == oName)
+                {
+                    elm = el
+                }
+                else if(elm == null)
+                    me.setElementById(elmName, el.children, newElm) 
+            })
+        }
+        if(elm != null)
+        {
+            if(elm.children == null)
+                elm.children = [];
+            
+            elm.children.push(newElm);
+        }
+    }
+    ,
+    setWindowForElement: function(win, elm)
+    {
+        elm.window = win;
+        if(elm.children != null)
+        {
+            for(let i=0; i < elm.children.length; i++)
+            {
+                elm.children[i].window = win;
+            }
+        }
+        return elm;
+    }
+    ,
+    addElement: function(elmName, elm)
+    {
+        elm = this.setWindowForElement(this, elm)
+        this.setElementById(elmName, this.elements.children, elm)
+        
     }
     ,
     fill: function(data)
@@ -736,6 +784,7 @@ var Window = Class({
                     //win.windowHandlerObject.appConfig = appConfig;
                     //win.windowHandlerObject.run(win, id, event)
                     //alert(event)
+                    win.windowHandlerObject.application = me.application;
                     if(event != null && event in win.windowHandlerObject)
                         eval("win.windowHandlerObject." + event + "(win, id, param)");
                 })
@@ -756,6 +805,16 @@ var Window = Class({
         let me = this;
         me.winbox.close();
         me.show(me.__CONTENT)
-        
+    }
+    ,
+    initContent: function()
+    {
+        this.uiProcessor.initContent(this);
+    }
+
+    ,
+    initBootstrap: function()
+    {
+        this.uiProcessor.initBootstrap(this);
     }
 })

@@ -17,7 +17,7 @@ var WiseText = Class(WiseElement, {
         this.placeholder = json.placeholder;
         if(this.placeholder == null)
             this.placeholder = "";
-        WiseTextBox.$superp.init.call(this, json, "WiseTextBox");
+        WiseText.$superp.init.call(this, json, "WiseText");
     }
     ,
     createDom: function()

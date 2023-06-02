@@ -52,6 +52,7 @@ var WiseComboBox = Class(WiseElement, {
             $(opt).html(item.label);
             $("#" + this.id).append(opt);
         })
+        this.window.initBootstrap();
     }
     ,
     selectedIndex: function(idx)

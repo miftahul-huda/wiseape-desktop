@@ -9,4 +9,27 @@ var WiseDiv = Class(WiseElement, {
         div = this.defaultInit(div)
         return div;
     }
+    ,
+    value: function(val)
+    {
+        if(val == null)
+            return $("#" + this.id).html();
+        else 
+        {
+            if(AppUtil.isDomElement(val))
+            {
+                $("#" + this.id).html(val);
+            }
+            else 
+            {
+                if(val.children != null)
+                {
+                    val.children.map((item)=>{
+                        let dom = item.createDomWithChildren();
+                        $("#" + this.id).append(dom);
+                    })
+                }
+            }
+        }
+    }
 })

@@ -554,3 +554,22 @@ textarea.form-control
     font-weight: bold;
 }
 
+label
+{
+    color: #666;
+    font-weight: 600 !important;
+    margin-bottom: 3px;
+}
+
+input, select, textarea{
+    margin-bottom: 0 !important;
+}
+
+.form-group{
+    margin-bottom: 6px !important;
+}
+
+[class*="icheck-"] > input:first-child + label::before, [class*="icheck-"] > input:first-child + input[type="hidden"] + label::before
+{
+    border-radius: 3px !important;
+}
