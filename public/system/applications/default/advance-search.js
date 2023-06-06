@@ -54,85 +54,90 @@ var AdvanceSearchPage = Class({
         root.children = [];
 
         columns.map((column)=>{
-            if(column.type == "text")
-            {
-                console.log(column.text)
-                elm = new WiseTextBox();
-                elm.init({
-                    label: column.text,
-                    placeholder: column.placeholder,
-                    data: column.datafield,
-                    id: "ctrl_" + column.datafield
-                })
-            }
-            else if(column.type == "textarea")
-            {
-                elm = new WiseTextArea();
-                elm.init({
-                    label: column.text,
-                    placeholder: column.placeholder,
-                    data: column.datafield,
-                    id: "ctrl_" + column.datafield
-                })
-            }
-            else if(column.type == "date")
-            {
-                elm = new WiseDate();
-                elm.init({
-                    label: column.text,
-                    placeholder: column.placeholder,
-                    data: column.datafield,
-                    id: "ctrl_" + column.datafield,
-                    type: "daterange"
-                })
-            }
-
-            else if(column.type == "lookup")
-            {
-                elm = new WiseComboBox();
-                elm.init({
-                    label: column.text,
-                    placeholder: column.placeholder,
-                    data: column.lookupfield,
-                    id: "ctrl_" + column.datafield.replace(".", "_")
-                })
-            }
-
-            if(elm != null)
+            if(column.search != false)
             {
 
-                let newElm = new WiseCheckBox();
-                newElm.init({
-                    value: column.datafield,
-                    id: column.datafield.replace(".", "_"),
-                    checked: false
-                })
+                if(column.type == "text")
+                {
+                    console.log(column.text)
+                    elm = new WiseTextBox();
+                    elm.init({
+                        label: column.text,
+                        placeholder: column.placeholder,
+                        data: column.datafield,
+                        id: "ctrl_" + column.datafield
+                    })
+                }
+                else if(column.type == "textarea")
+                {
+                    elm = new WiseTextArea();
+                    elm.init({
+                        label: column.text,
+                        placeholder: column.placeholder,
+                        data: column.datafield,
+                        id: "ctrl_" + column.datafield
+                    })
+                }
+                else if(column.type == "date")
+                {
+                    elm = new WiseDate();
+                    elm.init({
+                        label: column.text,
+                        placeholder: column.placeholder,
+                        data: column.datafield,
+                        id: "ctrl_" + column.datafield,
+                        type: "daterange"
+                    })
+                }
+    
+                else if(column.type == "lookup")
+                {
+                    elm = new WiseComboBox();
+                    elm.init({
+                        label: column.text,
+                        placeholder: column.placeholder,
+                        data: column.lookupfield,
+                        id: "ctrl_" + column.datafield.replace(".", "_")
+                    })
+                }
+    
+                if(elm != null)
+                {
+    
+                    let newElm = new WiseCheckBox();
+                    newElm.init({
+                        value: column.datafield,
+                        id: column.datafield.replace(".", "_"),
+                        checked: false
+                    })
+    
+                    let div = new WiseDiv();
+                    div.init({
+                        style: "display: flex"
+                    })
+                    div.children = [];
+    
+                    let leftDiv = new WiseDiv();
+                    leftDiv.init({
+                        style: "width: 5%; padding-top: 3%;"
+                    })
+                    leftDiv.children = [];
+    
+                    let rightDiv = new WiseDiv();
+                    rightDiv.init({
+                        style: "width: 95%"
+                    })
+                    rightDiv.children = [];
+    
+                    leftDiv.children.push(newElm);
+                    rightDiv.children.push(elm);
+                    div.children.push(leftDiv);
+                    div.children.push(rightDiv);
+                    root.children.push(div);
+                }
+                elm = null;
 
-                let div = new WiseDiv();
-                div.init({
-                    style: "display: flex"
-                })
-                div.children = [];
-
-                let leftDiv = new WiseDiv();
-                leftDiv.init({
-                    style: "width: 5%; padding-top: 3%;"
-                })
-                leftDiv.children = [];
-
-                let rightDiv = new WiseDiv();
-                rightDiv.init({
-                    style: "width: 95%"
-                })
-                rightDiv.children = [];
-
-                leftDiv.children.push(newElm);
-                rightDiv.children.push(elm);
-                div.children.push(leftDiv);
-                div.children.push(rightDiv);
-                root.children.push(div);
             }
-            elm = null;
         })
 
 

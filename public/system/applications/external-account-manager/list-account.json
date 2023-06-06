@@ -11,7 +11,6 @@
                     { "element": "WiseMenuVerticalSeparator" },
                     { "element": "WiseMenuButton", "id" : "btnDetailAccount","onclick": "btnDetailAccount_onClick", "icon" : "/external-account-manager/images/information.png", "text" : "See the detail information of the selected item" },
                     { "element": "WiseMenuButton", "id" : "btnAddAccount", "onclick": "btnAddAccount_onClick", "icon" : "/external-account-manager/images/add-icon.png", "text" : "Add" },
-                    { "element": "WiseMenuButton", "id" : "btnEditAccount", "onclick": "btnEditAccount_onClick", "icon" : "/external-account-manager/images/edit-icon.png", "text" : "Edit" },
                     { "element": "WiseMenuButton", "id" : "btnDeleteAccount", "onclick": "btnDeleteAccount_onClick", "icon" : "/external-account-manager/images/delete.png", "text" : "Remove" },
                     { "element": "WiseMenuVerticalSeparator" },
                     { "element": "WiseMenuButton", "id" : "btnFindAccount", "onclick": "btnFindAccount_onClick", "icon" : "/external-account-manager/images/search-icon.png", "text" : "Find" },
@@ -30,9 +29,9 @@
                         { "datafield" : "lastName", "text": "Last Name", "width": "100", "type": "text", "placeholder": "Enter last name to search" },
                         { "datafield" : "email", "text": "Email", "width": "300", "type": "text", "placeholder": "Enter email    to search" },
                         { "datafield" : "provider.name", "text": "Provider Name", "width": "100", "type": "lookup", "lookupurl": "/identity-providers", "lookupvalue": "providerID", "lookuptext": "name", "lookupfield" : "providerID" },
-                        { "datafield" : "provider.logo", "text": "Provider Logo", "width": "100", "search": false } ,
-                        { "datafield" : "createdAt", "text": "Created At", "width": "150", "type": "date" },
-                        { "datafield" : "modifiedAt", "text": "Modified At", "width": "150", "type": "date" }                   
+                        { "datafield" : "provider.logo", "text": "Provider Logo", "width": "100", "type": "image", "style": "width:10", "search": false } ,
+                        { "datafield" : "createdAt", "text": "Created At", "width": "150", "type": "date", "search": false },
+                        { "datafield" : "modifiedAt", "text": "Modified At", "width": "150", "type": "date", "search": false     }                   
                     ]}
                 ]
             }

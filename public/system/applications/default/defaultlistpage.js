@@ -61,6 +61,8 @@ var DefaultListPage = Class(DefaultPage, {
                 win.hideProgress();
                 let rows = response.payload.rows;
                 rows = me.initRows(rows, offset, limit, sortColumn, sortDirection)
+                rows = me.initializeRows(rows)
+
                 win.get(tableID).loadData(rows, response.payload.count);
                 if(callback != null)
                     callback(rows)
@@ -73,6 +75,8 @@ var DefaultListPage = Class(DefaultPage, {
                 win.hideProgress();
                 let rows = response.payload.rows;
                 rows = me.initRows(rows, offset, limit, sortColumn, sortDirection)
+                rows = me.initializeRows(rows)
+
                 win.get(tableID).loadData(rows, response.payload.count);
                 if(callback != null)
                     callback(rows)
@@ -88,6 +92,11 @@ var DefaultListPage = Class(DefaultPage, {
             no++;
         })
 
+        return rows;
+    }
+    ,
+    initializeRows: function(rows)
+    {
         return rows;
     }
     ,

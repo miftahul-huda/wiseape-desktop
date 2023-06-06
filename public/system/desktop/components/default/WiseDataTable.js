@@ -327,11 +327,15 @@ var WiseDataTable = Class(WiseElement, {
     ,
     setColumnsRenderer: function(columns)
     {
+        let me = this;
         for(var i = 0; i < columns.length; i++)
         {
             if(columns[i].type == "image")
             {
-                columns[i].cellsrenderer =  this.imageRenderer
+                columns[i].cellsrenderer =  function(row, datafield, value)
+                {
+                    return me.imageRenderer(row, datafield, value)
+                }
             }
 
             else if(columns[i].type == "numeric")
@@ -463,9 +467,9 @@ var WiseDataTable = Class(WiseElement, {
         })
     }
     ,
-    imageRenderer: function (row, datafield, value) 
+    imageRenderer: function (row, datafield, value, col) 
     {
-        return '<img style="margin-left: 5px;" height="60" width="50" src="' + value + '"/>';
+        return "<div style='margin-left: 5px; height: 100%; width: auto; background: url(" + value + ") no-repeat; background-size: auto 80%; background-position: center; '></div>"; 
     }
     ,
     numberRenderer: function (row, datafield, value) 

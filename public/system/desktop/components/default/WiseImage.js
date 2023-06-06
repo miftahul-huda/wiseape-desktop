@@ -12,6 +12,7 @@ var WiseImage = Class(WiseElement, {
         this.disabled = json.disabled;
         this.readOnly = json.readOnly;
         this.noLabel = json.noLabel;
+        this.options = json.options;
         if(this.type == null)
             this.type = "text";
         this.placeholder = json.placeholder;

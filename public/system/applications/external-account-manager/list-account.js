@@ -84,6 +84,16 @@ var ListAccountPage =  Class(DefaultListPage, {
         }, { method: 'GET' })
     }
     ,
+    initializeRows: function(rows)
+    {
+        for(let i=0; i < rows.length; i++)
+        {
+            rows[i].provider.logo = "" + this.application.appRootPath + "/" + rows[i].provider.logo;
+        }
+        console.log(rows)
+        return rows;
+    }
+    ,
     showDetail: function(win)
     {
         var me = this;
