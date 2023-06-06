@@ -119,7 +119,7 @@ var AddAccountPage =  Class(DefaultListPage, {
                 win.close();
             });
         } );
-
+        
         
     }
     ,

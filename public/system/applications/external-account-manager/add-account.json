@@ -28,7 +28,7 @@
                 "element": "WiseDiv", 
                 "children" : 
                 [
-                    { "element": "WiseImage", "id": "profilePicture", "data" : "profilePicture", "label" : "", "placeholder" : "" },
+                    { "element": "WiseImage", "id": "profilePicture", "data" : "profilePicture", "label" : "", "placeholder" : "", "width" : "100px", "height" : "auto" },
                     { "element": "WiseText", "id": "firstName", "data" : "firstName", "label" : "First Name", "placeholder" : "" },
                     { "element": "WiseText", "id": "lastName", "data" : "lastName", "label" : "Last Name", "placeholder" : "" },
                     { "element": "WiseText", "id": "email", "data" : "email", "label" : "Email", "placeholder" : "" }

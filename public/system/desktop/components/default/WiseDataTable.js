@@ -522,8 +522,8 @@ var WiseDataTable = Class(WiseElement, {
         var me =  this;
         let searchWin  = me.desktop.createWindow("Search by keyword", 
             { 
-                width: 800, 
-                height: 260, 
+                width: 480, 
+                height: 240, 
                 top:'10%' ,
                 contentInfo: {
                     contentHandlerFile:"/system/applications/default/search.js",

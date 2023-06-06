@@ -4,7 +4,13 @@
         "children" : 
         [
             {
-                "element" : "WiseText", "id": "content", "text": "", "noLabel" : true
+                "element" : "WiseDiv", "class" : "flex-div",
+                "children": 
+                [
+                    { "element": "WiseImage", "id" : "imageContent", "source": "/system/applications/default/images/warning.png", "width" : "60px", "height" : "auto", "style" : "margin-left: 5%" },
+                    { "element" : "WiseText", "id": "content", "text": "", "noLabel" : true, "style": "margin-left: -20%;margin-top:5%"  }
+                ]
+                
             }
             ,
             {

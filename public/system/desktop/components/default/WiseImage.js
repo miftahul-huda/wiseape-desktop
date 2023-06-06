@@ -13,8 +13,16 @@ var WiseImage = Class(WiseElement, {
         this.readOnly = json.readOnly;
         this.noLabel = json.noLabel;
         this.options = json.options;
+        this.source = json.source;
+        this.width = json.width;
+        this.height = json.height;
         if(this.type == null)
             this.type = "text";
+        
+        if(this.height == null)
+            this.height = "100%";
+        if(this.width == null)
+            this.width = "auto";
         this.placeholder = json.placeholder;
         if(this.placeholder == null)
             this.placeholder = "";
@@ -25,7 +33,7 @@ var WiseImage = Class(WiseElement, {
     {
         let me = this;
     
-        let html = "<div class='form-group  element-container'>" +
+        let html = "<div class='element-container'>" +
                     "<image class='wise-image' $src  style='" + this.style + "'  width='" + this.width + "'  height='" + this.height + "' id='" + this.id + "'></div>" +
                     "</div>";
                     
