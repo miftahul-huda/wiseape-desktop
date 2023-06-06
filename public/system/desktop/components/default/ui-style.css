@@ -8,8 +8,9 @@
 
 .wise-menu-button
 {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
+
     background-repeat: no-repeat;
     background-position: center;
     background-size: 85% auto;
@@ -25,8 +26,6 @@
 .wise-menu-button:hover
 {
     background-size: 100% auto;
-    width: 50px;
-    height: 50px;
     opacity: 1;
 
 }

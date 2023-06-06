@@ -573,3 +573,7 @@ input, select, textarea{
 {
     border-radius: 3px !important;
 }
+
+.daterangepicker.show-calendar .drp-buttons {
+    display: flex !important;
+}

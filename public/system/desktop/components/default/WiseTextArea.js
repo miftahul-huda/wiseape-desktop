@@ -26,7 +26,7 @@ var WiseTextArea = Class(WiseElement, {
     createDom: function()
     {
         let me = this;
-        let html = "<div class='form-group'>" +
+        let html = "<div class='form-group element-container'>" +
                     "<label for='" + this.id + "'>" + this.label + "</label>" +
                     "<textarea class='form-control' rows='" + this.rows + "' cols='" + this.cols + "' id='" + this.id + "' placeholder='" + this.placeholder + "'></textarea>" +
                     "</div>"
@@ -47,6 +47,8 @@ var WiseTextArea = Class(WiseElement, {
             if(me.elementEventHandler != null)
                 me.elementEventHandler(me.id, "onKeyUp")
         })
+
+        me.dom = dom;
         return dom;
     }
     ,

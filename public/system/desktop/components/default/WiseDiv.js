@@ -7,6 +7,8 @@ var WiseDiv = Class(WiseElement, {
     {
         let div = document.createElement("div")
         div = this.defaultInit(div)
+        this.dom = div;
+
         return div;
     }
     ,

@@ -22,6 +22,7 @@ var WiseMenuVerticalSeparator = Class(WiseElement, {
         $(parentDiv).append(div)
         $(parentDiv).append(rightDiv)
 
+        this.dom = parentDiv;
         return parentDiv;
     }
 

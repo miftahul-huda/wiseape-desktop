@@ -25,13 +25,13 @@ var WiseHtmlEditor = Class(WiseElement, {
     createDom: function()
     {
         let me = this;
-        let html = "<div class='form-group'>" +
+        let html = "<div class='form-group element-container'>" +
                     "<label for='" + this.id + "'>" + this.label + "</label>" +
                     "<textarea class='wise-editor' style='display:none;height:" + this.height + ";' id='" + this.id + "' placeholder='" + this.placeholder + "'></textarea>" +
                     "</div>"
         let dom = $(html)[0]
 
-      
+        this.dom = dom;
         return dom;
     }
     ,

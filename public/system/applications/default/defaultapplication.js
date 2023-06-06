@@ -78,7 +78,7 @@ var DefaultApplication = Class(Application, {
         let win = me.desktop.createWindow(title, 
             { 
                 icon: null, 
-                width: '50%', 
+                width: '30%', 
                 height: '210px', 
                 parameter: { type: type, content: content },
                 contentInfo: {

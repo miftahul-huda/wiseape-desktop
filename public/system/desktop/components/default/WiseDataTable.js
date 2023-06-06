@@ -16,6 +16,7 @@ var WiseDataTable = Class(WiseElement, {
         this.cmbPerPage = null
         this.cmbPage = null
         this.sorts = []
+        this.rowsheight = json.rowsheight;
         WiseDataTable.$superp.init.call(this, json, "WiseDataTable");
     }
     ,
@@ -24,6 +25,8 @@ var WiseDataTable = Class(WiseElement, {
         let div = document.createElement("div")
         $(div).attr("element", "WiseDataTable")
         $(div).addClass("wise-datatable")
+        $(div).addClass("element-container")
+
         $(div).attr("columns", JSON.stringify(this.columns))
         $(div).css("width", "100%")
         $(div).css("height", "100%")
@@ -191,6 +194,23 @@ var WiseDataTable = Class(WiseElement, {
             data[i].selected = false;
         }
 
+        for(let colidx = 0; colidx < columns.length; colidx++)
+        {
+            let col = columns[colidx];
+            if(col.type != null && col.type.indexOf("date") > -1)
+            {
+                for(let rowidx = 0; rowidx < data.length; rowidx++)
+                {
+                    let format = "DD MMM YYYY";
+                    if(col.type.indexOf("time") > -1)
+                        format = "DD MMM YYYY hh:mm:ss";
+
+                    data[rowidx][col.datafield] = moment(data[rowidx][col.datafield]).format(format);
+                }
+            }
+
+        }
+
 
         var source =
         {   
@@ -201,8 +221,9 @@ var WiseDataTable = Class(WiseElement, {
 
             }
         };
+
         var dataAdapter = new $.jqx.dataAdapter(source);
-        $("#" + id).jqxGrid(
+        let ooppt =
         {
             width: '100%',
             height: '90%',
@@ -217,8 +238,14 @@ var WiseDataTable = Class(WiseElement, {
             filterable: true,
             altrows: true,
             columns: columns,
-            editable: false
-        });       
+            editable: false        
+        }
+
+        //alert(me.rowsheight)
+        if(me.rowsheight != null)
+            ooppt.rowsheight = parseFloat(me.rowsheight);
+
+        $("#" + id).jqxGrid(ooppt);       
 
 
         let ii = 0;
@@ -526,6 +553,11 @@ var WiseDataTable = Class(WiseElement, {
             if(callback != null)
                 callback(returnValue);
         });
+    }
+    ,
+    rowHeight: function(height)
+    {
+        $("#" + this.id + " div[role='row']").css("height", height);
     }
 
 })

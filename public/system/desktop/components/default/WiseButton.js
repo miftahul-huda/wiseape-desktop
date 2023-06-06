@@ -30,6 +30,8 @@ var WiseButton = Class(WiseElement, {
                 me.elementEventHandler(me.id, me.onclick)
         })
 
+        btn = me.defaultInit(btn);
+
         //$(div).append(btn)
         return btn;
     }

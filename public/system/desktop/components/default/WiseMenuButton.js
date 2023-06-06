@@ -11,6 +11,7 @@ var WiseMenuButton = Class(WiseElement, {
         let me = this;
         let div = document.createElement("div")
         $(div).addClass("wise-menu-button")
+        $(div).addClass(" element-container")
         div = this.defaultInit( div)
         $(div).css("background-image", "url(/system/applications/" + this.icon + ")")
         //$(div).attr("title", json.text)
@@ -43,6 +44,8 @@ var WiseMenuButton = Class(WiseElement, {
                 me.elementEventHandler(me.id, me.onclick)
         })
 
+
+        this.dom = div;
         return div;
     }
 

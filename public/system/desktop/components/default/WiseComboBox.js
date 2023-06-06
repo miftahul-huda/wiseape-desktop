@@ -1,6 +1,7 @@
 var WiseComboBox = Class(WiseElement, {
     init: function(json) {
         this.onclick = json.onclick;
+        this.onchange = json.onchange;
         this.icon = json.icon;
         this.text = json.text;
         this.label = json.label;
@@ -24,21 +25,11 @@ var WiseComboBox = Class(WiseElement, {
                     
         let dom = $(html)[0]
 
-        $(dom).on("keypress", function(){
+        $(dom).find("select").on("change", function(){
+            console.log(me.elementEventHandler)
             if(me.elementEventHandler != null)
-                me.elementEventHandler(me.id, "onKeyPress")
+                me.elementEventHandler(me.id, me.onchange, $(this).val())
         })
-
-        $(dom).on("keydown", function(){
-            if(me.elementEventHandler != null)
-                me.elementEventHandler(me.id, "onKeyDown")
-        })
-
-        $(dom).on("keyup", function(){
-            //me._value = $(this).val();
-            if(me.elementEventHandler != null)
-                me.elementEventHandler(me.id, "onKeyUp")
-        });
 
         me.dom = dom;
         return dom;

@@ -1,0 +1,41 @@
+{
+    "root" :
+    {
+        "children" : 
+        [
+            {
+                "element" : "WiseDiv", "class" : "wise-list-header",
+                "children" : 
+                [
+                    { "element": "WiseMenuButton", "id" : "btnRefreshAccount", "onclick": "btnRefreshAccount_onClick", "icon" : "/external-account-manager/images/refresh-icon.png", "text" : "Refresh the list" },
+                    { "element": "WiseMenuVerticalSeparator" },
+                    { "element": "WiseMenuButton", "id" : "btnDetailAccount","onclick": "btnDetailAccount_onClick", "icon" : "/external-account-manager/images/information.png", "text" : "See the detail information of the selected item" },
+                    { "element": "WiseMenuButton", "id" : "btnAddAccount", "onclick": "btnAddAccount_onClick", "icon" : "/external-account-manager/images/add-icon.png", "text" : "Add" },
+                    { "element": "WiseMenuButton", "id" : "btnEditAccount", "onclick": "btnEditAccount_onClick", "icon" : "/external-account-manager/images/edit-icon.png", "text" : "Edit" },
+                    { "element": "WiseMenuButton", "id" : "btnDeleteAccount", "onclick": "btnDeleteAccount_onClick", "icon" : "/external-account-manager/images/delete.png", "text" : "Remove" },
+                    { "element": "WiseMenuVerticalSeparator" },
+                    { "element": "WiseMenuButton", "id" : "btnFindAccount", "onclick": "btnFindAccount_onClick", "icon" : "/external-account-manager/images/search-icon.png", "text" : "Find" },
+                    { "element": "WiseMenuButton", "id" : "btnAdvanceFindAccount", "onclick": "btnAdvanceFindAccount_onClick", "icon" : "/external-account-manager/images/search-advance-icon.png", "text" : "Advance Find" }
+                ]
+            }
+            ,
+            {
+                "element" : "WiseGroup", "title" : "List of Accounts", "description" : "This is the list of Account items",
+                "children" : 
+                [
+                    { "element": "WiseDataTable", "id" : "tableListOfAccount", "rowsheight": "70", "columns": [
+                        { "datafield" : "no", "text": "#", "width": "40", "search": false },
+                        { "datafield" : "profilePicture", "text": "Picture", "width": "80", "type": "image", "search": false },
+                        { "datafield" : "firstName", "text": "First Name", "width": "100", "type": "text", "placeholder": "Enter first name to search" },
+                        { "datafield" : "lastName", "text": "Last Name", "width": "100", "type": "text", "placeholder": "Enter last name to search" },
+                        { "datafield" : "email", "text": "Email", "width": "300", "type": "text", "placeholder": "Enter email    to search" },
+                        { "datafield" : "provider.name", "text": "Provider Name", "width": "100", "type": "lookup", "lookupurl": "/identity-providers", "lookupvalue": "providerID", "lookuptext": "name", "lookupfield" : "providerID" },
+                        { "datafield" : "provider.logo", "text": "Provider Logo", "width": "100", "search": false } ,
+                        { "datafield" : "createdAt", "text": "Created At", "width": "150", "type": "date" },
+                        { "datafield" : "modifiedAt", "text": "Modified At", "width": "150", "type": "date" }                   
+                    ]}
+                ]
+            }
+        ]
+    }
+}

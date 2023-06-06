@@ -77,7 +77,7 @@ var ListNotePage =  Class(DefaultListPage, {
     ,
     refresh: function(win, callback) {
         let url = this.application.appConfig.BASE_API_URL + "/notes";
-        this.loadAndDisplayData(win, "tableListOfNote", url, callback)
+        this.loadAndDisplayData(win, "tableListOfNote", url, callback, { method: 'GET' })
     }
     ,
     showDetail: function(win)
@@ -132,7 +132,7 @@ var ListNotePage =  Class(DefaultListPage, {
                 let url = me.application.appConfig.BASE_API_URL + "/notes/find/" + value;
                 me.loadAndDisplayData(win, "tableListOfNote", url, function(data){
     
-                });
+                }, { method: 'GET' });
             }
         });
     }

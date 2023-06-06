@@ -23,21 +23,21 @@ var WiseText = Class(WiseElement, {
     createDom: function()
     {
         let me = this;
-        let html = "<div class='form-group'>" +
+        let html = "<div class='form-group element-container'>" +
                     "<label for='" + this.id + "'>" + this.label + "</label>" +
                     "<div type='" + this.type + "' class='wise-text' id='" + this.id + "'></div>" +
                     "</div>";
 
         if(this.noLabel)
         {
-            html = "<div class='form-group'>" +
+            html = "<div class='form-group element-container'>" +
                     "<div type='" + this.type + "' class='wise-text' id='" + this.id + "'></div>" +
                     "</div>";
         }
                     
 
-
         let dom = $(html)[0]
+        me.dom = dom;
         return dom;
     }
     ,

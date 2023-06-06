@@ -24,7 +24,7 @@ var WiseCheckBox = Class(WiseElement, {
     createDom: function()
     {
         let me = this;
-        let html = "<div style='" + this.style + "' class='form-group clearfix wise-checkbox'><div class='icheck-primary'>" +
+        let html = "<div style='" + this.style + "' class='form-group clearfix wise-checkbox element-container'><div class='icheck-primary'>" +
                     "<input $checked type='checkbox' value='" + this.__value + "' id='" + this.id + "' name='" + this.id + "'><label for='" + this.id + "'>" + this.text + "</label>" +
                     "</div></div>";
 
@@ -34,6 +34,7 @@ var WiseCheckBox = Class(WiseElement, {
             html = html.replace("$checked", "")
 
         let dom = $(html)[0]
+        this.dom = dom;
         return dom;
     }
     ,

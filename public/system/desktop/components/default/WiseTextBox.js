@@ -60,7 +60,7 @@ var WiseTextBox = Class(WiseElement, {
                 me.elementEventHandler(me.id, me.onkeyup, event)
         })
         
-        
+        me.dom = dom;
         return dom;
     }
     ,

@@ -466,7 +466,7 @@ var Window = Class({
     createDom: function(me, root){
 
         let parentDom = document.createElement("div");
-        $(parentDom).css("padding", "30px")
+        $(parentDom).css("padding", "20px")
         $(parentDom).css("height", "100%")
         $(parentDom).css("overflow", "auto")
 
@@ -631,7 +631,7 @@ var Window = Class({
     {
         elm = this.setWindowForElement(this, elm)
         this.setElementById(elmName, this.elements.children, elm)
-        
+
     }
     ,
     fill: function(data)
@@ -647,9 +647,10 @@ var Window = Class({
         {
             children.forEach(function(el){
                 let fieldname = el.data;
-                if(fieldname != null)
+                if(fieldname != null && fieldname != "")
                 {
                     let value = null;
+                    console.log("fieldname")
                     console.log(fieldname)  
                     eval("value = data." + fieldname + ";")                        
 
@@ -694,7 +695,7 @@ var Window = Class({
         $(".loader").hide();
     }
     ,
-    notify: function(title, content, theme="success", opt)
+    notify: function(title, content, theme="success", opt, callback)
     {
         let me = this;
         $("#" + this.id + " .notification-text").html(content)
@@ -756,12 +757,23 @@ var Window = Class({
                 
                 $("#" + me.id + " .notification-box").off("click");
                 $("#" + me.id + " .notification-box").on("click", function(){
-                    $("#" + me.id + " .notification-box").hide("fast");
+                    $("#" + me.id + " .notification-box").hide("fast", callback);
                 })
             }
             else 
             {
-                $("#" + me.id + " .notification-box").hide("fast");
+                $("#" + me.id + " .notification-box").off("click");
+                $("#" + me.id + " .notification-box").on("click", function(){
+                    $("#" + me.id + " .notification-box").hide("fast", function(){
+                        if(callback != null)
+                            callback();
+                    });
+                })
+
+                $("#" + me.id + " .notification-box").hide("fast", function(){
+                    if(callback != null)
+                        callback();
+                });
             }
                 
         }, 2000)
@@ -773,7 +785,6 @@ var Window = Class({
         
         me.contentEventHandler = function(win, id, event, param)
         {
-
             if(param != null)
                 param.event = event;    
             if(win.windowHandlerObject == null)

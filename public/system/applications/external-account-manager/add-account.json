@@ -1,0 +1,49 @@
+{
+    "root" :
+    {
+        "children" : 
+        [
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseComboBox", "id": "identityProvider", "data" : "identityProvider", "label" : "Identity Provider", "onchange": "identityProvider_OnChange" }
+                ]
+            }
+            ,
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseWebClient", "id": "webClient", "label" : "Authorization", "placeholder" : "", "width" : "0px", "height": "0px" }
+                   
+                ]
+            }
+            ,
+            {
+                "element": "WiseDiv", "class":"vertical-separator"
+            }
+            ,
+            {
+                "element": "WiseDiv", 
+                "children" : 
+                [
+                    { "element": "WiseImage", "id": "profilePicture", "data" : "profilePicture", "label" : "", "placeholder" : "" },
+                    { "element": "WiseText", "id": "firstName", "data" : "firstName", "label" : "First Name", "placeholder" : "" },
+                    { "element": "WiseText", "id": "lastName", "data" : "lastName", "label" : "Last Name", "placeholder" : "" },
+                    { "element": "WiseText", "id": "email", "data" : "email", "label" : "Email", "placeholder" : "" }
+
+                ]
+            }
+            ,
+            {
+                "element" : "WiseButton", "id" : "btnOkUser", "onclick": "btnOkUser_Click", "icon" : "fa fa-check", "text" : "Ok"
+            }
+            ,
+            {
+                "element" : "WiseButton", "id" : "btnCancelUser", "onclick": "btnCancelUser_Click", "icon" : "fa fa-close", "text" : "Cancel"
+            }
+            
+        ]
+    }
+}

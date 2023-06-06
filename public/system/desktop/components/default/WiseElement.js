@@ -61,10 +61,18 @@ var WiseElement = Class({
     ,
     show: function(value)
     {
+        if(value == null)
+            value = true;
+
         if(value)
             $("#" + this.id + "").parent(".element-container").css("display", "");
         else 
             $("#" + this.id + "").parent(".element-container").css("display", "none");
+    }
+    ,
+    hide: function()
+    {
+       this.show(false)
     }
     ,
     createDomWithChildren: function(root)
@@ -111,6 +119,11 @@ var WiseElement = Class({
             this.window.initContent();
         }
 
+    }
+    ,
+    css: function(attr, value)
+    {
+        $(this.dom).css(attr, value);
     }
 
 })

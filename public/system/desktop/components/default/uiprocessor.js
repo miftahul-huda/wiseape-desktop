@@ -68,6 +68,8 @@ var UIProcessor = Class({
                 "/system/desktop/components/default/WiseText.js",
                 "/system/desktop/components/default/WiseCheckBox.js",
                 "/system/desktop/components/default/WiseDate.js",
+                "/system/desktop/components/default/WiseWebClient.js",
+                "/system/desktop/components/default/WiseImage.js",
                 "/system/desktop/components/default/responsive-editor/editor.js"
             ]
 
@@ -276,18 +278,22 @@ var UIProcessor = Class({
         
         //Date picker
         $("#" + win.id).find(".wise-date").datetimepicker({
-            format: 'L'
+            format: 'L', locale: {
+                format: 'DD MMM YYYY'
+            }
         });
 
         //Date and time picker
-        $("#" + win.id).find(".wise-datetime").datetimepicker({ icons: { time: 'far fa-clock' } });
+        $("#" + win.id).find(".wise-datetime").datetimepicker({ icons: { time: 'far fa-clock' }, locale: {
+            format: 'DD MMM YYYY hh:mm:ss'
+        } });
 
         //Date range picker
         console.log(".wise-daterange")
         console.log($("#" + win.id).find(".wise-daterange"));
         $("#" + win.id).find(".wise-daterange").daterangepicker({
             locale: {
-                format: 'YYYY-MM-DD'
+                format: 'DD MMM YYYY'
             }
         });
 
@@ -296,7 +302,7 @@ var UIProcessor = Class({
             timePicker: true,
             timePickerIncrement: 30,
             locale: {
-                format: 'YYYY-MM-DD hh:mm:ss'
+                format: 'DD MMM YYYY hh:mm:ss'
             }
         })
     }

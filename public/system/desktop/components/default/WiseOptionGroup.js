@@ -9,7 +9,7 @@ var WiseOptionGroup = Class(WiseElement, {
     {
         let me = this;
         let div = document.createElement("div")
-        $(div).addClass("form-group clearfix")
+        $(div).addClass("form-group clearfix  element-container")
 
         let counter = 0;
         this.options.map((o)=>{
@@ -44,7 +44,7 @@ var WiseOptionGroup = Class(WiseElement, {
         })
 
         
-
+        this.dom= div;
         return div;
     }
     ,

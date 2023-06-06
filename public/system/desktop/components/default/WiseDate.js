@@ -28,7 +28,7 @@ var WiseDate = Class(WiseElement, {
         if(me.type == "datetime")
             dtClass = "wise-datetime";
 
-        let html = "<div class=\"form-group\" id='wise-calendar-container-"+me.id+"'>" +
+        let html = "<div class=\"form-group element-container\" id='wise-calendar-container-"+me.id+"'>" +
         "<label>" + me.label + "</label>" +
         "<div class=\"input-group date\" id=\"" + me.id + "\" data-target-input=\"nearest\">" +
         "<input type=\"text\" class=\"form-control datetimepicker-input " + dtClass + "\" data-target=\"#" + me.id + "\" />" +
@@ -42,7 +42,7 @@ var WiseDate = Class(WiseElement, {
         {
 
             html = `
-                <div class="form-group">
+                <div class="form-group element-container">
                     <label>${label}</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -58,7 +58,7 @@ var WiseDate = Class(WiseElement, {
         else if(me.type == "datetimerange")
         [
             html = `
-                <div class="form-group">
+                <div class="form-group element-container">
                     <label>${label}</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -94,7 +94,7 @@ var WiseDate = Class(WiseElement, {
                 me.elementEventHandler(me.id, me.onkeyup, event)
         })
         
-        
+        this.dom = dom;
         return dom;
     }
     ,
@@ -102,12 +102,34 @@ var WiseDate = Class(WiseElement, {
     {
         if(val == null)
         {
-            return $("#" + this.id).val()
+            let dt = $("#" + this.id).val();
+            if(dt.indexOf(" - ") > -1)
+            {
+                let dts = dt.split(" - ");
+                let dt1 = dts[0];
+                let dt2 = dts[1];
 
+                if(this.type.indexOf('time') > -1)
+                {
+                    dt1 = moment(dt1).format("YYYY-MM-DD hh:mm:ss");
+                    dt2 = moment(dt2).format("YYYY-MM-DD hh:mm:ss");
+                }
+                else
+                {
+                    dt1 = moment(dt1).format("YYYY-MM-DD");
+                    dt2 = moment(dt2).format("YYYY-MM-DD");
+                }
+
+                dt = dt1 + " - " + dt2;
+            }
+            else
+                dt = moment(dt).format("YYYY-MM-DD");
+
+            return dt;
         }
         else
         {
-            $("#" + this.id).val(val)
+            $("#" + this.id).val(val);
         }
     }
     ,

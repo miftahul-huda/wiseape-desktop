@@ -3,7 +3,13 @@ var DefaultListPage = Class(DefaultPage, {
     {
         var me = this;
         if(options == null)
-            options = { method: "GET" }
+            if(this.__options != null)
+                options = this.__options;
+            else
+                options = { method: 'GET' }
+
+
+        this.__options = options;
         win.showProgress();
         let dataFilterOpt = win.get(tableID).getDataFilterOption();
         let offset = dataFilterOpt.displayPerPage * (dataFilterOpt.page - 1);
@@ -19,7 +25,13 @@ var DefaultListPage = Class(DefaultPage, {
             if(callback != null)
                 callback(data)
         }, options );
-        win.get(tableID).elementEventHandler = function(id, event, opt) { me.dataTableEventHandler(me, win, tableID, url, id, event, opt) } 
+
+
+        win.get(tableID).elementEventHandler = function(id, event, opt) { 
+            console.log("sdfsdfadf")
+            console.log(options)
+            me.dataTableEventHandler(me, win, tableID, url, id, event, opt, options) 
+        } 
 
     }
     ,
@@ -38,10 +50,14 @@ var DefaultListPage = Class(DefaultPage, {
             user: me.application.session.user
         }
 
-
+        console.log("whet")
+        console.log(options.method)
         if(options.method == "GET")
         {
+            console.log("url")
+            console.log(url)
             AppUtil.get(url, function(response){
+                console.log(response)
                 win.hideProgress();
                 let rows = response.payload.rows;
                 rows = me.initRows(rows, offset, limit, sortColumn, sortDirection)
@@ -75,7 +91,7 @@ var DefaultListPage = Class(DefaultPage, {
         return rows;
     }
     ,
-    dataTableEventHandler: function(me, win, tableID, url, id, event, opt)
+    dataTableEventHandler: function(me, win, tableID, url, id, event, opt, options)
     {
         if(event == "onDataFilterChanged")
         {
@@ -84,7 +100,9 @@ var DefaultListPage = Class(DefaultPage, {
             let sortColumn = opt.sort.column;
             let sortDirection = opt.sort.direction;
 
-            me.displayData(me, win, tableID, url, offset, limit, sortColumn, sortDirection, null, win.hideProgress)
+            console.log(options)
+
+            me.displayData(me, win, tableID, url, offset, limit, sortColumn, sortDirection, win.hideProgress, options)
         }
     }
     ,
