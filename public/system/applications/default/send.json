@@ -1,0 +1,34 @@
+{
+    "root" :
+    {
+        "children" : 
+        [
+            {
+                "element": "WiseComboBox", "id": "account", "data" : "from", "label" : "Send Using Acccount" 
+            }
+            ,
+            {
+                "element": "WiseTextBox", "id": "to", "data" : "to", "label" : "Target Email", "placeholder": "Email address to send, separated by , for multiple addresses" 
+            }
+            ,
+            {
+                "element": "WiseTextBox", "id": "subject", "data" : "subject", "label" : "Subject", "placeholder": "Subject of the email" 
+            }
+            ,
+            {
+                "element" : "WiseDiv", "class" : "flex-div",
+                "children": 
+                [
+                    { "element": "WiseButton", "visible": false, "id" : "btnSend", "onclick": "btnSend_Click", "icon" : "fa fa-paper-plane", "text" : "Send" },
+                    { "element": "WiseButton", "visible": false, "id" : "btnCancel", "onclick": "btnCancel_Click", "icon" : "fa fa-ban", "text" : "Cancel" }
+                ]
+            }
+            ,
+            {
+                "element": "WiseHtmlEditor", "id": "content", "data" : "html", "label" : "Content", "height": "600px"
+            }
+
+
+        ]
+    }
+}

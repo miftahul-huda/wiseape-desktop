@@ -31,6 +31,13 @@ var ListNotePage =  Class(DefaultListPage, {
         this.print(win, "tableListOfNote");
     }
     ,
+    btnSendNote_onClick: function(win, id, param)
+    {
+        this.showSendEmail(win, "tableListOfNote", function(){
+
+        });
+    }
+    ,
     btnAddNote_onClick: function(win, id)
     {
         this.showAddNote(win);   
@@ -44,11 +51,16 @@ var ListNotePage =  Class(DefaultListPage, {
     btnDeleteNote_onClick: function(win, id)
     {
         let me = this;
-        this.application.prompt("Confirmation", "Are you sure?", "YES|NO", function(result){
-            if(result == "YES") 
-                me.deleteNote(win, id);
+        let selectedData = win.get("tableListOfNote").getSelectedData();
+        if(selectedData.length > 0)
+        {
+            this.application.prompt("Confirmation", "You are going to delete " + selectedData.length + " data. Are you sure?", "YES|NO", function(result){
+                if(result == "YES") 
+                    me.deleteNote(win, id);
+    
+            });
+        }
 
-        });
     }
     ,
     btnFindNote_onClick: function(win, id)
@@ -71,7 +83,7 @@ var ListNotePage =  Class(DefaultListPage, {
                     method: "POST"
                 })
             }
-        });
+        }, { width: '40%', height: '760px' });
     }
     //------- End of  event handlers ------------
     ,
@@ -164,5 +176,6 @@ var ListNotePage =  Class(DefaultListPage, {
             win.notify("Error", "Please select items to delete", "error")
         }
     }
+    
 
 })

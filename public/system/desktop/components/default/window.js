@@ -23,7 +23,7 @@ var Window = Class({
         if(this.options.width == null)
             this.options.width = '80%';
         if(this.options.height == null)
-            this.options.height = '90%';
+            this.options.height = '80%';
 
         /*
         let divIcon = "<div class='wiseape-window-icon' style='background-image: url(" + icon + ")'></div>";
@@ -251,7 +251,7 @@ var Window = Class({
             }
         });
 
-        $("#" + me.id).append("<div class='wb-footer'></div>")
+        //$("#" + me.id).append("<div class='wb-footer'></div>")
 
 
 

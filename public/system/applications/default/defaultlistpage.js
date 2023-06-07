@@ -132,8 +132,14 @@ var DefaultListPage = Class(DefaultPage, {
         win.get(id).print()
     }
     ,
-    showAdvanceSearch: function(win, id, callback)
+    showAdvanceSearch: function(win, id, callback, opt)
     {
-        win.get(id).advanceSearch(callback);
+        win.get(id).advanceSearch(callback, opt);
+    }
+    ,
+    showSendEmail: function(win, tableID, callback)
+    {
+        let data = win.get(tableID).getHtml();
+        this.application.showSendEmail(data, callback);
     }
 })

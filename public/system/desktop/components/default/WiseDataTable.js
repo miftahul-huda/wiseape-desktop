@@ -409,13 +409,14 @@ var WiseDataTable = Class(WiseElement, {
     ,
     getSelectedData: function()
     {
+        var rowindexes = $("#" + this.id).jqxGrid('getselectedrowindexes');
+
         let selectedData = [];
-        for(let i = 0; i < this.data.length; i++)
+        for(let i = 0; i < rowindexes.length; i++)
         {
-            if(this.data[i].selected)
-            {
-                selectedData.push(this.data[i]);
-            }
+            let rowIdx = rowindexes[i]
+            selectedData.push(this.data[rowIdx]);
+            
         }
         return selectedData;
     }
@@ -489,6 +490,12 @@ var WiseDataTable = Class(WiseElement, {
         return opt;
     }
     ,
+    getHtml: function()
+    {
+        var gridContent = $("#" + this.id).jqxGrid('exportdata', 'html');
+        return gridContent;
+    }
+    ,
     export: function(fileName)
     {
         let ext = fileName.slice((fileName.lastIndexOf(".") - 1 >>> 0) + 2);
@@ -502,19 +509,19 @@ var WiseDataTable = Class(WiseElement, {
     print:  function()
     {
         var gridContent = $("#" + this.id).jqxGrid('exportdata', 'html');
-                var newWindow = window.open('', '', 'width=800, height=500'),
-                document = newWindow.document.open(),
-                pageContent =
-                    '<!DOCTYPE html>\n' +
-                    '<html>\n' +
-                    '<head>\n' +
-                    '<meta charset="utf-8" />\n' +
-                    '<title>jQWidgets Grid</title>\n' +
-                    '</head>\n' +
-                    '<body>\n' + gridContent + '\n</body>\n</html>';
-                document.write(pageContent);
-                document.close();
-                newWindow.print();
+        var newWindow = window.open('', '', 'width=800, height=500'),
+        document = newWindow.document.open(),
+        pageContent =
+            '<!DOCTYPE html>\n' +
+            '<html>\n' +
+            '<head>\n' +
+            '<meta charset="utf-8" />\n' +
+            '<title>jQWidgets Grid</title>\n' +
+            '</head>\n' +
+            '<body>\n' + gridContent + '\n</body>\n</html>';
+        document.write(pageContent);
+        document.close();
+        newWindow.print();
     }
     ,
     search: function(callback)
@@ -537,13 +544,13 @@ var WiseDataTable = Class(WiseElement, {
         });
     }
     ,
-    advanceSearch: function(callback)
+    advanceSearch: function(callback, opt)
     {
         var me =  this;
         let searchWin  = me.desktop.createWindow("Filter Data", 
             { 
-                width: 800, 
-                height: 800, 
+                width: (opt != null && opt.width) ? opt.width: "80%", 
+                height: (opt != null && opt.height) ? opt.height: "80%", 
                 top:'10%' ,
                 contentInfo: {
                     contentHandlerFile:"/system/applications/default/advance-search.js",

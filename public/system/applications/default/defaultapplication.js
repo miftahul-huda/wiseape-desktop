@@ -93,4 +93,26 @@ var DefaultApplication = Class(Application, {
                 callback(returnValue);
         });
     }
+    ,
+    showSendEmail: function(content, callback)
+    {
+        var me = this;
+        let win = me.desktop.createWindow("Send", 
+            { 
+                icon: null, 
+                width: '50%', 
+                height: '80%', 
+                parameter: { content: content },
+                contentInfo: {
+                    contentSource: "/system/applications/default/send.json",
+                    contentHandlerFile:"/system/applications/default/send.js",
+                    contentHandlerClass:"SendPage"
+                }
+            }, me);
+        win.show(function(returnValue){
+            if(callback != null)
+                callback(returnValue);
+        });        
+    }
+    
 })

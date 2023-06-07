@@ -176,5 +176,46 @@ var AppUtil =
         }
         return result;
     }
+    ,
+    getApplication: function( appID)
+    {
+        let promise = new Promise((resolve, reject)=>{
+            let url = "/application/get-by-appid/" + appID;
+            AppUtil.get(url, function(response){
+                console.log(url)
+                console.log(response)
+                if(response.success)
+                {
+                    let app = response.payload;
+                    app.appConfig = JSON.parse(app.appConfig);
+                    resolve(app);
+                }
+                else
+                {
+                    reject({ error: response.error, message: response.message })
+                }
+            })
+        });
+        return promise;
+    }
+    ,
+    sendEmail: function( emailMessage)
+    {
+        let promise = new Promise((resolve, reject)=>{
+            this.getApplication("appAccountManager").then((app)=>{
+                let url = app.appConfig.BASE_API_URL + "/emails/create";
+                emailMessage.isSent = 0;
+                AppUtil.post(url, emailMessage, function(response){
+                    if(response.success)
+                        resolve()
+                    else 
+                        reject(response)
+                })
+            }).catch((err)=>{
+                reject({ success: false, error: err })
+            })
+        });
+        return promise;
+    }
 
 }
