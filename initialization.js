@@ -8,6 +8,7 @@ const UserModel = require("./modules/models/usermodel");
 const GroupModel = require("./modules/models/groupmodel");
 const GroupUserModel = require("./modules/models/groupusermodel");
 const GroupAccessModel = require("./modules/models/groupaccessmodel");
+const CacheModel = require("./modules/models/cachemodel");
 
 
 const sequelize = new Sequelize(process.env.DBNAME, process.env.DBUSER, process.env.DBPASSWORD, {
@@ -27,7 +28,7 @@ class Initialization {
         GroupModel.initialize(sequelize, force)
         GroupUserModel.initialize(sequelize, force)
         GroupAccessModel.initialize(sequelize, force)
-
+        CacheModel.initialize(sequelize, force)
         await sequelize.sync();
     }
 }

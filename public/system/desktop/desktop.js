@@ -22,7 +22,13 @@ var Desktop = Class({
         var me = this;
         me.session = config.serverConfig;
         this.loadUILibraries(me,  config, function(){
-            me.loadDesktop();
+            me.loadDesktop(function(){
+                me.loadCache(function(caches){
+                    me.caches = caches;
+                    console.log("desktop.caches")
+                    console.log(me.caches);
+                });
+            });
         })
     }
     ,
@@ -33,8 +39,18 @@ var Desktop = Class({
             eval("o = " + config.desktop.ui_processor[1] + ";")
             eval("me.uiProcessor = new " + config.desktop.ui_processor[1] + "();")
             o.init(callback)
-            
         })
+    }
+    ,
+    loadCache: function(callback)
+    {
+        let url = "/caches";
+        $.get(url, function(response){
+            console.log(response)
+            let caches = response.payload.rows;
+            if(callback != null)
+                callback(caches);
+        });
     }
     ,
     initRipple: function()
@@ -77,7 +93,7 @@ var Desktop = Class({
             
     }
     ,
-    loadDesktop: function()
+    loadDesktop: function(callback)
     {
         
         let div = "<div id='mydesktop' style='display:none' class='desktop'><div class='desktop-taskbar'></div><div class='desktop-content'></div></div><div class='desktop-menu-container'></div><div style=\"display: none;position: absolute; background-color: #fff;align-items: center;\" id=\"winTemp\"><div class='empty-window'></div></div>";
@@ -89,6 +105,9 @@ var Desktop = Class({
         this.loadTaskbar();
 
         $("#mydesktop").show("puff");
+
+        if(callback != null)
+            callback();
 
         //this.initRipple();
         

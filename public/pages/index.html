@@ -70,6 +70,9 @@
             serverConfig = serverConfig.replace(/&#34;/gi, "\"");
             serverConfig = JSON.parse(serverConfig);
 
+            console.log("serverConfig")
+            console.log(serverConfig)
+
             let configManager = new ConfigurationManager();
             configManager.load("system/config/desktop.json").then((configItem)=>{
                 let desktop = new Desktop();

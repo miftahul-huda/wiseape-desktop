@@ -20,6 +20,8 @@ class CrudLogic {
 
     static async create(o)
     {
+        console.log("Create")
+        console.log(o)
         const CurrentModel = this.getModel();
 
         let result = await this.validateCreate(o);

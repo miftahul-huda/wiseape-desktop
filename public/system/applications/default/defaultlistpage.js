@@ -123,7 +123,6 @@ var DefaultListPage = Class(DefaultPage, {
                 filename = filename  + "." + ext;
                 win.get(id).export(filename)
             }
-            
         });
     }
     ,
@@ -142,4 +141,10 @@ var DefaultListPage = Class(DefaultPage, {
         let data = win.get(tableID).getHtml();
         this.application.showSendEmail(data, callback);
     }
+    ,
+    showSendEmailItem: function(options, callback)
+    {
+        this.application.showSendEmailItem(options, callback);
+    }
+
 })

@@ -114,5 +114,75 @@ var DefaultApplication = Class(Application, {
                 callback(returnValue);
         });        
     }
+    ,
+    showSendEmailItem: function(options, callback)
+    {
+        let me = this;
+        let getItemUrl = options.getItemUrl;
+        let fieldInfos = options.fieldInfos;
+        this.getDetailItem(getItemUrl, fieldInfos, function(htmlTable){
+            me.showSendEmail(htmlTable, callback)
+        })
+    }
+    ,
+    getDetailItem: function(url, fieldInfos, callback)
+    {
+        let me = this;
+        AppUtil.get(url, function(response){
+
+            if(response.success)
+            {
+                console.log(response.payload)
+                let dom = me.composeDetailHtml(fieldInfos, response.payload);
+                let htmlTable = $(dom).html();
+                if(callback != null)
+                    callback(htmlTable)
+            }
+
+        }, { user: this.session.user })
+    }
+    ,
+    composeDetailHtml: function(fieldInfos, item)
+    {
+        let table = document.createElement("table");
+        $(table).css("border", "solid 1px #ccc")
+        $(table).css("border-spacing", "0px")
+
+        let dom = document.createElement("div")
+        fieldInfos.map((field)=>{
+            let keys = Object.keys(field);
+            let keyName = keys[0]
+
+            let label = field[keyName];
+            let value = item[keyName];
+
+            if(keyName.indexOf(".") > -1)
+            {
+                eval("value = item." + keyName + ";");                
+            }
+
+            let tr = document.createElement("tr");
+            let td1 = document.createElement("td");
+            let td2 = document.createElement("td");
+
+            $(td1).css("width", "200px")
+            $(td1).css("border", "solid 1px #ccc")
+            $(td2).css("border", "solid 1px #ccc")
+
+            $(td1).css("padding", "6px")
+            $(td2).css("padding", "6px")
+
+
+            $(td1).html(label);
+            $(td2).html(value);
+
+            $(tr).append(td1)
+            $(tr).append(td2)
+            $(table).append(tr)
+        })
+
+        $(dom).append(table);
+        return dom;
+    }
     
 })

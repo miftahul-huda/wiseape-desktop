@@ -110,16 +110,19 @@ var AddAccountPage =  Class(DefaultListPage, {
     {
         let me = this;
         me.account.isActive = 1;
+        me.account.user = me.application.session.user.username;
+
+        console.log(me.account)
         let url = this.application.appConfig.BASE_API_URL + "/accounts/" + me.account.id;
         win.showProgress();
 
-        let send = AppUtil.put(url, me.account, function(response){
+        let send = AppUtil.put(url, { isActive:1, user: me.application.session.user.username }, function(response){
             win.hideProgress();
             win.notify("Success", "Account is saved", "success", null ,  function(){
                 win.close();
             });
         } );
-        
+
         
     }
     ,

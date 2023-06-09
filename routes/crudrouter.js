@@ -9,6 +9,7 @@ class CrudRouter {
         router.post('/create', function (req, res){
             me.init(req, res);
             let o = req.body;
+        
             let logic = router.logic;
             logic.session = req.session;
         

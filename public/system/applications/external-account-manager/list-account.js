@@ -72,7 +72,7 @@ var ListAccountPage =  Class(DefaultListPage, {
                     method: "POST"
                 })
             }
-        });
+        }, { height: '500px' });
     }
     //------- End of  event handlers ------------
     ,

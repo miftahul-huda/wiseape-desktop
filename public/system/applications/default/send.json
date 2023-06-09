@@ -8,7 +8,8 @@
             }
             ,
             {
-                "element": "WiseTextBox", "id": "to", "data" : "to", "label" : "Target Email", "placeholder": "Email address to send, separated by , for multiple addresses" 
+                "element": "WiseTextBox", "id": "to", "data" : "to", "label" : "Send To", "placeholder": "Email address to send, separated by , for multiple addresses",
+                "cache": "email" 
             }
             ,
             {

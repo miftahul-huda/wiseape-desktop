@@ -549,7 +549,7 @@ var WiseDataTable = Class(WiseElement, {
         var me =  this;
         let searchWin  = me.desktop.createWindow("Filter Data", 
             { 
-                width: (opt != null && opt.width) ? opt.width: "80%", 
+                width: (opt != null && opt.width) ? opt.width: "40%", 
                 height: (opt != null && opt.height) ? opt.height: "80%", 
                 top:'10%' ,
                 contentInfo: {

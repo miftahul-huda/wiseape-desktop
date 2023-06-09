@@ -34,6 +34,11 @@ var AppUtil =
     ,
     get: function(url, callback, headers)
     {
+        if(headers == null)
+            headers = {};
+        if(headers.user == null && GLOBAL.desktop != null)
+            headers.user = GLOBAL.desktop.session.user;
+
         headers = AppUtil.modifyHeader(headers);
 
         $.ajax({
@@ -57,6 +62,11 @@ var AppUtil =
     ,
     post: function(url, param, callback, headers)
     {
+        if(headers == null)
+            headers = {};
+        if(headers.user == null && GLOBAL.desktop != null)
+            headers.user = GLOBAL.desktop.session.user;
+
         headers = AppUtil.modifyHeader(headers);
 
         param = JSON.stringify(param);
@@ -82,6 +92,10 @@ var AppUtil =
     ,
     put: function(url, param, callback, headers)
     {
+        if(headers == null)
+            headers = {};
+        if(headers.user == null && GLOBAL.desktop != null)
+            headers.user = GLOBAL.desktop.session.user;
         headers = AppUtil.modifyHeader(headers);
 
         param = JSON.stringify(param);
@@ -107,10 +121,12 @@ var AppUtil =
     ,
     delete: function(url, callback, headers)
     {
-        headers = AppUtil.modifyHeader(headers);
+        if(headers == null)
+            headers = {};
+        if(headers.user == null && GLOBAL.desktop != null)
+            headers.user = GLOBAL.desktop.session.user;
 
-        console.log("headers")
-        console.log(headers)
+        headers = AppUtil.modifyHeader(headers);
 
         $.ajax({
             url: url,
@@ -216,6 +232,67 @@ var AppUtil =
             })
         });
         return promise;
+    }
+    ,
+    splitCache( val ) {
+        return val.split( /,\s*/ );
+    }
+    ,
+    extractLast( term ) {
+        return AppUtil.splitCache( term ).pop();
+    }
+    ,
+    getCaches: function(tag)
+    {
+        let caches = [];
+        GLOBAL.desktop.caches.map((cache)=>{
+            if(cache.cacheName == tag)
+                caches.push(cache.cacheData)
+        })
+
+        return caches;
+    }
+    ,
+    findCache: function(cacheName, cacheData)
+    {
+        let foundCache = null;
+        console.log("cacheName, cacheData")
+        console.log(cacheName + ": " + cacheData)
+
+        GLOBAL.desktop.caches.map((cache)=>{
+            console.log(cache);
+            if(cache.cacheName == cacheName && cache.cacheData == cacheData)
+                foundCache = cache;
+        })
+
+        return foundCache;
+    }
+    ,
+    saveCache: function(cacheName, cacheData)
+    {
+        let datas = cacheData.split(",")
+
+        for(let i = 0; i < datas.length; i++)
+        {
+            let data = datas[i].trim();
+            let foundCache = AppUtil.findCache( cacheName, data);
+            console.log("foundCache")
+            console.log(foundCache)
+    
+            if(foundCache == null)
+            {
+                let url = "/caches/create";
+                let o = { cacheName: cacheName, cacheData: data };
+                console.log("new cache")
+                console.log(o)
+                GLOBAL.desktop.caches.push(o);
+    
+                AppUtil.post(url, o, function(response){
+                    console.log(response)
+                })
+            }
+        }
+
     }
 
 }

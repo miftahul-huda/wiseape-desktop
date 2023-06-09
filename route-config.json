@@ -3,6 +3,7 @@
     { "path" :  "/sample", "router"  : "./routes/sample", "logic" : "./modules/logic/sample_logic" },
     { "path" :  "/menu", "router"  : "./routes/menu", "logic" : "./modules/logic/menulogic" },
     { "path" :  "/application", "router"  : "./routes/application", "logic" : "./modules/logic/applicationlogic" },
-    { "path" :  "/user", "router"  : "./routes/user", "logic" : "./modules/logic/userlogic" }
+    { "path" :  "/user", "router"  : "./routes/user", "logic" : "./modules/logic/userlogic" },
+    { "path" :  "/caches", "router"  : "./routes/cache", "logic" : "./modules/logic/cachelogic" }
 
 ]

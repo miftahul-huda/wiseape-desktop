@@ -38,6 +38,25 @@ var ListNotePage =  Class(DefaultListPage, {
         });
     }
     ,
+    btnEmailNote_onClick: function(win, id, param)
+    {
+        let selectedItem = win.get("tableListOfNote").getSelectedItem();
+        let url = this.application.appConfig.BASE_API_URL + "/notes/" + selectedItem.id;
+        let fieldInfos =
+        [
+            { "title": "Title" },
+            { "short_desc": "Short Desc" },
+            { "tags": "Tags" },
+            { "category.category_name": "Category" },
+            { "project.project_name": "Project" },
+            { "createdAt": "Created At" },
+            { "content": "Content" }
+        ];
+
+        let options = { getItemUrl: url, fieldInfos: fieldInfos };
+        this.showSendEmailItem(options, function(){})
+    }
+    ,
     btnAddNote_onClick: function(win, id)
     {
         this.showAddNote(win);   

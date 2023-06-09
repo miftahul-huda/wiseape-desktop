@@ -11,6 +11,7 @@ var WiseTextBox = Class(WiseElement, {
         this.type = json.type;
         this.disabled = json.disabled;
         this.readOnly = json.readOnly;
+        this.cache = json.cache;
         if(this.type == null)
             this.type = "text";
         this.placeholder = json.placeholder;
@@ -59,6 +60,52 @@ var WiseTextBox = Class(WiseElement, {
             if(me.elementEventHandler != null)
                 me.elementEventHandler(me.id, me.onkeyup, event)
         })
+
+        let cacheTag = this.cache;
+
+        if(cacheTag != null)
+        {
+            $( dom ).find('input')
+            // don't navigate away from the field on tab when selecting an item
+            .on( "keydown", function( event ) {
+                if ( event.keyCode === $.ui.keyCode.TAB &&
+                    $( this ).autocomplete( "instance" ).menu.active ) {
+                    event.preventDefault();
+                }
+            })
+            .autocomplete({
+                minLength: 0,
+                source: function( request, response ) {
+                    // delegate back to autocomplete, but extract the last term
+                    response( $.ui.autocomplete.filter(
+                    AppUtil.getCaches(cacheTag), AppUtil.extractLast( request.term ) ) );
+                },
+                focus: function() {
+                    // prevent value inserted on focus
+                    return false;
+                },
+                select: function( event, ui ) {
+                    var terms = AppUtil.splitCache( this.value );
+                    // remove the current input
+                    terms.pop();
+                    // add the selected item
+                    terms.push( ui.item.value );
+                    // add placeholder to get the comma-and-space at the end
+                    //terms.push( "" );
+                    if(terms.length > 1)
+                        this.value = terms.join(", "); //terms.join( ", " );
+                    else
+                        this.value = terms.join("");
+                    
+                    return false;
+                }
+            });
+
+            $(dom).find("input").on("blur", function(){
+                AppUtil.saveCache(cacheTag, me.value());
+            })
+        }
+
         
         me.dom = dom;
         return dom;
