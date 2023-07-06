@@ -145,8 +145,10 @@ var DefaultApplication = Class(Application, {
     composeDetailHtml: function(fieldInfos, item)
     {
         let table = document.createElement("table");
-        $(table).css("border", "solid 1px #ccc")
+        $(table).css("border", "solid 1px #eee")
         $(table).css("border-spacing", "0px")
+        $(table).css("border-padding", "0px")
+
 
         let dom = document.createElement("div")
         fieldInfos.map((field)=>{
@@ -166,11 +168,15 @@ var DefaultApplication = Class(Application, {
             let td2 = document.createElement("td");
 
             $(td1).css("width", "200px")
-            $(td1).css("border", "solid 1px #ccc")
-            $(td2).css("border", "solid 1px #ccc")
+            $(td1).css("vertical-align", "top")
+            $(td1).css("border", "solid 1px #eee")
+            $(td2).css("border", "solid 1px #eee")
 
             $(td1).css("padding", "6px")
             $(td2).css("padding", "6px")
+
+            $(td1).css("font-family", "Tahoma")
+            $(td2).css("font-family", "Tahoma")
 
 
             $(td1).html(label);

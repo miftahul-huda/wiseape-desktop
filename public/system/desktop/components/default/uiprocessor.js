@@ -34,7 +34,7 @@ var UIProcessor = Class({
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxcheckbox.js",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxlistbox.js",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxdropdownlist.js",
-                "/system/desktop/components/default/jqwidgets/jqwidgets/jqxDropDownButton.js",
+                "/system/desktop/components/default/jqwidgets/jqwidgets/jqxdropdownbutton.js",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxgrid.js",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxgrid.sort.js",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/jqxgrid.filter.js",

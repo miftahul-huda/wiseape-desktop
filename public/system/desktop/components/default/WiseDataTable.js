@@ -493,6 +493,26 @@ var WiseDataTable = Class(WiseElement, {
     getHtml: function()
     {
         var gridContent = $("#" + this.id).jqxGrid('exportdata', 'html');
+        let dom = document.createElement("div");
+        $(dom).html(gridContent);
+        $(dom).find("th").css("font-size", "12pt")
+        $(dom).find("th").css("color", "#fff")
+        $(dom).find("th").css("font-weight", "bold")
+
+        let i = 0;
+        $(dom).find("tr").map((idx, tr)=>{
+            console.log(tr)
+            if(idx % 2 != 0)
+            {
+                $(tr).css("background-color", "#eee")
+            }
+        });
+
+        $(dom).find("td").css("font-family", "Tahoma")
+        $(dom).find("td").css("font-size", "10pt")
+        $(dom).find("td").css("padding", "6px")
+
+        gridContent = $(dom).html();
         return gridContent;
     }
     ,
