@@ -291,6 +291,7 @@ var WiseDataTable = Class(WiseElement, {
         });
         
 
+        $("#" + id).off('rowdoubleclick');
         $("#" + id).on('rowdoubleclick', function (event) 
         { 
             var args = event.args;
