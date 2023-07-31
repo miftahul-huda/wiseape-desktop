@@ -27,10 +27,15 @@ var DefaultListPage = Class(DefaultPage, {
         }, options );
 
 
+        let elementEventHandler = win.get(tableID).elementEventHandler;
         win.get(tableID).elementEventHandler = function(id, event, opt) { 
             console.log("sdfsdfadf")
             console.log(options)
             me.dataTableEventHandler(me, win, tableID, url, id, event, opt, options) 
+            if(elementEventHandler != null)
+            {
+                elementEventHandler(id, event, opt);
+            }
         } 
 
     }

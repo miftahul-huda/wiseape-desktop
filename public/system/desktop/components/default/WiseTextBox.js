@@ -41,25 +41,25 @@ var WiseTextBox = Class(WiseElement, {
         }
 
         let dom = $(html)[0]
-
-        
-        $(dom).find("input").off("keypress");
-        $(dom).find("input").on("keypress", function(event){
-            if(me.elementEventHandler != null)
+        if(me.elementEventHandler != null)
+        {
+            $(dom).find("input").off("keypress");
+            $(dom).find("input").on("keypress", function(event){
                 me.elementEventHandler(me.id, me.onkeypress, event);
-        })
-
-        $(dom).find("input").off("keydown");
-        $(dom).find("input").on("keydown", function(event){
-            if(me.elementEventHandler != null)
+            })
+    
+            $(dom).find("input").off("keydown");
+            $(dom).find("input").on("keydown", function(event){
                 me.elementEventHandler(me.id, me.onkeydown, event)
-        })
-
-        $(dom).find("input").off("keyup");
-        $(dom).find("input").on("keyup", function(event){
-            if(me.elementEventHandler != null)
+            })
+    
+            $(dom).find("input").off("keyup");
+            $(dom).find("input").on("keyup", function(event){
                 me.elementEventHandler(me.id, me.onkeyup, event)
-        })
+            })
+        }
+
+
 
         let cacheTag = this.cache;
 

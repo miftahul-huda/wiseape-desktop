@@ -32,7 +32,8 @@
                 "element" : "WiseGroup", "title" : "List of Notes", "description" : "This is the list of note items",
                 "children" : 
                 [
-                    { "element": "WiseDataTable", "id" : "tableListOfNote", "columns": [
+                    { "element": "WiseDataTable", "id" : "tableListOfNote", "onrowdblclick" : "tableListOfNote_onRowDoubleClick",
+                        "columns": [
                         { "datafield" : "no", "text": "#", "width": "40", "search": false },
                         { "datafield" : "title", "text": "Title", "width": "400", "type": "text", "placeholder": "Enter title to search" },
                         { "datafield" : "short_desc", "text": "Short description", "width": "400", "type": "textarea", "placeholder": "Enter short desc to search" },

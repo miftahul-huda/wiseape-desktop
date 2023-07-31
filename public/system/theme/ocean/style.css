@@ -9,16 +9,22 @@
 }
   
 
+@font-face {
+    font-family: "Open Sans";
+    src: url(font/Open_Sans/OpenSans-VariableFont_wdth\,wght.ttf);
+}
+  
+
 div{
-    font-family: Redhat, Tahoma, Geneva, Verdana, sans-serif, Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Open Sans", Tahoma, Geneva, Verdana, sans-serif, Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
-    font-size: 12pt;
+    font-size: 11pt;
 }
 
 span{
-    font-family: Redhat, Tahoma, Geneva, Verdana, sans-serif, Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Open Sans", Tahoma, Geneva, Verdana, sans-serif, Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
-    font-size: 12pt;
+    font-size: 11pt;
 }
 
 .desktop
@@ -581,4 +587,9 @@ input, select, textarea{
 
 .daterangepicker.show-calendar .drp-buttons {
     display: flex !important;
+}
+
+.form-control
+{
+    font-size: 10pt !important;
 }

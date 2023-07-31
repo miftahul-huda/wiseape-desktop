@@ -32,21 +32,25 @@ var WiseTextArea = Class(WiseElement, {
                     "</div>"
         let dom = $(html)[0]
 
-        $(dom).on("keypress", function(){
-            if(me.elementEventHandler != null)
+        if(me.elementEventHandler != null)
+        {
+            $(dom).off("keypress");
+            $(dom).on("keypress", function(){
                 me.elementEventHandler(me.id, "onKeyPress")
-        })
-
-        $(dom).on("keydown", function(){
-            if(me.elementEventHandler != null)
+            })
+    
+            $(dom).off("keydown");
+            $(dom).on("keydown", function(){
                 me.elementEventHandler(me.id, "onKeyDown")
-        })
-
-        $(dom).on("keyup", function(){
-            //me._value = $(this).val();
-            if(me.elementEventHandler != null)
+            })
+    
+            $(dom).off("keyup");
+            $(dom).on("keyup", function(){
+                //me._value = $(this).val();
                 me.elementEventHandler(me.id, "onKeyUp")
-        })
+            })
+        }
+
 
         me.dom = dom;
         return dom;

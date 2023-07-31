@@ -21,6 +21,11 @@ var ListNotePage =  Class(DefaultListPage, {
         this.showDetail(win)
     }
     ,
+    tableListOfNote_onRowDoubleClick: function(win, id, param)
+    {
+        this.showDetail(win);
+    }
+    ,
     btnExportNote_onClick: function(win, id)
     {
         this.export(win, "tableListOfNote", "list-of-note")

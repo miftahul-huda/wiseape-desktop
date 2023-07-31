@@ -3,6 +3,8 @@ var WiseDataTable = Class(WiseElement, {
     init: function(json)
     {
         this.columns = json.columns
+        this.onrowdblclick = json.onrowdblclick;
+
         for(var i =0; i < this.columns.length; i++)
         {
             this.columns[i].editable = false;
@@ -226,7 +228,7 @@ var WiseDataTable = Class(WiseElement, {
         let ooppt =
         {
             width: '100%',
-            height: '90%',
+            height: '95%',
             theme: this.gridTheme,
             selectionmode: 'multiplerowsadvanced',
             groupable: true,
@@ -288,6 +290,30 @@ var WiseDataTable = Class(WiseElement, {
                 me.data[unselectedRowIndex].selected = false;
         });
         
+
+        $("#" + id).on('rowdoubleclick', function (event) 
+        { 
+            var args = event.args;
+            // row's bound index.
+            var boundIndex = args.rowindex;
+            // row's visible index.
+            var visibleIndex = args.visibleindex;
+            // right click.
+            var rightclick = args.rightclick; 
+            // original event.
+            var ev = args.originalEvent;
+
+            if(me.onrowdblclick != null )
+            {
+                console.log(me.elementEventHandler)
+                me.elementEventHandler(me.id, me.onrowdblclick, {
+                    rowIndex: boundIndex, 
+                    item: me.data[boundIndex]
+                });
+
+            }
+            
+        });
 
         if(me.sortDone != true)
         {
