@@ -22,14 +22,14 @@
 
 div{
     font-family: "Onest", Tahoma, Geneva, Verdana, sans-serif, Tahoma, Geneva, Verdana, sans-serif;
-    color: #333;
-    font-size: 11pt;
+    color: #666;
+    font-size: 10.5pt;
 }
 
 span{
     font-family: "Onest", Tahoma, Geneva, Verdana, sans-serif, Tahoma, Geneva, Verdana, sans-serif;
-    color: #333;
-    font-size: 11pt;
+    color: #666;
+    font-size: 10.5pt;
 }
 
 .desktop
@@ -37,7 +37,7 @@ span{
     width: 100%;
     height: 100%;
     display: flex;
-    background-image: url(images/ocean-blue.jpeg);
+    background-image: url(images/ocean-wallpaper.jpeg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -48,7 +48,7 @@ span{
     width: 5%;
     height: 100%;
     background-color: #58abf9;
-    opacity: 0.8;
+    opacity: 1;
     text-align: center;
     padding-top: 10px;
     align-items: center;
@@ -367,33 +367,33 @@ body
 
 .form-control
 {
-    border: solid 1px #666;
+    border: solid 1px #999;
 }
 
 .select2-container
 {
-    border: solid 1px #666;
+    border: solid 1px #999;
     border-radius: 3px;
 }
 
 input.form-control:focus
 {
-    color: #666;
+    color: #999;
 }
 
 input.form-control
 {
-    color: #666;
+    color: #999;
 }
 
 textarea.form-control:focus
 {
-    color: #666;
+    color: #999;
 }
 
 textarea.form-control
 {
-    color: #666;
+    color: #999;
 }
 
 .btn{
@@ -530,12 +530,12 @@ textarea.form-control
 .jqx-grid-cell-selected-energyblue 
 {
     background-color: #98c9f7 !important;
-    color: #666 !important;
+    color: #999 !important;
 }
 
 .jqx-grid-cell-selected-energyblue div
 {
-    color: #666 !important;
+    color: #999 !important;
     font-weight: bold;
 
 }
@@ -543,7 +543,7 @@ textarea.form-control
 .jqx-grid
 {
     border-radius: 6px !important;
-    border-color: #666 !important;
+    border-color: #999 !important;
 }
 
 
@@ -573,7 +573,7 @@ textarea.form-control
 
 label
 {
-    color: #666;
+    color: #999;
     font-weight: 600 !important;
     margin-bottom: 3px;
 }
