@@ -1,0 +1,39 @@
+{
+    "root" :
+    {
+        "children" : 
+        [
+            {
+                "element" : "WiseDiv", "style" : "display: flex; position:fixed; width: 100%; margin-top: -20px; left:0px; background-color: #fff; z-index: 1000; padding: 10px; border: solid 1px #ccc", 
+                "children" : 
+                [
+                    { "element" : "WiseDiv", "style" : "width: 90%" },  
+                    { "element": "WiseMenuButton", "id" : "btnSave", "icon" : "/node-simple-note/images/save-icon.png", "text" : "Save", "onclick": "btnSave_onClick" },
+                    { "element": "WiseMenuButton", "id" : "btnCancel", "icon" : "/node-simple-note/images/close-icon.png", "text" : "Close", "onclick": "btnClose_onClick" }
+                ]
+            }
+            ,
+            {
+                "element": "WiseDiv", "style" : "height: 60px"
+            }
+            ,
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseTextBox", "id": "title", "data" : "title", "label" : "Menu Title", "placeholder" : "Enter the menu title" },
+                    { "element": "WiseTextBox", "id": "description", "data" : "description", "label" : "Description", "placeholder" : "Enter the menu description" },
+                    { "element": "WiseTextBox", "id": "icon", "data" : "icon", "label" : "Menu Icon Path (relative to the application root)", "placeholder" : "Enter the icon for the menu" },
+                    { "element": "WiseComboBox", "id": "menuType", "data" : "menuType", "label" : "Menu Type", "placeholder" : "Enter the menu type" },
+                    { "element": "WiseComboBox", "id": "parentMenuId", "data" : "parentMenuId", "label" : "Parent Menu", "placeholder" : "Enter the parent menu" },
+                    { "element": "WiseComboBox", "id": "appID", "data" : "appID", "label" : "Application", "placeholder" : "Enter the application" },
+                    { "element": "WiseTextBox", "id": "appCommand", "data" : "appCommand", "label" : "Command", "placeholder" : "Enter the initial command when the app is called" }  
+                ]
+            }
+            ,
+            {
+                "element": "WiseDiv", "class":"vertical-separator"
+            }
+        ]
+    }
+}

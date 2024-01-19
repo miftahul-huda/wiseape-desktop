@@ -1,6 +1,6 @@
 var WiseDiv = Class(WiseElement, {
     init: function(json) {
-        WiseGroup.$superp.init.call(this, json, "div");
+        WiseDiv.$superp.init.call(this, json, "WiseDiv");
     }
     ,
     createDom: function()

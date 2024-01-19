@@ -294,5 +294,40 @@ var AppUtil =
         }
 
     }
+    ,
+    items2tree: function(data, textField, foreignKey, parentIdKey)
+    {
+
+        for(let i = 0; i < data.length; i++)
+        {
+            data[i].text = data[i][textField];
+            let state = {
+                expanded: true
+            };
+            data[i].state = state;
+        }
+
+        const idMapping = data.reduce((acc, el, i) => {
+            acc[el[parentIdKey]] = i;
+            return acc;
+          }, {});
+
+
+        let root;
+        data.forEach(el => {
+            // Handle the root element
+            if (el[foreignKey] === null) {
+                root = el;
+                return;
+            }
+            // Use our mapping to locate the parent element in our data array
+            const parentEl = data[idMapping[el[foreignKey]]];
+            // Add our current el to its parent's `children` array
+            parentEl.nodes = [...(parentEl.nodes || []), el];
+        });
+
+        return [root];
+        
+    }
 
 }

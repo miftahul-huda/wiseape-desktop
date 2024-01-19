@@ -1,0 +1,42 @@
+{
+    "root" :
+    {
+        "children" : 
+        [
+            {
+                "element" : "WiseDiv", "style" : "display: flex; position:fixed; width: 100%; margin-top: -20px; left:0px; background-color: #fff; z-index: 1000; padding: 10px; border: solid 1px #ccc", 
+                "children" : 
+                [
+                    { "element" : "WiseDiv", "style" : "width: 95%" },  
+                    { "element": "WiseMenuButton", "id" : "btnCancel", "icon" : "/node-simple-note/images/close-icon.png", "text" : "Close", "onclick": "btnClose_onClick" }
+                ]
+            }
+            ,
+            {
+                "element": "WiseDiv", "style" : "height: 60px"
+            }
+            ,
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseText", "id": "appID", "data" : "appID", "label" : "App ID", "placeholder" : "Enter the app ID for the application such as &apos;appMyApp&apos;" },
+                    { "element": "WiseText", "id": "appTitle", "data" : "appTitle", "label" : "App Title", "placeholder" : "Enter the application title such as &apos;My Application&apos;" },
+                    { "element": "WiseText", "id": "appInclude", "data" : "appInclude", "label" : "App Includes", "placeholder" : "Enter the javascript file for the application" },
+                    { "element": "WiseText", "id": "appEndPoint", "data" : "appEndPoint", "label" : "App Endpoint", "placeholder" : "Enter the class name for the application" },
+                    { "element": "WiseText", "id": "appIcon", "data" : "appIcon", "label" : "App Icon", "placeholder" : "Enter the icon path for the application" },
+                    { "element": "WiseText", "id": "appInfo", "data" : "appInfo", "label" : "App Info", "placeholder" : "Enter the application information" },
+                    { "element": "WiseText", "id": "appVersion", "data" : "appVersion", "label" : "App Version", "placeholder" : "Enter the version for the application" },
+                    { "element": "WiseText", "id": "company", "data" : "company", "label" : "Developer", "placeholder" : "Enter the application developer" },
+                    { "element": "WiseText", "id": "appWebsite", "data" : "appWebsite", "label" : "Website", "placeholder" : "Enter the website for the application" },
+                    { "element": "WiseText", "id": "appConfig", "data" : "appConfig", "label" : "Configuration", "placeholder" : "Enter the configuration for the application" },
+                    { "element": "WiseText", "id": "appRootPath", "data" : "appRootPath", "label" : "Root Path", "placeholder" : "Enter the root path for the application" }
+                ]
+            }
+            ,
+            {
+                "element": "WiseDiv", "class":"vertical-separator"
+            }
+        ]
+    }
+}

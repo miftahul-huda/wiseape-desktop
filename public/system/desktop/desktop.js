@@ -204,8 +204,11 @@ var Desktop = Class({
     getAllMenu:function(me)
     {
         let url=  "/menu";
+        console.log("url menu")
+        console.log(url)
         let promise  =  new Promise((resolve, reject)=>{
             $.get(url, function(response){
+                console.log(response);
                 resolve(response);
             })
         })
@@ -220,6 +223,8 @@ var Desktop = Class({
         $(".desktop-menu-container").hide();
         $.get(url, function(response){
             let menus = response.payload.rows;
+            console.log("menus")
+            console.log(menus)
             menus.map((item)=>{
                 let menuItem = me.getMenuItem(item)
                 $(".desktop-menu-container").append(menuItem)
@@ -280,7 +285,12 @@ var Desktop = Class({
         let html = "<div class='desktop-menu-group'></div>"
         if(item.menuType != "GROUP")
         {
-            let style = "background-image: url(" + item.icon + ");";
+            let app = item.application;
+            let icon = item.icon;
+            if(app != null)
+                icon = app.appRootPath + "/" + icon;
+
+            let style = "background-image: url(" + icon + ");";
             html = "<div class='desktop-menu-item' style='" + style + "'></div>"
         }
         html = "<div menu-item-id='" + item.id + "' class='desktop-menu-item-container'>" + html + "<div class='desktop-menu-text'>" + item.title + "</div></div>"

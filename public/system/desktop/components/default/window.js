@@ -109,8 +109,12 @@ var Window = Class({
 
                 if(child.id != null)
                 {
-
                     child.id = me.id + "___" + child.id;
+                }
+
+                if(child.linkid != null)
+                {
+                    child.linkid = me.id + "___" + child.linkid;
                 }
                 child.children = me.changeIds(me, child.children)
                 newChildren.push(child)
@@ -440,15 +444,35 @@ var Window = Class({
                 $.getJSON(content, function(json){
 
                     let uiProcessor = me.uiProcessor;   
-                    content = me.setIds(me, json)
-                    me.elements = uiProcessor.createElement(content, me, function(elmId, event, param){
-                        elmId = elmId.split("___")
-                        elmId = elmId[elmId.length - 1]
-                        me.contentEventHandler(me, elmId, event, param)
-                    })
-                    content = me.createDom(me, me.elements)
-                    //me.processContent(me, content)
-                    me.showWindow(me, content)
+                    console.log("================PAGE JSON============")
+                    console.log(json)
+
+                    me.expandJson(me, json.root, function(resultJson){
+                        console.log("=========json after expand==========")
+                        console.log(resultJson)
+                        console.log("=========/json after expand==========")
+                    });
+
+                    setTimeout(function(){
+                        console.log("JSON RESULT")
+                        console.log(json)
+
+                        content = me.setIds(me, json)
+                        me.elements = uiProcessor.createElement(content, me, function(elmId, event, param){
+                            elmId = elmId.split("___")
+                            elmId = elmId[elmId.length - 1]
+                            me.contentEventHandler(me, elmId, event, param)
+                        })
+                        content = me.createDom(me, me.elements)
+                        //me.processContent(me, content)
+                        me.showWindow(me, content)
+
+                    }, 1000)
+
+
+
+
+
                 })
             }
             else if(ss[ss.length-1].toLowerCase() == "html")
@@ -461,6 +485,45 @@ var Window = Class({
                 })
             }
         }
+    }
+    ,
+    expandJson: function(me, json, callback)
+    {
+        console.log("json.children")
+        console.log(json.children)
+        if(json.children != null )
+        {
+            json.children.map((item)=>{
+                console.log("item.source")
+                console.log(item.source)
+                if(item.source != null)
+                {
+                    let jsonSourceFile = item.source;
+                    let appRootPath = me.application.appRootPath;
+                    jsonSourceFile = appRootPath + "/" + jsonSourceFile;
+
+                    console.log("jsonSourceFile")
+                    console.log(jsonSourceFile)
+
+                    $.getJSON(jsonSourceFile, function(jsonContent){
+                        if(item.children == null)
+                            item.children = [];
+                        item.children.push(jsonContent);
+                        me.expandJson(me, item, callback)
+                    })
+                }
+                else
+                {
+                    me.expandJson(me, item, callback)
+                }
+            })
+        }
+
+    }
+    ,
+    expandJsonElement: function(me, jsonElement)
+    {
+
     }
     ,
     createDom: function(me, root){

@@ -68,6 +68,10 @@ class CrudLogic {
                     opt.order = order;
             }
 
+            let includes = this.getModelIncludes();
+            if(includes != null)
+                opt.include = includes;
+
             let defaultWhere =  this.getDefaultWhere();
             if(defaultWhere != null)
                 opt.where = defaultWhere;
@@ -112,10 +116,18 @@ class CrudLogic {
     {
         try{
             const CurrentModel = this.getModel();
-            let o  = await CurrentModel.findByPk(id);
-            o = JSON.stringify(o)
-            o = JSON.parse(o)
-            o = this.cleanObject(o)
+            let pkField = this.getPk();
+            let where = {};
+            where[pkField] = id;
+
+            let opt = {};
+            opt.where = where;
+
+            let includes = this.getModelIncludes();
+            if(includes != null)
+                opt.include = includes;
+
+            let o  = await CurrentModel.findOne(opt);
             return { success: true, payload: o }
         }
         catch (error)
@@ -126,7 +138,7 @@ class CrudLogic {
 
     static async update(id,  o)
     {
-        let result = await this.validateUpdate(log);
+        let result = await this.validateUpdate(o);
         let pk = this.getPk();
         if(result.success){
             try {
@@ -160,6 +172,25 @@ class CrudLogic {
             const CurrentModel = this.getModel();
             let where = {};
             where[pk] = id;
+
+            let result = await CurrentModel.destroy({ where: where });
+            return { success: true, payload: result }
+        }
+        catch (error)
+        {
+            throw { success: false, message: '', error: error };
+        }
+    }
+
+    static async deleteItems(ids)
+    {
+        try{
+            let pk = this.getPk();
+            const CurrentModel = this.getModel();
+            let where = {};
+            where[pk] = {
+                [Op.in]: ids.split(",")
+            };
 
             let result = await CurrentModel.destroy({ where: where });
             return { success: true, payload: result }
@@ -206,6 +237,11 @@ class CrudLogic {
     static cleanObject(o)
     {
         return o;
+    }
+
+    static getModelIncludes()
+    {
+        return null;
     }
 }
 

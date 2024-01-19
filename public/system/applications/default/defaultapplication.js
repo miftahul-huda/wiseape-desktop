@@ -8,8 +8,14 @@ var DefaultApplication = Class(Application, {
             me.appConfig = appConfig;
         
         let appInfo = me.getDefaultApplicationWindowInfo();
+
+        console.log("appInfo")
+        console.log(appInfo)
+
         if(command in appInfo)
         {
+            console.log("command")
+            console.log(command)
             let info = appInfo[command];
             if(info.config == null)
                 info.config = {};
@@ -19,12 +25,14 @@ var DefaultApplication = Class(Application, {
                 icon = null;
             
             info.config.icon = icon;
+
             info.config.contentInfo = {
                 contentSource: me.appRootPath + "/" + info.contentFile,
                 contentHandlerFile: me.appRootPath + "/" + info.jsfile,
                 contentHandlerClass: info.className
             }
 
+            console.log("creating window")
             win = me.desktop.createWindow(info.title, info.config, me);
             win.show( function(returnValue){
                 if(callback != null)

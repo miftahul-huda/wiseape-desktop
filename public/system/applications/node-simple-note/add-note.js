@@ -112,9 +112,13 @@ var AddNotePage =  Class(DefaultListPage, {
         let url = this.application.appConfig.BASE_API_URL + "/notes/create";
         let send = AppUtil.post;
 
+        console.log("saveNote")
+        console.log(me.idNote);
         if(me.idNote != null)
         {
+            console.log("saveNote update")
             url = this.application.appConfig.BASE_API_URL + "/notes/" + me.idNote;
+            console.log(url)
             send = AppUtil.put;
         }
         let note = win.getData();

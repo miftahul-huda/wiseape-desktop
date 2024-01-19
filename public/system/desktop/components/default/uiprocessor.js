@@ -20,9 +20,12 @@ var UIProcessor = Class({
                 "/system/desktop/components/default/jqwidgets/jqwidgets/styles/jqx.blue.css",
                 "/system/desktop/components/default/jqwidgets/jqwidgets/styles/jqx.bootstrap.css",
                 "/system/desktop/components/default/responsive-editor/editor.css",
-                "/system/desktop/components/default/css/fontawesome-free-6.4.0-web/css/all.css"
-
+                "/system/desktop/components/default/css/fontawesome-free-6.4.0-web/css/all.css",
+                "/system/desktop/components/default/treeview/css/bootstrap-treeview.css",
+                "/system/desktop/components/default/tabby/css/tabby-ui.css",
+                "/system/desktop/components/default/flatpickr/flatpickr.min.css"
             ];
+
             let js = ["/system/desktop/components/default/window.js", 
                 "/system/desktop/components/default/winbox.bundle.js", 
                 "/system/desktop/components/default/notify/notify.js", 
@@ -70,7 +73,16 @@ var UIProcessor = Class({
                 "/system/desktop/components/default/WiseDate.js",
                 "/system/desktop/components/default/WiseWebClient.js",
                 "/system/desktop/components/default/WiseImage.js",
-                "/system/desktop/components/default/responsive-editor/editor.js"
+                "/system/desktop/components/default/WiseTitle.js",
+                "/system/desktop/components/default/responsive-editor/editor.js",
+                "/system/desktop/components/default/treeview/js/bootstrap-treeview.js",
+                "/system/desktop/components/default/WiseTreeView.js",
+                "/system/desktop/components/default/WiseTabGroup.js",
+                "/system/desktop/components/default/WiseTab.js",
+                "/system/desktop/components/default/WiseContent.js",
+                "/system/desktop/components/default/WiseTabContent.js",
+                "/system/desktop/components/default/tabby/js/tabby.polyfills.js",
+                "/system/desktop/components/default/flatpickr/flatpickr.js"
             ]
 
             UIProcessor.loadCss(css, 0, function(){
@@ -239,11 +251,42 @@ var UIProcessor = Class({
     {
         var me = this;
         me.initBootstrap(win);
-        me.initBootstrapCalendar(win);
+        //me.initBootstrapCalendar(win);
         me.initEditor(win);
+        me.initTabGroup(win);
+        me.initDateControl(win);
         $(".notification-box").hide();
 
         console.log("Done initcontent")
+    }
+    ,
+    initTabGroup: function(win)
+    {
+        /*
+        $(".wisetabgroup").each((i, div)=>{
+            
+            let id = $(div).attr("id")
+            $(div).wrap("<div id='tabgroupwrapper_" + id + "' class=\"wisetabgroupwrapper card card-primary card-outline card-outline-tabs\"><div class=\"card-header p-0 border-bottom-0\"></div></div>")
+        })
+        $(".wisetabgroupwrapper").append("<div class='card-body'></div>")
+        */
+        let dataTabs = $(document.body).find("[data-tabs")
+        if(dataTabs.length > 0)
+            var tabs = new Tabby('[data-tabs]');
+    }
+    ,
+    initDateControl: function(win)
+    {
+        $("#" + win.id).find('.wise-date').flatpickr({ enableTime: false, altInput: true});
+        $("#" + win.id).find('.wise-datetime').flatpickr({ enableTime: true, time_24hr: true});
+
+        $("#" + win.id).find('.wise-daterange').flatpickr({ enableTime: false, mode: "range"});
+        $("#" + win.id).find('.wise-datetimerange').flatpickr({ enableTime: true, time_24hr: true, mode: "range"});
+
+        $("#" + win.id).find('.wise-date-button').off("click");
+        $("#" + win.id).find('.wise-date-button').on("click", function(){
+            $(this).parent().find("input").trigger('click');
+        })
     }
     ,
     initBootstrap: function(win)
@@ -277,12 +320,14 @@ var UIProcessor = Class({
     {
         
         //Date picker
+        console.log("wisedate")
+        console.log($("#" + win.id).find(".wise-date"));
+
         $("#" + win.id).find(".wise-date").datetimepicker({
-            format: 'L', locale: {
-                format: 'DD MMM YYYY'
-            }
+            format: 'L'
         });
 
+        /*
         //Date and time picker
         $("#" + win.id).find(".wise-datetime").datetimepicker({ icons: { time: 'far fa-clock' }, locale: {
             format: 'DD MMM YYYY hh:mm:ss'
@@ -305,6 +350,7 @@ var UIProcessor = Class({
                 format: 'DD MMM YYYY hh:mm:ss'
             }
         })
+        */
     }
     ,
     initEditor: function(win)

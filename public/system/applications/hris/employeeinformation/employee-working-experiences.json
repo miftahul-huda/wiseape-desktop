@@ -1,0 +1,10 @@
+{
+    "element" : "WiseDiv", "style" : "width: 100%; height: 300; background-color: #cccccc",
+    "children": 
+    [
+        {
+            "element" : "WiseLabel", "text" : "Hwllp"
+        }
+        
+    ]
+}

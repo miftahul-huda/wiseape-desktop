@@ -20,7 +20,7 @@ var WiseImage = Class(WiseElement, {
             this.type = "text";
         
         if(this.height == null)
-            this.height = "100%";
+            this.height = "100";
         if(this.width == null)
             this.width = "auto";
         this.placeholder = json.placeholder;
@@ -40,7 +40,7 @@ var WiseImage = Class(WiseElement, {
         if(this.source != null)
             html = html.replace("$src","src='" + this.source + "'");
         else 
-            html = html.replace("$src", "");
+            html = html.replace("$src", "src='images/no-pictures.png'");
 
         let dom = $(html)[0]
         this.dom = dom;

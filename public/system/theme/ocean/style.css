@@ -157,12 +157,12 @@ body
     display: flex;
     background-color: #58abf9;
     opacity: 0.95;
-    -webkit-border-top-left-radius: 8px;
-    -webkit-border-top-right-radius: 8px;
-    -moz-border-radius-topleft: 8px;
-    -moz-border-radius-topright: 8px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    -webkit-border-top-left-radius: 20px;
+    -webkit-border-top-right-radius: 20px;
+    -moz-border-radius-topleft: 20px;
+    -moz-border-radius-topright: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
 .wiseape-window-icon
@@ -229,12 +229,12 @@ body
     height: 95%;
     background-color: #fff;
     padding: 10%;        
-    -webkit-border-bottom-right-radius: 8px;
-    -webkit-border-bottom-left-radius: 8px;
-    -moz-border-radius-bottomright: 8px;
-    -moz-border-radius-bottomleft: 8px;
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
+    -webkit-border-bottom-right-radius: 20px;
+    -webkit-border-bottom-left-radius: 20px;
+    -moz-border-radius-bottomright: 20px;
+    -moz-border-radius-bottomleft: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
 }
 
 .desktop-menu-container
@@ -316,8 +316,8 @@ body
     height: 40px;
     background-color: #58abf9;
     /*background-color: white;*/
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 
     /*background-image: url(images/winheader.png);
     background-size: auto 100%;
@@ -327,7 +327,7 @@ body
 }
 
 .winbox {
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
 .wb-icon
@@ -344,8 +344,8 @@ body
 {
     opacity: 1;
     top: 40px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 .wb-icon
@@ -368,36 +368,50 @@ body
 .form-control
 {
     border: solid 1px #999;
+    font-size: 12pt;
+    padding: 8;
 }
 
 .select2-container
 {
-    border: solid 1px #999;
-    border-radius: 3px;
+    border: solid 1px #ccc;
+    border-radius: 10px;
 }
 
 input.form-control:focus
 {
-    color: #999;
+    color: #666;
+
 }
 
 input.form-control
 {
-    color: #999;
+    color: #666;
+    border-radius: 10px;
+    border-color: #ccc;
+    border-width: 2px;
 }
 
 textarea.form-control:focus
 {
-    color: #999;
+    color: #666;
+    border-color: #ccc;
 }
 
 textarea.form-control
 {
-    color: #999;
+    color: #666;
+    border-radius: 10px;
+    border-color: #ccc;
+    border-width: 2px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #666;
 }
 
 .btn{
-    border-radius: 6px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
 }
@@ -542,8 +556,8 @@ textarea.form-control
 
 .jqx-grid
 {
-    border-radius: 6px !important;
-    border-color: #999 !important;
+    border-radius: 10px !important;
+    border-color: #ece1e1 !important;
 }
 
 
@@ -561,7 +575,7 @@ textarea.form-control
 
 .jqx-grid-column-header span 
 {
-    font-size: 12pt !important;
+    font-size: 11pt !important;
     font-family: Redhat !important;   
     color: #fff !important;
 }
@@ -573,9 +587,15 @@ textarea.form-control
 
 label
 {
-    color: #999;
-    font-weight: 600 !important;
-    margin-bottom: 3px;
+    color: #666;
+    font-weight: 500 !important;
+    margin-bottom: 1px;
+    font-size: 12pt;
+}
+
+.select2-container--default .select2-selection--single 
+{
+    border-radius: 10px !important;
 }
 
 input, select, textarea{
@@ -595,7 +615,51 @@ input, select, textarea{
     display: flex !important;
 }
 
-.form-control
+
+.treeview span.icon {
+    width: 3px !important;
+}
+
+.wise-tab-content
 {
-    font-size: 10pt !important;
+    padding: 2%;
+    height: 80%;
+    overflow-y: auto;
+    border-left: solid 1px #ccc;
+    border-right: solid 1px #ccc;
+    border-bottom: solid 1px #ccc;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.wise-tab-link
+{
+    color: #666;
+    font-weight: bold;
+}
+
+[role="tablist"]
+{
+    height: 40px;
+}
+
+.datetimepicker-input[readonly]
+{
+    background-color: #fff;
+}
+.flatpickr-calendar
+{
+    padding: 20px !important;
+}
+
+.input-group>.custom-select:not(:first-child), .input-group>.form-control:not(:first-child)
+{
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+}
+
+.wise-title-text
+{
+    color: #051662;
 }

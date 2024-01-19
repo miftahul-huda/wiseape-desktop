@@ -25,7 +25,7 @@ var WiseTextBox = Class(WiseElement, {
         let me = this;
         let html = "<div class='form-group' id='wise-textbox-container-" + this.id + "'>" +
                     "<label for='" + this.id + "'>" + this.label + "</label>" +
-                    "<input type='" + this.type + "' class='form-control' id='" + this.id + "' placeholder='" + this.placeholder + "'>" +
+                    "<input type='" + this.type + "' class='form-control' id='" + this.id + "' placeholder=\"" + this.placeholder + "\">" +
                     "</div>"
                     
         if(this.icon != null)
@@ -34,7 +34,7 @@ var WiseTextBox = Class(WiseElement, {
             "<label for='" + this.id + "'>" + this.label + "</label>" +
             "<div class='input-group'>" +
             "<div class='input-group-prepend'><div class='input-group-text'><i class='fas fa-envelope'></i></div>" +
-            "<input type='" + this.type + "' class='form-control' id='" + this.id + "' placeholder='" + this.placeholder + "'>" +
+            "<input type='" + this.type + "' class='form-control' id='" + this.id + "' placeholder=\"" + this.placeholder + "\">" +
             "</div>" + 
             "</div>"
             
@@ -43,6 +43,7 @@ var WiseTextBox = Class(WiseElement, {
         let dom = $(html)[0]
         if(me.elementEventHandler != null)
         {
+            
             $(dom).find("input").off("keypress");
             $(dom).find("input").on("keypress", function(event){
                 me.elementEventHandler(me.id, me.onkeypress, event);
@@ -57,6 +58,7 @@ var WiseTextBox = Class(WiseElement, {
             $(dom).find("input").on("keyup", function(event){
                 me.elementEventHandler(me.id, me.onkeyup, event)
             })
+            
         }
 
 

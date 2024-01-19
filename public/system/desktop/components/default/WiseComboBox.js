@@ -7,6 +7,7 @@ var WiseComboBox = Class(WiseElement, {
         this.label = json.label;
         this.disabled = json.disabled;
         this.readOnly = json.readOnly;
+        this.items = json.items;
         if(this.type == null)
             this.type = "text";
         this.placeholder = json.placeholder;

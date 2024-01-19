@@ -1,0 +1,60 @@
+{
+    "root" :
+    {
+        "children" : 
+        [
+            {
+                "element" : "WiseDiv", "style" : "display: flex; position:fixed; width: 100%; margin-top: -20px; left:0px; background-color: #fff; z-index: 1000; padding: 10px; border: solid 1px #ccc", 
+                "children" : 
+                [
+                    { "element" : "WiseDiv", "style" : "width: 95%" },  
+                    { "element": "WiseMenuButton", "id" : "btnCancel", "icon" : "/node-simple-note/images/close-icon.png", "text" : "Close", "onclick": "btnClose_onClick" }
+                ]
+            }
+            ,
+            {
+                "element": "WiseDiv", "style" : "height: 60px"
+            }
+            ,
+            {
+                "element" : "WiseDiv", "style" : "display: flex",
+                "children" : 
+                [
+                    { "element": "WiseText", "id": "project", "data" : "project.project_name", "label" : "Project" },
+                    { "element": "WiseText", "id": "category", "data" : "category.category_name", "label" : "Category" },
+                    { "element": "WiseText", "id": "tags", "data" : "tags", "label" : "Tags" }  
+                ]
+            }
+            ,
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseText", "id": "title", "data" : "title", "label" : "Title" }
+                ]
+            }
+            ,
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseText", "id": "shortDescription", "data" : "short_desc", "label" : "Short Description" }
+                   
+                ]
+            }
+            ,
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseText", "id": "content", "data" : "content", "label" : "Content" }
+                   
+                ]
+            }
+            ,
+            {
+                "element": "WiseDiv", "class":"vertical-separator"
+            }
+        ]
+    }
+}

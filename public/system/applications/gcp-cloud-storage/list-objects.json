@@ -1,0 +1,59 @@
+{
+    "root" :
+    {
+        "children" : 
+        [
+            {
+                "element" : "WiseDiv", "class" : "wise-list-header",
+                "children" : 
+                [
+                    { "element": "WiseMenuButton", "id" : "btnRefreshObject",  "icon" : "/gcp-cloud-storage/images/refresh.png", "text" : "Refresh the list" },
+                    { "element": "WiseMenuButton", "id" : "btnExportObject",  "icon" : "/gcp-cloud-storage/images/export.png", "text" : "Export the list to csv or excel"  },
+                    { "element": "WiseMenuButton", "id" : "btnSendObject",  "icon" : "/gcp-cloud-storage/images/send.png", "text" : "Send this list to email" },
+                    { "element": "WiseMenuButton", "id" : "btnPrintObject",  "icon" : "/gcp-cloud-storage/images/print.png", "text" : "Print this list" },
+                    { "element": "WiseMenuVerticalSeparator" },
+                    { "element": "WiseMenuButton", "id" : "btnDetailObject", "icon" : "/gcp-cloud-storage/images/information.png", "text" : "See the detail information of the selected item" },
+                    { "element": "WiseMenuButton", "id" : "btnAddObject", "icon" : "/gcp-cloud-storage/images/add.png", "text" : "Add" },
+                    { "element": "WiseMenuButton", "id" : "btnEditObject", "icon" : "/gcp-cloud-storage/images/edit.png", "text" : "Edit" },
+                    { "element": "WiseMenuButton", "id" : "btnDeleteObject", "icon" : "/gcp-cloud-storage/images/delete.png", "text" : "Remove" },
+                    { "element": "WiseMenuButton", "id" : "btnCopyObject", "icon" : "/gcp-cloud-storage/images/copy.png", "text" : "Copy" },
+                    { "element": "WiseMenuButton", "id" : "btnPasteObject", "icon" : "/gcp-cloud-storage/images/paste.png", "text" : "Paste" },
+                    { "element": "WiseMenuVerticalSeparator" },
+                    { "element": "WiseMenuButton", "id" : "btnFindObject", "icon" : "/gcp-cloud-storage/images/find.png", "text" : "Find" },
+                    { "element": "WiseMenuButton", "id" : "btnAdvanceFindObject", "icon" : "/gcp-cloud-storage/images/more-find.png", "text" : "Advance Find" },
+                    { "element": "WiseMenuVerticalSeparator" },
+                    { "element": "WiseMenuButton", "id" : "btnSetPermissionObject", "icon" : "/gcp-cloud-storage/images/information.png", "text" : "See the detail information of the selected item" },
+                    { "element": "WiseMenuVerticalSeparator" },
+                    { "element": "WiseMenuButton", "id" : "btnSummaryObject", "icon" : "/gcp-cloud-storage/images/summary.png", "text" : "Summary" }
+                ]
+            }
+            ,
+            {
+                "element": "WiseDiv", "class":"vertical-separator"
+            }
+            ,
+            {
+                "element" : "WiseGroup", "title" : "List of Object", "description" : "This is the list of Objects", "style" : "display: flex",
+                "children" : 
+                [
+
+                    {
+                        "element": "WiseTreeView", "id": "treePanel", "width" : "20%", "height" : "100%", "label" : "Buckets", "style": "margin-top: 10%"
+                    }
+                    ,
+                    { "element": "WiseDataTable", "id" : "tableListObject", "columns": [
+                        { "datafield" : "id", "text": "ID", "width" : "100" },
+                        { "datafield" : "fileIcon", "text": "Icon", "width" : "200", "type" : "image" },
+                        { "datafield" : "fileBucket", "text": "Bucket" },
+                        { "datafield" : "filePath", "text": "Path" },
+                        { "datafield" : "fileSize", "text": "Size" },
+                        { "datafield" : "storageClass", "text": "Storage Class" },
+                        { "datafield" : "publicAccess", "text": "Public Access" },
+                        { "datafield" : "createdDate", "text": "Created Date" },
+                        { "datafield" : "uploadedBy", "text": "Uploaded By" }
+                    ]}
+                ]
+            }
+        ]
+    }
+}

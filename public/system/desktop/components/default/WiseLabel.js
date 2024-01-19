@@ -10,7 +10,7 @@ var WiseLabel = Class(WiseElement, {
         let me = this;
 
         let div = document.createElement("div")
-        $(div).addClass("element-contaier")
+        $(div).addClass("wise-label")
         $(div).html(this.text)
         this.dom = div;
         return div;

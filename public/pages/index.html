@@ -10,7 +10,17 @@
         <script src="/system/config/config-manager.js"></script>
         <script src="/system/GLOBAL.js"></script>
         <script src="/system/kernel/application.js"></script>
+        <link href="../bootstrap/css/bootstrap.glyph.css" rel="stylesheet" />
   
+
+        <!-- Latest compiled and minified CSS 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        -->
+
+        <!-- Latest compiled JavaScript 
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        -->
+
         <!-- Font Awesome -->
         <link rel="stylesheet" href="../admin-lte-3/plugins/fontawesome-free/css/all.min.css">
         <!-- daterange picker -->
@@ -64,6 +74,11 @@
 
 
     <script>
+
+        window.history.pushState(null, "", window.location.href);
+        window.onpopstate = function () {
+            window.history.pushState(null, "", window.location.href);
+        };
         $(document).ready(function() {
 
             let serverConfig = "<%=config%>";

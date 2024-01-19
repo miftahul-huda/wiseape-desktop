@@ -29,6 +29,10 @@ class Initialization {
         GroupUserModel.initialize(sequelize, force)
         GroupAccessModel.initialize(sequelize, force)
         CacheModel.initialize(sequelize, force)
+
+        MenuModel.belongsTo(ApplicationModel, { as: "application", foreignKey: "appID", targetKey: "appID" })
+        MenuModel.belongsTo(MenuModel, { as: "parent", foreignKey: "parentMenuId", targetKey: "id" })
+
         await sequelize.sync();
     }
 }

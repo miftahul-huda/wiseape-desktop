@@ -27,54 +27,25 @@ var WiseDate = Class(WiseElement, {
         let dtClass = "wise-date"
         if(me.type == "datetime")
             dtClass = "wise-datetime";
+        else if(me.type == "daterange")
+            dtClass = "wise-daterange";
+        else if(me.type == "datetimerange")
+            dtClass = "wise-datetimerange";
 
         let html = "<div class=\"form-group element-container\" id='wise-calendar-container-"+me.id+"'>" +
         "<label>" + me.label + "</label>" +
         "<div class=\"input-group date\" id=\"" + me.id + "\" data-target-input=\"nearest\">" +
-        "<input type=\"text\" class=\"form-control datetimepicker-input " + dtClass + "\" data-target=\"#" + me.id + "\" />" +
-        "<div class=\"input-group-append\" data-target=\"#"+ me.id +"\" data-toggle=\"datetimepicker\">" +
-        "<div class=\"input-group-text\"><i class=\"fa fa-calendar\"></i></div>" +
+        "<input type=\"text\" class=\"form-control datetimepicker-input " + dtClass + "\" data-target=\"#" + me.id + "\" placeholder=\"" + me.placeholder + "\"/>" +
+        "<div class=\"input-group-append wise-date-button\" data-target=\"#"+ me.id +"\" data-toggle=\"datetimepicker\">" +
+        "<div class=\"input-group-text \"><i class=\"fa fa-calendar\"></i></div>" +
         "</div>" +
         "</div>" +
         "</div>";
 
-        if(me.type == "daterange")
-        {
-
-            html = `
-                <div class="form-group element-container">
-                    <label>${label}</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="far fa-calendar-alt"></i>
-                            </span>
-                        </div>
-                        <input type="text" class="form-control float-right wise-daterange" id="${id}">
-                    </div>
-                </div>
-            `
-        }
-        else if(me.type == "datetimerange")
-        [
-            html = `
-                <div class="form-group element-container">
-                    <label>${label}</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="far fa-clock"></i>
-                            </span>
-                        </div>
-                        <input type="text" class="form-control float-right wise-datetimerange" id="${id}">
-                    </div>
-                </div>
-            `
-        ]
-
                     
         let dom = $(html)[0]
 
+        /*
         
         $(dom).find("input").off("keypress");
         $(dom).find("input").on("keypress", function(event){
@@ -93,13 +64,14 @@ var WiseDate = Class(WiseElement, {
             if(me.elementEventHandler != null)
                 me.elementEventHandler(me.id, me.onkeyup, event)
         })
-        
+        */
         this.dom = dom;
         return dom;
     }
     ,
     value: function(val=null)
     {
+        /*
         if(val == null)
         {
             let dt = $("#" + this.id).val();
@@ -131,6 +103,7 @@ var WiseDate = Class(WiseElement, {
         {
             $("#" + this.id).val(val);
         }
+        */
     }
     ,
     focus: function()

@@ -1,0 +1,43 @@
+{
+    "root" :
+    {
+        "children" : 
+        [
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseTextBox", "id": "employeeNo", "data" : "employeeNo", "label" : "Employee #", "placeholder" : "Enter the employee number" }
+                ]
+            }
+            ,
+            {
+                "element" : "WiseTabGroup",
+                "children":[
+                    { "element" : "WiseTab", "label" : "Personal Info", "linkid" : "tab-personal-info", "active" : "true" },
+                    { "element" : "WiseTab", "label" : "Working Experiences", "linkid" : "tab-working-experiences"  }
+                ]
+            }
+            ,
+            {
+                "element" : "WiseTabContent", 
+                "children" : 
+                [
+                    { "element" : "WiseContent", "id" : "tab-personal-info", "source": "employee-personal-info.json" },
+                    { "element" : "WiseContent", "id" : "tab-working-experiences", "source": "employee-working-experiences.json" }
+
+                ]
+            }
+            ,
+            {
+                "element" : "WiseDiv", "style" : "display: flex; position:fixed; width: 100%; margin-top: 20px; left:0px; background-color: transparent; z-index: 1000; padding: 10px; border-top: solid 0px #ccc", 
+                "children" : 
+                [
+                    { "element" : "WiseDiv", "style" : "width: 90%" },  
+                    { "element": "WiseMenuButton", "id" : "btnSave", "icon" : "/node-simple-note/images/save-icon.png", "text" : "Save", "onclick": "btnSave_onClick" },
+                    { "element": "WiseMenuButton", "id" : "btnCancel", "icon" : "/node-simple-note/images/close-icon.png", "text" : "Close", "onclick": "btnClose_onClick" }
+                ]
+            }
+        ]
+    }
+}

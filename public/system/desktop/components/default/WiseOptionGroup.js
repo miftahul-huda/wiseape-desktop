@@ -2,6 +2,13 @@ var WiseOptionGroup = Class(WiseElement, {
     init: function(json) {
         this.onclick = json.onclick;
         this.options = json.options;
+        this.layout = json.layout;
+        this.label = json.label;
+        if(this.layout == null)
+            this.layout = "vertical";
+
+        if(this.options == null)
+            this.options = [];
         WiseOptionGroup.$superp.init.call(this, json, "WiseOptionGroup");
     }
     ,
@@ -9,16 +16,48 @@ var WiseOptionGroup = Class(WiseElement, {
     {
         let me = this;
         let div = document.createElement("div")
+        let divLabel = document.createElement("label")
+        let divOptions = document.createElement("div")
+
+
         $(div).addClass("form-group clearfix  element-container")
 
+        $(divLabel).attr("role", "label" )
+        $(divLabel).html(this.label)
+
+        $(divOptions).attr("role", "options")
+
+        console.log("this.options")
+        console.log(this.options)
+
+        if(this.layout == "horizontal")
+            $(divOptions).css("display", "flex");
+
+        divOptions = this.addOptions(divOptions);
+
+        $(div).append(divLabel)
+        $(div).append(divOptions)
+        
+        this.dom= div;
+        return div;
+    }
+    ,
+    addOptions: function(div)
+    {
         let counter = 0;
+        let me = this;
+        console.log("this.options")
+        console.log(this.options)
         this.options.map((o)=>{
             let div2 = document.createElement("div")
             $(div2).addClass("icheck-primary");
 
             let label = document.createElement("label")
             $(label).attr("for",  me.id + "_" + counter)
-            $(label).html(o.label + "<br />")
+            let labelText = o.label + "<br />";
+            if(this.layout == "horizontal")
+                labelText = "<span style='padding-right: 30px'>" + o.label + "</span>"
+            $(label).html(labelText)
             
             let opt = document.createElement("input")
             $(opt).attr("type", "radio");
@@ -43,8 +82,6 @@ var WiseOptionGroup = Class(WiseElement, {
             counter++;
         })
 
-        
-        this.dom= div;
         return div;
     }
     ,
@@ -59,6 +96,16 @@ var WiseOptionGroup = Class(WiseElement, {
         {
             $("#" + this.id).val(val);
         }
+    }
+    ,
+    addItems: function(items)
+    {
+        this.options = items;
+        console.log("this.dom")
+        let divOptions = $(this.dom).find("div[role=options]")[0]
+        console.log(this.divOptions)
+
+        this.addOptions(divOptions);
     }
 
 })

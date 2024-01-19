@@ -89,8 +89,8 @@
     height: 30px; 
     background-color: #fff; 
     border: solid 0px #eee;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
     background-color: #fff;
 }
 
@@ -101,8 +101,8 @@
     height: 90%;
     */
 
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
     overflow: hidden;
 
 }

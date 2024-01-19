@@ -13,6 +13,12 @@ class MenuRouter extends CrudRouter{
             res.send(result);
         });
 
+        router.get('/type/:menuType', async (req, res)=>{
+            let menuType = req.params.menuType;
+            let result = await logic.findByMenuType(menuType);
+            res.send(result);
+        });
+
         return router;
     }
 }

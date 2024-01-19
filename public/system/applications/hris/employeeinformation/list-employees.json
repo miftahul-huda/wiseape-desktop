@@ -1,0 +1,70 @@
+{
+    "root" :
+    {
+        "children" : 
+        [
+            {
+                "element" : "WiseDiv", "class" : "wise-list-header",
+                "children" : 
+                [
+                    { "element": "WiseMenuButton", "id" : "btnRefreshEmployee", "onclick": "btnRefreshEmployee_onClick", "icon" : "/node-simple-note/images/refresh-icon.png", "text" : "Refresh the list" },
+                    { "element": "WiseMenuButton", "id" : "btnExportEmployee", "onclick": "btnExportEmployee_onClick", "icon" : "/node-simple-note/images/export-icon.png", "text" : "Export the list to csv or excel"  },
+                    { "element": "WiseMenuButton", "id" : "btnSendEmployee", "onclick": "btnSendEmployee_onClick",  "icon" : "/node-simple-note/images/send-icon.png", "text" : "Send this list to email" },
+                    { "element": "WiseMenuButton", "id" : "btnPrintEmployee", "onclick": "btnPrintEmployee_onClick",  "icon" : "/node-simple-note/images/print-icon.png", "text" : "Print this list" },
+                    { "element": "WiseMenuVerticalSeparator" },
+                    { "element": "WiseMenuButton", "id" : "btnDetailEmployee","onclick": "btnDetailEmployee_onClick", "icon" : "/node-simple-note/images/information.png", "text" : "See the detail information of the selected item" },
+                    { "element": "WiseMenuButton", "id" : "btnEmailEmployee","onclick": "btnEmailEmployee_onClick", "icon" : "/node-simple-note/images/email.png", "text" : "Email the selected item" },
+                    { "element": "WiseMenuButton", "id" : "btnShareEmployee","onclick": "btnShareEmployee_onClick", "icon" : "/node-simple-note/images/share.png", "text" : "Share the selected item with other user" },
+                    { "element": "WiseMenuButton", "id" : "btnAddEmployee", "onclick": "btnAddEmployee_onClick", "icon" : "/node-simple-note/images/add-icon.png", "text" : "Add" },
+                    { "element": "WiseMenuButton", "id" : "btnEditEmployee", "onclick": "btnEditEmployee_onClick", "icon" : "/node-simple-note/images/edit-icon.png", "text" : "Edit" },
+                    { "element": "WiseMenuButton", "id" : "btnDeleteEmployee", "onclick": "btnDeleteEmployee_onClick", "icon" : "/node-simple-note/images/delete.png", "text" : "Remove" },
+                    { "element": "WiseMenuButton", "id" : "btnCopyEmployee", "onclick": "btnCopyEmployee_onClick", "icon" : "/node-simple-note/images/copy-icon.png", "text" : "Copy" },
+                    { "element": "WiseMenuButton", "id" : "btnPasteEmployee", "onclick": "btnPasteEmployee_onClick", "icon" : "/node-simple-note/images/paste-icon.png", "text" : "Paste" },
+                    { "element": "WiseMenuVerticalSeparator" },
+                    { "element": "WiseMenuButton", "id" : "btnFindEmployee", "onclick": "btnFindEmployee_onClick", "icon" : "/node-simple-note/images/search-icon.png", "text" : "Find" },
+                    { "element": "WiseMenuButton", "id" : "btnAdvanceFindEmployee", "onclick": "btnAdvanceFindEmployee_onClick", "icon" : "/node-simple-note/images/search-advance-icon.png", "text" : "Advance Find" },
+                    { "element": "WiseMenuVerticalSeparator" },
+                    { "element": "WiseMenuButton", "id" : "btnSummaryEmployee", "onclick": "btnSummaryEmployee_onClick",  "icon" : "/node-simple-note/images/graph-icon.png", "text" : "Summary" }
+                ]
+            }
+            ,
+            {
+                "element": "WiseDiv", "class":"vertical-separator"
+            }
+            ,
+            {
+                "element" : "WiseGroup", "title" : "List of Employees", "description" : "This is the list of Employees", "style" : "display: flex",
+                "children" : 
+                [
+                    {
+                        "element": "WiseDiv", "style": "width: 25%; margin-top: 20px", 
+                        "children" :[
+                            {
+                                "element": "WiseTreeView", "id": "treePanel", "height" : "100%", "label" : "Organizations", "onNodeSelected": "treePanel_nodeSelected"
+                            }
+                        ]
+                    }
+                    ,
+                    {
+                        "element": "WiseDiv", "style": "width: 75%",
+                        "children":[
+                            { "element": "WiseDataTable", "id" : "tableListOfEmployee", "width" : "80%", "columns": [
+                                { "datafield" : "picture", "text": "", "width" : "60", "type" : "image" },
+                                { "datafield" : "employeeNo", "text": "Employee NO", "width" : "200" },
+                                { "datafield" : "identityNo", "text": "Identity #", "width" : "100" },
+                                { "datafield" : "firstName", "text": "First Name", "width" : "200" },
+                                { "datafield" : "middleName", "text": "Middle Name" },
+                                { "datafield" : "lastName", "text": "Last Name", "width" : "100" },
+                                { "datafield" : "jobTitle.jobTitle", "text": "Job Title", "width" : "200"  },
+                                { "datafield" : "phone", "text": "Phone", "width" : "200"  },
+                                { "datafield" : "email", "text": "Email", "width" : "200"  }
+                            ]}
+                        ]
+                    }
+                    
+                    
+                ]
+            }
+        ]
+    }
+}

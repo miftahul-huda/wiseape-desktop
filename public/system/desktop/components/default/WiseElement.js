@@ -2,6 +2,8 @@ var WiseElement = Class({
     constructor:function(id)
     {
         this.id = id
+        this.label = null
+        this.attribute = null
         this.classes = []
         this.style = null
         this.tag = 'div'
@@ -32,6 +34,12 @@ var WiseElement = Class({
         if(json.data != null)
             this.data = json.data;
 
+        if(json.label != null)
+            this.label = json.label;
+
+        if(json.attribute != null)
+            this.attribute = json.attribute;
+
         this.tag = tag;
 
     }
@@ -56,6 +64,25 @@ var WiseElement = Class({
         }
         if(this.style != null)
             $(dom).attr("style", this.style)
+
+        if(this.attribute != null)
+        {
+            let attrs = this.attribute;
+            attrs = attrs.split(" ")
+            attrs.map((attr)=>{
+                let ats = attr.split("=")
+                let attrname = "";
+                let attrvalue = "";
+                if(ats.length > 0)
+                    attrname = ats[0]
+
+                if(ats.length > 1)
+                    attrvalue = ats[1].replace(/'/gi,"");
+
+                if(ats.length > 0)
+                    $(dom).attr(attrname, attrvalue)
+            })
+        }
         return dom;
     }
     ,

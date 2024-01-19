@@ -26,6 +26,7 @@ class CrudRouter {
             me.init(req, res);
             let logic = router.logic;
             logic.session = req.session;
+            console.log("hereee")
             console.log(logic);
             logic.findAll().then(function (os)
             {
@@ -124,6 +125,7 @@ class CrudRouter {
                 res.send(savedO);
             }).catch(function (err){
                 console.log("error")
+                console.log(err)
                 res.send(err);
             })
         })
@@ -135,6 +137,21 @@ class CrudRouter {
             let logic = router.logic;
             logic.session = req.session;
             logic.delete(id).then(function (result)
+            {
+                res.send(result);
+            }).catch(function (err){
+                console.log("error")
+                res.send(err);
+            })
+        })
+
+        router.get('/delete-items/:ids', function (req, res){
+
+            me.init(req, res);
+            let ids = req.params.ids;
+            let logic = router.logic;
+            logic.session = req.session;
+            logic.deleteItems(ids).then(function (result)
             {
                 res.send(result);
             }).catch(function (err){

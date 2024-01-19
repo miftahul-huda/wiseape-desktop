@@ -1,0 +1,91 @@
+{
+    "element" : "WiseDiv",
+    "children": 
+    [
+        {
+            "element" : "WiseTitle", "text" : "Basic Information"
+        }
+        ,
+        {
+            "element" : "WiseDiv",
+            "children" : 
+            [
+                { "element": "WiseOptionGroup", "id": "identityTypeCode", "data" : "identityTypeCode", "label" : "Identity Type", "placeholder" : "Enter identity type", "layout" : "horizontal" }
+            ]
+        }
+        ,
+        {
+            "element" : "WiseDiv",
+            "children" : 
+            [
+                { "element": "WiseTextBox", "id": "identityNo", "data" : "identityNo", "label" : "Identity #", "placeholder" : "Enter identity number" }
+            ]
+        }
+        ,
+        {
+            "element" : "WiseDiv", "style" : "display: flex",
+            "children" : 
+            [
+                { "element": "WiseTextBox", "id": "firstName", "data" : "firstName", "label" : "First Name", "placeholder" : "Enter employee's first name" },
+                { "element": "WiseTextBox", "id": "middleName", "data" : "middleName", "label" : "Middle Name", "placeholder" : "Enter employee's middle name" }
+            ]
+        }
+        ,
+        {
+            "element" : "WiseDiv",
+            "children" : 
+            [
+                { "element": "WiseTextBox", "id": "lastName", "data" : "lastName", "label" : "Last Name", "placeholder" : "Enter employee's last name" }
+            ]
+        }
+        ,
+        {
+            "element" : "WiseDiv", "style" : "display: flex",
+            "children" : 
+            [
+                { "element": "WiseTextBox", "id": "birthPlace", "data" : "birthPlace", "label" : "Birthplace", "placeholder" : "Enter employee's birth city" },
+                { "element": "WiseDate", "id": "Birth Date", "data" : "birthDate", "label" : "Birth Date", "placeholder" : "Enter employee's birth date" }
+               
+            ]
+        }
+        ,
+        {
+            "element" : "WiseTitle", "text" : "Address Information"
+        }
+        ,
+        {
+            "element" : "WiseDiv", "style" : "display: flex",
+            "children" : 
+            [
+                { "element": "WiseComboBox", "id": "cmbProvince",  "data" : "addressProvinceCode", "label" : "Province", "placeholder" : "Enter employee's residency province", "onchange" : "cmbProvince_onChange" },
+                { "element": "WiseComboBox", "id": "cmbCity", "data" : "addressCityCode", "label" : "City", "placeholder" : "Enter employee's residency city", "onchange" : "cmbCity_onChange" },
+                { "element": "WiseComboBox", "id": "cmbDistrict", "data" : "addressDistrictCode", "label" : "District", "placeholder" : "Enter employee's residency district" }   
+            ]
+        }
+        ,
+        {
+            "element" : "WiseDiv",
+            "children" : 
+            [
+                { "element": "WiseTextArea", "id": "address", "data" : "address", "label" : "Address", "placeholder" : "Enter employee's address" }
+            ]
+        }
+        ,
+        {
+            "element" : "WiseTitle", "text" : "Contact Information"
+        }
+        ,
+        {
+            "element" : "WiseDiv", "style" : "display: flex",
+            "children" : 
+            [
+                { "element": "WiseTextBox", "id": "phoneNumber", "data" : "phoneNumber", "label" : "Phone Number", "placeholder" : "Enter employee's phone number" },
+                { "element": "WiseTextBox", "id": "email", "data" : "email", "label" : "Email", "placeholder" : "Enter employee's email" }
+            ]
+        }
+        ,
+        {
+            "element": "WiseDiv", "class":"vertical-separator"
+        }
+    ]
+}

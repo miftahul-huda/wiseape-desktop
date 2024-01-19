@@ -7,22 +7,20 @@
                 "element" : "WiseDiv", "class" : "wise-list-header",
                 "children" : 
                 [
-                    { "element": "WiseMenuButton", "id" : "btnRefreshApplication",  "icon" : "/application-manager/images/refresh.png", "text" : "Refresh the list" },
-                    { "element": "WiseMenuButton", "id" : "btnExportApplication",  "icon" : "/application-manager/images/export.png", "text" : "Export the list to csv or excel"  },
-                    { "element": "WiseMenuButton", "id" : "btnSendApplication",  "icon" : "/application-manager/images/send.png", "text" : "Send this list to email" },
-                    { "element": "WiseMenuButton", "id" : "btnPrintApplication",  "icon" : "/application-manager/images/print.png", "text" : "Print this list" },
+                    { "element": "WiseMenuButton", "id" : "btnRefreshApplication", "onclick": "btnRefreshApplication_onClick",  "icon" : "/application-manager/images/refresh.png", "text" : "Refresh the list" },
+                    { "element": "WiseMenuButton", "id" : "btnExportApplication", "onclick": "btnExportApplication_onClick",  "icon" : "/application-manager/images/export.png", "text" : "Export the list to csv or excel"  },
+                    { "element": "WiseMenuButton", "id" : "btnSendApplication", "onclick": "btnSendApplication_onClick",  "icon" : "/application-manager/images/send.png", "text" : "Send this list to email" },
+                    { "element": "WiseMenuButton", "id" : "btnPrintApplication", "onclick": "btnPrintApplication_onClick",  "icon" : "/application-manager/images/print.png", "text" : "Print this list" },
                     { "element": "WiseMenuVerticalSeparator" },
-                    { "element": "WiseMenuButton", "id" : "btnDetailApplication", "icon" : "/application-manager/images/information.png", "text" : "See the detail information of the selected item" },
-                    { "element": "WiseMenuButton", "id" : "btnAddApplication", "icon" : "/application-manager/images/add.png", "text" : "Add" },
-                    { "element": "WiseMenuButton", "id" : "btnEditApplication", "icon" : "/application-manager/images/edit.png", "text" : "Edit" },
-                    { "element": "WiseMenuButton", "id" : "btnDeleteApplication", "icon" : "/application-manager/images/delete.png", "text" : "Remove" },
-                    { "element": "WiseMenuButton", "id" : "btnCopyApplication", "icon" : "/application-manager/images/copy.png", "text" : "Copy" },
-                    { "element": "WiseMenuButton", "id" : "btnPasteApplication", "icon" : "/application-manager/images/paste.png", "text" : "Paste" },
+                    { "element": "WiseMenuButton", "id" : "btnDetailApplication", "onclick": "btnDetailApplication_onClick", "icon" : "/application-manager/images/information.png", "text" : "See the detail information of the selected item" },
+                    { "element": "WiseMenuButton", "id" : "btnEmailNote","onclick": "btnEmailApplication_onClick", "icon" : "/node-simple-note/images/email.png", "text" : "Email the selected item" },
+                    { "element": "WiseMenuButton", "id" : "btnAddApplication", "onclick": "btnAddApplication_onClick", "icon" : "/application-manager/images/add.png", "text" : "Add" },
+                    { "element": "WiseMenuButton", "id" : "btnEditApplication", "onclick": "btnEditApplication_onClick", "icon" : "/application-manager/images/edit.png", "text" : "Edit" },
+                    { "element": "WiseMenuButton", "id" : "btnDeleteApplication", "onclick": "btnDeleteApplication_onClick", "icon" : "/application-manager/images/delete.png", "text" : "Remove" },
+                    { "element": "WiseMenuButton", "id" : "btnCopyApplication", "onclick": "btnCopyApplication_onClick", "icon" : "/application-manager/images/copy.png", "text" : "Copy" },
+                    { "element": "WiseMenuButton", "id" : "btnPasteApplication", "onclick": "btnPasteApplication_onClick", "icon" : "/application-manager/images/paste.png", "text" : "Paste" },
                     { "element": "WiseMenuVerticalSeparator" },
-                    { "element": "WiseMenuButton", "id" : "btnFindApplication", "icon" : "/application-manager/images/find.png", "text" : "Find" },
-                    { "element": "WiseMenuButton", "id" : "btnAdvanceFindApplication", "icon" : "/application-manager/images/more-find.png", "text" : "Advance Find" },
-                    { "element": "WiseMenuVerticalSeparator" },
-                    { "element": "WiseMenuButton", "id" : "btnSummaryApplication", "icon" : "/application-manager/images/summary.png", "text" : "Summary" }
+                    { "element": "WiseMenuButton", "id" : "btnFindApplication", "onclick": "btnFindApplication_onClick", "icon" : "/application-manager/images/find.png", "text" : "Find" }
                 ]
             }
             ,
@@ -34,10 +32,14 @@
                 "element" : "WiseGroup", "title" : "List of Application", "description" : "This is the list of applications installed in the system",
                 "children" : 
                 [
-                    { "element": "WiseDataTable", "id" : "tableListApplication", "columns": [
-                        { "datafield" : "id", "text": "ID", "width" : "100" },
-                        { "datafield" : "appIcon", "text": "Icon", "width" : "200", "type" : "image" },
-                        { "datafield" : "appTitle", "text": "Title" }
+                    { "element": "WiseDataTable", "id" : "tableListOfApplication", "onrowdblclick" : "tableListOfApplication_onRowDoubleClick",
+                        "columns": [
+                        { "datafield" : "appIcon", "text": "Icon", "width" : "60", "type" : "image" },
+                        { "datafield" : "appID", "text": "app ID", "width" : "300" },
+                        { "datafield" : "appTitle", "text": "Title", "width" : "250" },
+                        { "datafield" : "company", "text": "Company" },
+                        { "datafield" : "appWebsite", "text": "Website" }
+
                     ]}
                 ]
             }
