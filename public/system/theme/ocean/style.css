@@ -381,6 +381,7 @@ body
 input.form-control:focus
 {
     color: #666;
+    border-color: #ccc;
 
 }
 
