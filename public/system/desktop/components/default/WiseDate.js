@@ -34,9 +34,9 @@ var WiseDate = Class(WiseElement, {
 
         let html = "<div class=\"form-group element-container\" id='wise-calendar-container-"+me.id+"'>" +
         "<label>" + me.label + "</label>" +
-        "<div class=\"input-group date\" id=\"" + me.id + "\" data-target-input=\"nearest\">" +
-        "<input type=\"text\" class=\"form-control datetimepicker-input " + dtClass + "\" data-target=\"#" + me.id + "\" placeholder=\"" + me.placeholder + "\"/>" +
-        "<div class=\"input-group-append wise-date-button\" data-target=\"#"+ me.id +"\" data-toggle=\"datetimepicker\">" +
+        "<div class=\"input-group date\" data-target-input=\"nearest\">" +
+        "<input id=\"" + me.id + "\" type=\"text\" class=\"form-control datetimepicker-input " + dtClass + "\" placeholder=\"" + me.placeholder + "\"/>" +
+        "<div class=\"input-group-append wise-date-button\" data-target=\"#"+ me.id +"\">" +
         "<div class=\"input-group-text \"><i class=\"fa fa-calendar\"></i></div>" +
         "</div>" +
         "</div>" +
@@ -71,39 +71,17 @@ var WiseDate = Class(WiseElement, {
     ,
     value: function(val=null)
     {
-        /*
+        
         if(val == null)
         {
             let dt = $("#" + this.id).val();
-            if(dt.indexOf(" - ") > -1)
-            {
-                let dts = dt.split(" - ");
-                let dt1 = dts[0];
-                let dt2 = dts[1];
-
-                if(this.type.indexOf('time') > -1)
-                {
-                    dt1 = moment(dt1).format("YYYY-MM-DD hh:mm:ss");
-                    dt2 = moment(dt2).format("YYYY-MM-DD hh:mm:ss");
-                }
-                else
-                {
-                    dt1 = moment(dt1).format("YYYY-MM-DD");
-                    dt2 = moment(dt2).format("YYYY-MM-DD");
-                }
-
-                dt = dt1 + " - " + dt2;
-            }
-            else
-                dt = moment(dt).format("YYYY-MM-DD");
-
             return dt;
         }
         else
         {
             $("#" + this.id).val(val);
         }
-        */
+        
     }
     ,
     focus: function()

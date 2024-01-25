@@ -1,0 +1,41 @@
+{
+    "root" :
+    {
+        "children" : 
+        [
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseTextBox", "id": "skillName", "data" : "skillName", "label" : "Skill", "placeholder" : "Enter the employee's skill" }
+                ]
+            }
+            ,
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseComboBox", "id": "cmbSkillLevel", "data" : "skillLevelCode", "label" : "Skill Level", "placeholder" : "Enter the employee's skill level" }
+                ]
+            }
+            ,
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseComboBox", "id": "cmbSkillGroup", "data" : "skillGroupCode", "label" : "Skill Group", "placeholder" : "Enter the employee's skill group" }
+                ]
+            }      
+            ,
+            {
+                "element" : "WiseDiv", "style" : "display: flex; position:fixed; width: 100%; margin-top: 20px; left:0px; background-color: transparent; z-index: 1000; padding: 10px; border-top: solid 0px #ccc", 
+                "children" : 
+                [
+                    { "element" : "WiseDiv", "style" : "width: 90%" },  
+                    { "element": "WiseMenuButton", "id" : "btnOk", "icon" : "/hris/employeeinformation/images/ok.png", "text" : "Save", "onclick": "btnOk_onClick" },
+                    { "element": "WiseMenuButton", "id" : "btnCancel", "icon" : "/hris/employeeinformation/images/cancel.png", "text" : "Close", "onclick": "btnCancel_onClick" }
+                ]
+            }
+        ]
+    }
+}

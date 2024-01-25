@@ -24,6 +24,7 @@ var UIProcessor = Class({
                 "/system/desktop/components/default/treeview/css/bootstrap-treeview.css",
                 "/system/desktop/components/default/tabby/css/tabby-ui.css",
                 "/system/desktop/components/default/flatpickr/flatpickr.min.css"
+
             ];
 
             let js = ["/system/desktop/components/default/window.js", 
@@ -82,7 +83,9 @@ var UIProcessor = Class({
                 "/system/desktop/components/default/WiseContent.js",
                 "/system/desktop/components/default/WiseTabContent.js",
                 "/system/desktop/components/default/tabby/js/tabby.polyfills.js",
-                "/system/desktop/components/default/flatpickr/flatpickr.js"
+                "/system/desktop/components/default/flatpickr/flatpickr.js",
+                "/system/desktop/components/default/WiseInputTable.js",
+
             ]
 
             UIProcessor.loadCss(css, 0, function(){
@@ -270,18 +273,21 @@ var UIProcessor = Class({
         })
         $(".wisetabgroupwrapper").append("<div class='card-body'></div>")
         */
-        let dataTabs = $(document.body).find("[data-tabs")
+        let dataTabs = $(document.body).find("#" + win.id + " [data-tabs]")
         if(dataTabs.length > 0)
-            var tabs = new Tabby('[data-tabs]');
+        {
+            var tabs = new Tabby("#" + win.id + " [data-tabs]");
+        }
+            
     }
     ,
     initDateControl: function(win)
     {
         $("#" + win.id).find('.wise-date').flatpickr({ enableTime: false, altInput: true});
-        $("#" + win.id).find('.wise-datetime').flatpickr({ enableTime: true, time_24hr: true});
+        $("#" + win.id).find('.wise-datetime').flatpickr({ enableTime: true, time_24hr: true,  altInput: true});
 
-        $("#" + win.id).find('.wise-daterange').flatpickr({ enableTime: false, mode: "range"});
-        $("#" + win.id).find('.wise-datetimerange').flatpickr({ enableTime: true, time_24hr: true, mode: "range"});
+        $("#" + win.id).find('.wise-daterange').flatpickr({ enableTime: false, mode: "range",  altInput: true});
+        $("#" + win.id).find('.wise-datetimerange').flatpickr({ enableTime: true, time_24hr: true, mode: "range",  altInput: true});
 
         $("#" + win.id).find('.wise-date-button').off("click");
         $("#" + win.id).find('.wise-date-button').on("click", function(){

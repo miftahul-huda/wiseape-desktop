@@ -31,7 +31,6 @@ var DefaultApplication = Class(Application, {
                 contentHandlerFile: me.appRootPath + "/" + info.jsfile,
                 contentHandlerClass: info.className
             }
-
             console.log("creating window")
             win = me.desktop.createWindow(info.title, info.config, me);
             win.show( function(returnValue){

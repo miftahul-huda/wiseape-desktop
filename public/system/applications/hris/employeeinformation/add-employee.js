@@ -197,9 +197,7 @@ var AddEmployeePage =  Class(DefaultListPage, {
         let me = this;
         let promise = new Promise((resolve, reject)=>{
             let url = me.application.appConfig.BASE_API_URL + "/master/city/find-by-province/" + provinceCode;
-            console.log(url)
             $.get(url, function(response){
-                console.log(response)
                 resolve(response.payload.rows)
             })
 
@@ -281,6 +279,172 @@ var AddEmployeePage =  Class(DefaultListPage, {
         })
     }
     ,
+    showAddWorkingExperience: function(win, id, param)
+    {
+        let me = this;
+        let win2 = this.application.desktop.createWindow("Add working experience", 
+            { 
+                width: '50%', 
+                height: '50%', 
+                parameter: param,
+                contentInfo:
+                {
+                    contentSource: this.application.appRootPath + "/add-working-experience.json",
+                    contentHandlerFile: this.application.appRootPath + "/add-working-experience.js",
+                    contentHandlerClass: "AddWorkingExperiencePage"
+                }
+            }, 
+        this.application);
+        
+        this.editWorkingExperience = false;
+        if(param != null)
+            this.editWorkingExperience = true;
+
+        
+        win2.show(function(returnValue){
+            if(returnValue != null && me.editWorkingExperience == false)
+                me.addItemToWorkingExperienceTable(win, returnValue)
+            else if(returnValue != null && me.editWorkingExperience)
+                me.updateItemToWorkingExperienceTable(win, returnValue)
+
+        });
+    }
+    ,
+    addItemToWorkingExperienceTable: function(win, item)
+    {
+        win.get("tblWorkingExperiences").addItem(item);
+    }
+    ,
+    updateItemToWorkingExperienceTable: function(win, item)
+    {
+        win.get("tblWorkingExperiences").updateItem(item.row, item);
+    }
+    ,
+    showAddSkill: function(win, id, param)
+    {
+        let me = this;
+        let win2 = this.application.desktop.createWindow("Add skill", 
+            { 
+                width: '50%', 
+                height: '50%', 
+                parameter: param,
+                contentInfo:
+                {
+                    contentSource: this.application.appRootPath + "/add-skill.json",
+                    contentHandlerFile: this.application.appRootPath + "/add-skill.js",
+                    contentHandlerClass: "AddSkillPage"
+                }
+            }, 
+        this.application);
+        
+        this.editSkill = false;
+        if(param != null)
+            this.editSkill = true;
+
+        
+        win2.show(function(returnValue){
+            if(returnValue != null && me.editSkill == false)
+                me.addItemToSkillTable(win, returnValue)
+            else if(returnValue != null && me.editSkill)
+                me.updateItemToSkillTable(win, returnValue)
+
+        });
+    }
+    ,
+    addItemToSkillTable: function(win, item)
+    {
+        console.log("returnVAlue")
+        console.log(item)
+        win.get("tblSkill").addItem(item);
+    }
+    ,
+    updateItemToSkillTable: function(win, item)
+    {
+        win.get("tblSkill").updateItem(item.row, item);
+    }
+    ,
+    showAddEducationHistory: function(win, id, param)
+    {
+        let me = this;
+        let win2 = this.application.desktop.createWindow("Add Education History", 
+            { 
+                width: '50%', 
+                height: '50%', 
+                parameter: param,
+                contentInfo:
+                {
+                    contentSource: this.application.appRootPath + "/add-education-history.json",
+                    contentHandlerFile: this.application.appRootPath + "/add-education-history.js",
+                    contentHandlerClass: "AddEducationHistoryPage"
+                }
+            }, 
+        this.application);
+        
+        this.editSkill = false;
+        if(param != null)
+            this.editSkill = true;
+
+        
+        win2.show(function(returnValue){
+            if(returnValue != null && me.editSkill == false)
+                me.addItemToEducationHistoryTable(win, returnValue)
+            else if(returnValue != null && me.editSkill)
+                me.updateItemToEducationHistoryTable(win, returnValue)
+
+        });
+    }
+    ,
+    addItemToEducationHistoryTable: function(win, item)
+    {
+        win.get("tblEducationHistory").addItem(item);
+    }
+    ,
+    updateItemToEducationHistoryTable: function(win, item)
+    {
+        win.get("tblEducationHistory").updateItem(item.row, item);
+    }
+    ,
+    showAddFamilyInformation: function(win, id, param)
+    {
+        let me = this;
+        let win2 = this.application.desktop.createWindow("Add Family Information", 
+            { 
+                width: '50%', 
+                height: '50%', 
+                parameter: param,
+                contentInfo:
+                {
+                    contentSource: this.application.appRootPath + "/add-family-information.json",
+                    contentHandlerFile: this.application.appRootPath + "/add-family-information.js",
+                    contentHandlerClass: "AddFamilyInformation"
+                }
+            }, 
+        this.application);
+        
+        this.addFamilyInformation = false;
+        if(param != null)
+            this.addFamilyInformation = true;
+
+        
+        win2.show(function(returnValue){
+            if(returnValue != null && me.editSkill == false)
+                me.addItemToFamilyInformationTable(win, returnValue)
+            else if(returnValue != null && me.editSkill)
+                me.updateItemToFamilyInformationTable(win, returnValue)
+
+        });
+    }
+    ,
+    addItemToFamilyInformationTable: function(win, item)
+    {
+        win.get("tblFamilyInformation").addItem(item);
+    }
+    ,
+    updateItemToFamilyInformationTable: function(win, item)
+    {
+        win.get("tblFamilyInformation").updateItem(item.row, item);
+    }
+    ,
     //------- End of  event handlers ------------
     saveEmployee: function(win)
     {
@@ -288,13 +452,9 @@ var AddEmployeePage =  Class(DefaultListPage, {
         let url = this.application.appConfig.BASE_API_URL + "/notes/create";
         let send = AppUtil.post;
 
-        console.log("saveEmployee")
-        console.log(me.idEmployee);
         if(me.idEmployee != null)
         {
-            console.log("saveEmployee update")
             url = this.application.appConfig.BASE_API_URL + "/notes/" + me.idEmployee;
-            console.log(url)
             send = AppUtil.put;
         }
         let note = win.getData();
@@ -311,7 +471,6 @@ var AddEmployeePage =  Class(DefaultListPage, {
 
         win.showProgress();
         send(url, note, function(response){
-            console.log(response)
             win.hideProgress();
 
             if(response.success)

@@ -15,7 +15,10 @@
                 "element" : "WiseTabGroup",
                 "children":[
                     { "element" : "WiseTab", "label" : "Personal Info", "linkid" : "tab-personal-info", "active" : "true" },
-                    { "element" : "WiseTab", "label" : "Working Experiences", "linkid" : "tab-working-experiences"  }
+                    { "element" : "WiseTab", "label" : "Working Experiences", "linkid" : "tab-working-experiences"  },
+                    { "element" : "WiseTab", "label" : "Skills", "linkid" : "tab-skills"  },
+                    { "element" : "WiseTab", "label" : "Education History", "linkid" : "tab-education-history"  },
+                    { "element" : "WiseTab", "label" : "Family Information", "linkid" : "tab-family-information"  }
                 ]
             }
             ,
@@ -24,7 +27,10 @@
                 "children" : 
                 [
                     { "element" : "WiseContent", "id" : "tab-personal-info", "source": "employee-personal-info.json" },
-                    { "element" : "WiseContent", "id" : "tab-working-experiences", "source": "employee-working-experiences.json" }
+                    { "element" : "WiseContent", "id" : "tab-working-experiences", "source": "employee-working-experiences.json" },
+                    { "element" : "WiseContent", "id" : "tab-skills", "source": "employee-skill.json" },
+                    { "element" : "WiseContent", "id" : "tab-education-history", "source": "employee-education-history.json" },
+                    { "element" : "WiseContent", "id" : "tab-family-information", "source": "employee-family-information.json" }
 
                 ]
             }

@@ -152,5 +152,13 @@ var WiseElement = Class({
     {
         $(this.dom).css(attr, value);
     }
+    ,
+    functionExists: function(name)
+    {
+        if(typeof this[name] === 'function')
+            return true;
+        else 
+            return false;
+    }
 
 })

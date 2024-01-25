@@ -1,0 +1,51 @@
+{
+    "root" :
+    {
+        "children" : 
+        [
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseTextBox", "id": "employerName", "data" : "employerName", "label" : "Employer Name", "placeholder" : "Enter the employer name" }
+                ]
+            }
+            ,
+            {
+                "element" : "WiseDiv", "style" : "display: flex",
+                "children" : 
+                [
+                    { "element": "WiseDate", "id": "startDate", "data" : "startDate", "label" : "Employment Start Date", "placeholder" : "Enter the date when the employee starts the employment" },
+                    { "element": "WiseDate", "id": "endDate", "data" : "endDate", "label" : "Employment End Date", "placeholder" : "Enter the date when the employee ends the employment" }
+
+                ]
+            }
+            ,
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseTextBox", "id": "jobFunction", "data" : "jobFunction", "label" : "Job Title", "placeholder" : "Enter the job title or funtion" }
+                ]
+            }
+            ,
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseTextArea", "id": "description", "data" : "description", "label" : "Job Description", "placeholder" : "Enter the job description" }
+                ]
+            }           
+            ,
+            {
+                "element" : "WiseDiv", "style" : "display: flex; position:fixed; width: 100%; margin-top: 20px; left:0px; background-color: transparent; z-index: 1000; padding: 10px; border-top: solid 0px #ccc", 
+                "children" : 
+                [
+                    { "element" : "WiseDiv", "style" : "width: 90%" },  
+                    { "element": "WiseMenuButton", "id" : "btnOk", "icon" : "/hris/employeeinformation/images/ok.png", "text" : "Save", "onclick": "btnOk_onClick" },
+                    { "element": "WiseMenuButton", "id" : "btnCancel", "icon" : "/hris/employeeinformation/images/cancel.png", "text" : "Close", "onclick": "btnCancel_onClick" }
+                ]
+            }
+        ]
+    }
+}

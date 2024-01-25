@@ -71,5 +71,12 @@ var WiseComboBox = Class(WiseElement, {
             $("#" + this.id).val(val).trigger("change")
         }
     }
+    ,
+    getSelectedItem: function()
+    {
+        let text = $('#' + this.id + ' :selected').text();
+        let value = this.value();
+        return { value: value, text: text }
+    }
 
 })

@@ -1,9 +1,17 @@
 {
-    "element" : "WiseDiv", "style" : "width: 100%; height: 300; background-color: #cccccc",
+    "element" : "WiseDiv",
     "children": 
     [
         {
-            "element" : "WiseLabel", "text" : "Hwllp"
+            "element" : "WiseInputTable", "id" : "tblWorkingExperiences", "title" : "Job Experiences", "columns" : 
+            [   { "datafield" : "employerName", "label" : "Employer" }, 
+                { "datafield" : "startDate", "label" : "Start Date", "type" : "date" }, 
+                { "datafield" : "endDate", "label" : "End Date", "type" : "date" },
+                { "datafield" : "jobFunction", "label" : "Job Title" },
+                { "datafield" : "description", "label" : "Description" } 
+            ],
+            "onAddButtonClick" : "showAddWorkingExperience",
+            "onEditButtonClick" : "showAddWorkingExperience"
         }
         
     ]

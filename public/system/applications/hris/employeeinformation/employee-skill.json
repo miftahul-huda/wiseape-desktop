@@ -1,0 +1,16 @@
+{
+    "element" : "WiseDiv",
+    "children": 
+    [
+        {
+            "element" : "WiseInputTable", "id" : "tblSkill", "title" : "Skill", "columns" : 
+            [   { "datafield" : "skillName", "label" : "Skill" }, 
+                { "datafield" : "skillLevelCode_item.text", "label" : "Skill Level" }, 
+                { "datafield" : "skillGroupCode_item.text", "label" : "Skill Group" }
+            ],
+            "onAddButtonClick" : "showAddSkill",
+            "onEditButtonClick" : "showAddSkill"
+        }
+        
+    ]
+}

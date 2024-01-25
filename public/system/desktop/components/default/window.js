@@ -447,15 +447,26 @@ var Window = Class({
                     console.log("================PAGE JSON============")
                     console.log(json)
 
-                    me.expandJson(me, json.root, function(resultJson){
+                    me.expandJson(me, json.root, function(){
                         console.log("=========json after expand==========")
-                        console.log(resultJson)
+                        console.log(json)
                         console.log("=========/json after expand==========")
+
+                        content = me.setIds(me, json)
+                        me.elements = uiProcessor.createElement(content, me, function(elmId, event, param){
+                            elmId = elmId.split("___")
+                            elmId = elmId[elmId.length - 1]
+                            me.contentEventHandler(me, elmId, event, param)
+                        })
+                        content = me.createDom(me, me.elements)
+                        //me.processContent(me, content)
+                        me.showWindow(me, content)
                     });
 
+                    /*
                     setTimeout(function(){
-                        console.log("JSON RESULT")
-                        console.log(json)
+                        //console.log("JSON RESULT")
+                        //console.log(json)
 
                         content = me.setIds(me, json)
                         me.elements = uiProcessor.createElement(content, me, function(elmId, event, param){
@@ -468,11 +479,7 @@ var Window = Class({
                         me.showWindow(me, content)
 
                     }, 1000)
-
-
-
-
-
+                    */
                 })
             }
             else if(ss[ss.length-1].toLowerCase() == "html")
@@ -487,36 +494,59 @@ var Window = Class({
         }
     }
     ,
+    totalJsonChildren: 1
+    ,
     expandJson: function(me, json, callback)
     {
-        console.log("json.children")
-        console.log(json.children)
-        if(json.children != null )
+        //console.log("json.children")
+        //console.log(json.children)
+        if(json.children != null && json.children.length > 0)
         {
+            console.log("totalJsonChildren+")
+            me.totalJsonChildren += json.children.length - 1;
+            console.log(me.totalJsonChildren)
+
             json.children.map((item)=>{
-                console.log("item.source")
-                console.log(item.source)
+                //console.log("item.source")
+                //console.log(item.source)
+                console.log(item)
                 if(item.source != null)
                 {
                     let jsonSourceFile = item.source;
                     let appRootPath = me.application.appRootPath;
                     jsonSourceFile = appRootPath + "/" + jsonSourceFile;
 
-                    console.log("jsonSourceFile")
-                    console.log(jsonSourceFile)
+                    //console.log("jsonSourceFile")
+                    //console.log(jsonSourceFile)
+
 
                     $.getJSON(jsonSourceFile, function(jsonContent){
                         if(item.children == null)
                             item.children = [];
+                        console.log("adding childern")
                         item.children.push(jsonContent);
+                        item.source = null;
                         me.expandJson(me, item, callback)
                     })
                 }
                 else
                 {
+                    console.log("expanding")
                     me.expandJson(me, item, callback)
                 }
             })
+        }
+        else
+        {
+            me.totalJsonChildren--;
+            console.log("totalJsonChildren")
+            console.log(json)
+            console.log(me.totalJsonChildren)
+            if(me.totalJsonChildren <= 0)
+            {
+                if(callback != null)
+                    callback()
+            }
         }
 
     }
@@ -562,11 +592,12 @@ var Window = Class({
         
     }
     ,
-    close: function()
+    close: function(returnValue)
     {
         //var me = this;
         //alert(this.dom)
 
+        this.returnValue = returnValue;
         
         this.winbox.close();
         //
@@ -741,7 +772,12 @@ var Window = Class({
                 if(fieldname != null)
                 {
                     data[fieldname] = el.value();
+                    if(el.functionExists("getSelectedItem"))
+                    {
+                        data[fieldname + "_item" ] = el.getSelectedItem();
+                    }
                 }
+
                 me.getDataDetail(el.children, data) 
             })
         }  
@@ -852,8 +888,9 @@ var Window = Class({
                 param.event = event;    
             if(win.windowHandlerObject == null)
             {
+                //win.showProgress();
                 AppUtil.getScript(file, function (){
-
+                    //win.hideProgress();
                     win.windowHandlerObject = eval("new " + className + "(me.application)");
                     //win.windowHandlerObject.appConfig = appConfig;
                     //win.windowHandlerObject.run(win, id, event)
@@ -870,6 +907,11 @@ var Window = Class({
      
                 if(event != null && event in win.windowHandlerObject)
                     eval("win.windowHandlerObject." + event + "(win, id, param)");
+                else if(event != null && event in win.windowHandlerObject == false)
+                {
+                    console.warn(className + "." + event + "(win, id, param) is not implemented")
+                    //alert(className + "." + event + "(win, id, param) is not implemented")
+                }
             }
         }
     }

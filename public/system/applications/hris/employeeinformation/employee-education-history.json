@@ -1,0 +1,19 @@
+{
+    "element" : "WiseDiv",
+    "children": 
+    [
+        {
+            "element" : "WiseInputTable", "id" : "tblEducationHistory", "title" : "Education History", "columns" : 
+            [   { "datafield" : "academicInstitution", "label" : "Institution" }, 
+                { "datafield" : "startDate", "label" : "Start Date", "type" : "date" }, 
+                { "datafield" : "endDate", "label" : "End Date", "type" : "date" },
+                { "datafield" : "educationLevel", "label" : "Education Level" },
+                { "datafield" : "major", "label" : "Major" } ,
+                { "datafield" : "gpa", "label" : "GPA" }
+            ],
+            "onAddButtonClick" : "showAddEducationHistory",
+            "onEditButtonClick" : "showAddEducationHistory"
+        }
+        
+    ]
+}
