@@ -5,11 +5,12 @@
         {
             "element" : "WiseInputTable", "id" : "tblFamilyInformation", "title" : "Family Information", "columns" : 
             [   { "datafield" : "familyMemberName", "label" : "Name" }, 
-                { "datafield" : "relationType", "label" : "Relation Type" }, 
-                { "datafield" : "gender", "label" : "Gender" },
+                { "datafield" : "relationshipType.relationTypeName", "label" : "Relation Type" }, 
+                { "datafield" : "gender.genderName", "label" : "Gender" },
                 { "datafield" : "jobInformation", "label" : "Job Information" },
                 { "datafield" : "age", "label" : "Age" } 
             ],
+            "data" : "familyInformation",
             "onAddButtonClick" : "showAddFamilyInformation",
             "onEditButtonClick" : "showAddFamilyInformation"
         }

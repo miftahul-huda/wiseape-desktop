@@ -27,8 +27,8 @@ var WiseOptionGroup = Class(WiseElement, {
 
         $(divOptions).attr("role", "options")
 
-        console.log("this.options")
-        console.log(this.options)
+        //console.log("this.options")
+        //console.log(this.options)
 
         if(this.layout == "horizontal")
             $(divOptions).css("display", "flex");
@@ -46,11 +46,13 @@ var WiseOptionGroup = Class(WiseElement, {
     {
         let counter = 0;
         let me = this;
-        console.log("this.options")
-        console.log(this.options)
+        //console.log("this.options")
+        //console.log(this.options)
+
+
         this.options.map((o)=>{
             let div2 = document.createElement("div")
-            $(div2).addClass("icheck-primary");
+            $(div2).addClass("radio icheck-silver");
 
             let label = document.createElement("label")
             $(label).attr("for",  me.id + "_" + counter)
@@ -94,16 +96,23 @@ var WiseOptionGroup = Class(WiseElement, {
         }
         else 
         {
-            $("#" + this.id).val(val);
+            $('input[name="' + this.id + '"][value="' + val + '"]').attr("checked", "true")
+            //$("#" + this.id).val(val);
         }
     }
     ,
     addItems: function(items)
     {
         this.options = items;
-        console.log("this.dom")
+        //console.log("this.dom")
+
+        let containerDiv = document.createElement("div")
+        $(containerDiv).addClass("form-group clearfix")
+
         let divOptions = $(this.dom).find("div[role=options]")[0]
-        console.log(this.divOptions)
+        //console.log(this.divOptions)
+
+        //$(divOptions).addClass("form-group clearfix")
 
         this.addOptions(divOptions);
     }

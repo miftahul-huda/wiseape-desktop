@@ -9,6 +9,11 @@ var WiseTextBox = Class(WiseElement, {
         this.text = json.text;
         this.label = json.label;
         this.type = json.type;
+        this.numeric = json.numeric;
+        if(this.numeric == null)
+            this.numeric = false;
+        if( (this.numeric + "").toLowerCase() == "true" || (this.numeric + "").toLowerCase() == "yes" )
+            this.numeric = true;
         this.disabled = json.disabled;
         this.readOnly = json.readOnly;
         this.cache = json.cache;
@@ -45,8 +50,33 @@ var WiseTextBox = Class(WiseElement, {
         {
             
             $(dom).find("input").off("keypress");
-            $(dom).find("input").on("keypress", function(event){
-                me.elementEventHandler(me.id, me.onkeypress, event);
+            $(dom).find("input").on("keypress", function(e){
+                var charCode = (e.which) ? e.which : event.keyCode    
+                //alert("ere")
+                //alert(String.fromCharCode(charCode).match(/[^0-9]/g))
+
+                let nonnumeric = false;
+
+                if(e.which == 46){
+                    if($(this).val().indexOf('.') != -1) {
+                        nonnumeric = true;
+                    }
+                }
+            
+                if (e.which != 8 && e.which != 0 && e.which != 46 && (e.which < 48 || e.which > 57)) {
+                    nonnumeric = true
+                }
+
+                if (me.numeric == true && nonnumeric)   
+                {
+                    e.preventDefault();
+                    return false;
+                } 
+                else
+                {
+                    me.elementEventHandler(me.id, me.onkeypress, e);
+                }
+    
             })
     
             $(dom).find("input").off("keydown");

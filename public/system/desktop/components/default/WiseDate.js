@@ -75,11 +75,31 @@ var WiseDate = Class(WiseElement, {
         if(val == null)
         {
             let dt = $("#" + this.id).val();
+            let format = "YYYY-MM-DD";
+            if(this.type.indexOf("time") > -1)
+            {
+                format = "YYYY-MM-DD hh:mm:ss"
+            }
+
+            dt = moment(dt).format(format);
+
+            //console.log("ID : " + this.id);
+            //console.log(dt);
+
             return dt;
         }
         else
         {
             $("#" + this.id).val(val);
+
+            let format = "DD MMM YYYY";
+            if(this.type.indexOf("time") > -1)
+            {
+                format = "DD MMM YYYY hh:mm:ss"
+            }
+
+            let displayDate = moment(val).format(format);
+            $("#" + this.id).parent().find(".datetimepicker-input").val(displayDate)
         }
         
     }

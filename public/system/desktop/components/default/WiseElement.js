@@ -34,6 +34,13 @@ var WiseElement = Class({
         if(json.data != null)
             this.data = json.data;
 
+        if(json.lookupData != null)
+            this.lookupData = json.lookupData;
+        if(json.lookupValue != null)
+            this.lookupValue = json.lookupValue;
+        if(json.lookupText != null)
+            this.lookupText = json.lookupText;
+
         if(json.label != null)
             this.label = json.label;
 

@@ -10,11 +10,33 @@ var AddEmployeePage =  Class(DefaultListPage, {
     {
         this.idEmployee = param.data;
 
+        console.log("onload")
+        console.log(param)
+
         win.showProgress();
         this.loadAndDisplayMasterDatas(win).then(()=>{
-            win.hideProgress();
-        })
-        
+
+            if(this.idEmployee != null)
+            {
+                this.loadAndDisplayEmployee(win).then(()=>{
+                    win.hideProgress();
+                })
+            }
+            else
+                win.hideProgress();
+
+        })   
+    }
+    ,
+    loadAndDisplayEmployee: function(win)
+    {
+        let promise  = new Promise((resolve, reject)=>{
+            this.loadEmployee(this.idEmployee).then((employee)=>{
+                this.displayEmployee(win, employee);
+                resolve();
+            })
+        });
+        return promise;
     }
     ,
     loadAndDisplayMasterDatas: function(win)
@@ -24,6 +46,8 @@ var AddEmployeePage =  Class(DefaultListPage, {
             this.getIdentityTypes().then((identityTypes)=>{
                 this.displayIdentityType(win, identityTypes)
             })
+
+            this.loadAndDisplayGender(win);
 
             this.loadAndDisplayProvince(win).then((provinces)=>{
                 if(provinces.length > 0)
@@ -113,9 +137,23 @@ var AddEmployeePage =  Class(DefaultListPage, {
         return promise;
     }
     ,
+    loadAndDisplayGender: function(win)
+    {
+        let promise  = new Promise((resolve, reject)=>{
+            this.getGender().then((genders)=>{
+                this.displayGender(win, genders);
+                resolve(genders);
+            }).catch((err)=>{
+                reject(err);
+            })
+        });
+        
+        return promise;
+    }
+    ,
     displayIdentityType: function(win, identityTypes)
     {
-        let cmbIdentityType = win.get("identityTypeCode");
+        let cmbIdentityType = win.get("identityNoTypeCode");
         let options = AppUtil.data2Options(identityTypes, "code", "identityTypeName")
         cmbIdentityType.addItems(options)
     }
@@ -141,6 +179,13 @@ var AddEmployeePage =  Class(DefaultListPage, {
         cmb.addItems(options)
     }
     ,
+    displayGender: function(win, genders)
+    {
+        let cmb = win.get("cmbGender");
+        let options = AppUtil.data2Options(genders, "code", "genderName")
+        cmb.addItems(options)
+    }
+    ,
     displaySubDistricts: function(win, subdistricts)
     {
         //let cmb = win.get("subDistrictCode");
@@ -148,17 +193,11 @@ var AddEmployeePage =  Class(DefaultListPage, {
         //cmb.addItems(options)
     }
     ,
-    loadAndDisplayEmployee: function(win)
-    {
-        this.loadEmployee(this.idEmployee).then((response)=>{
-            this.displayEmployee(win, response.payload)
-        }).catch((err)=>{
-            win.notify("Error", err.message, "error");
-        })
-    }
-    ,
     displayEmployee: function(win, data)
     {
+        data.birthDate = moment(data.birthDate).format("YYYY-MM-DD")
+
+        console.log(data)
         win.fill(data);
     }
     ,
@@ -166,15 +205,17 @@ var AddEmployeePage =  Class(DefaultListPage, {
     {
         let me = this;
         let promise = new Promise((resolve, reject)=>{
-            let url = this.application.appConfig.BASE_API_URL + "/notes/" + id; 
+            let url = this.application.appConfig.BASE_API_URL + "/employee/" + id; 
+
+            console.log("URL")
+            console.log(url)
 
             AppUtil.get(url, function(response){
                 if(response.success)
-                    resolve(response);
+                    resolve(response.payload);
                 else
                     reject(response);
-            }, 
-            { user: me.application.session.user })
+            })
         });
         return promise;
     }
@@ -244,6 +285,19 @@ var AddEmployeePage =  Class(DefaultListPage, {
         return promise;       
     }
     ,
+    getGender: function()
+    {
+        let me = this;
+        let promise = new Promise((resolve, reject)=>{
+            let url = me.application.appConfig.BASE_API_URL + "/master/gender";
+            $.get(url, function(response){
+                resolve(response.payload.rows)
+            })
+
+        });
+        return promise;       
+    }
+    ,
     //------   Event  handlers -------------
     btnSave_onClick: function(win, id)
     {
@@ -284,8 +338,8 @@ var AddEmployeePage =  Class(DefaultListPage, {
         let me = this;
         let win2 = this.application.desktop.createWindow("Add working experience", 
             { 
-                width: '50%', 
-                height: '50%', 
+                width: '40%', 
+                height: '480', 
                 parameter: param,
                 contentInfo:
                 {
@@ -325,8 +379,8 @@ var AddEmployeePage =  Class(DefaultListPage, {
         let me = this;
         let win2 = this.application.desktop.createWindow("Add skill", 
             { 
-                width: '50%', 
-                height: '50%', 
+                width: '40%', 
+                height: '380', 
                 parameter: param,
                 contentInfo:
                 {
@@ -368,8 +422,8 @@ var AddEmployeePage =  Class(DefaultListPage, {
         let me = this;
         let win2 = this.application.desktop.createWindow("Add Education History", 
             { 
-                width: '50%', 
-                height: '50%', 
+                width: '40%', 
+                height: '460', 
                 parameter: param,
                 contentInfo:
                 {
@@ -409,29 +463,27 @@ var AddEmployeePage =  Class(DefaultListPage, {
         let me = this;
         let win2 = this.application.desktop.createWindow("Add Family Information", 
             { 
-                width: '50%', 
-                height: '50%', 
+                width: '40%', 
+                height: '460', 
                 parameter: param,
                 contentInfo:
                 {
                     contentSource: this.application.appRootPath + "/add-family-information.json",
                     contentHandlerFile: this.application.appRootPath + "/add-family-information.js",
-                    contentHandlerClass: "AddFamilyInformation"
+                    contentHandlerClass: "AddFamilyInformationPage"
                 }
             }, 
         this.application);
         
-        this.addFamilyInformation = false;
+        this.editFamilyInformation = false;
         if(param != null)
-            this.addFamilyInformation = true;
+            this.editFamilyInformation = true;
 
-        
         win2.show(function(returnValue){
-            if(returnValue != null && me.editSkill == false)
+            if(returnValue != null && me.editFamilyInformation == false)
                 me.addItemToFamilyInformationTable(win, returnValue)
-            else if(returnValue != null && me.editSkill)
+            else if(returnValue != null && me.editFamilyInformation)
                 me.updateItemToFamilyInformationTable(win, returnValue)
-
         });
     }
     ,
@@ -449,34 +501,28 @@ var AddEmployeePage =  Class(DefaultListPage, {
     saveEmployee: function(win)
     {
         let me = this;
-        let url = this.application.appConfig.BASE_API_URL + "/notes/create";
+        let url = this.application.appConfig.BASE_API_URL + "/employee/create";
         let send = AppUtil.post;
 
         if(me.idEmployee != null)
         {
-            url = this.application.appConfig.BASE_API_URL + "/notes/" + me.idEmployee;
+            url = this.application.appConfig.BASE_API_URL + "/employee/" + me.idEmployee;
             send = AppUtil.put;
         }
-        let note = win.getData();
-
-        if(note.user == null)
-            note.user = me.application.session.user.username;
-        else 
-        {
-            if(note.user.indexOf(me.application.session.user.username) == -1)
-            {
-                note.user += "," + me.application.session.user.username;
-            }
-        }
+        let employee = win.getData();
 
         win.showProgress();
-        send(url, note, function(response){
+        send(url, employee, function(response){
             win.hideProgress();
+
+            console.log("response")
+            console.log(response)
 
             if(response.success)
             {
                 me.idEmployee = response.payload.id;
                 win.notify("Success", "Employee is saved");
+                win.close();
             }
             else 
             {

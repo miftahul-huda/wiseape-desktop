@@ -10,6 +10,7 @@
                 { "datafield" : "jobFunction", "label" : "Job Title" },
                 { "datafield" : "description", "label" : "Description" } 
             ],
+            "data" : "workingExperiences",
             "onAddButtonClick" : "showAddWorkingExperience",
             "onEditButtonClick" : "showAddWorkingExperience"
         }

@@ -67,7 +67,7 @@
         clickOpens: true,
         closeOnSelect: true,
         conjunction: ", ",
-        dateFormat: "Y-m-d",
+        dateFormat: "d M Y",
         defaultHour: 12,
         defaultMinute: 0,
         defaultSeconds: 0,

@@ -7,7 +7,7 @@
                 "element" : "WiseDiv",
                 "children" : 
                 [
-                    { "element": "WiseTextBox", "id": "employerName", "data" : "employerName", "label" : "Employer Name", "placeholder" : "Enter the employer name" }
+                    { "element": "WiseTextBox", "id": "familyMemberName", "data" : "familyMemberName", "label" : "Full Name", "placeholder" : "Enter family member full name" }
                 ]
             }
             ,
@@ -15,9 +15,8 @@
                 "element" : "WiseDiv", "style" : "display: flex",
                 "children" : 
                 [
-                    { "element": "WiseDate", "id": "startDate", "data" : "startDate", "label" : "Employment Start Date", "placeholder" : "Enter the date when the employee starts the employment" },
-                    { "element": "WiseDate", "id": "endDate", "data" : "endDate", "label" : "Employment End Date", "placeholder" : "Enter the date when the employee ends the employment" }
-
+                    { "element": "WiseComboBox", "id": "cmbRelationType", "data" : "relationshipTypeCode", "lookupData": "relationshipType", "lookupValue" : "code", "lookupText" : "relationTypeName", "label" : "Relation Type", "placeholder" : "Enter family relation type with employee" },
+                    { "element": "WiseComboBox", "id": "cmbGender", "data" : "genderCode", "lookupData" : "gender", "lookupValue": "code", "lookupText": "genderName", "label" : "Gender", "placeholder" : "Enter family member's gender" }
                 ]
             }
             ,
@@ -25,7 +24,7 @@
                 "element" : "WiseDiv",
                 "children" : 
                 [
-                    { "element": "WiseTextBox", "id": "jobFunction", "data" : "jobFunction", "label" : "Job Title", "placeholder" : "Enter the job title or funtion" }
+                    { "element": "WiseTextBox", "numeric" : "yes", "id": "age", "data" : "age", "label" : "Age", "placeholder" : "Enter the family member's age" }
                 ]
             }
             ,
@@ -33,9 +32,9 @@
                 "element" : "WiseDiv",
                 "children" : 
                 [
-                    { "element": "WiseTextArea", "id": "description", "data" : "description", "label" : "Job Description", "placeholder" : "Enter the job description" }
+                    { "element": "WiseTextBox", "id": "jobInformation", "data" : "jobInformation", "label" : "Occupation", "placeholder" : "Enter the family member's occupation" }
                 ]
-            }           
+            }
             ,
             {
                 "element": "WiseDiv", "class":"vertical-separator"

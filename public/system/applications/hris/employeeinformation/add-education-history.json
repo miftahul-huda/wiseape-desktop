@@ -1,0 +1,56 @@
+{
+    "root" :
+    {
+        "children" : 
+        [
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseTextBox", "id": "academicInstitution", "data" : "academicInstitution", "label" : "Institution", "placeholder" : "Enter institution name" }
+                ]
+            }
+            ,
+            {
+                "element" : "WiseDiv", "style" : "display: flex",
+                "children" : 
+                [
+                    { "element": "WiseDate", "id": "startDate", "data" : "startDate", "label" : "Start Date", "placeholder" : "Enter the date when the employee started the education" },
+                    { "element": "WiseDate", "id": "endDate", "data" : "endDate", "label" : "End Date", "placeholder" : "Enter the date when the employee finished the education" }
+
+                ]
+            }
+            ,
+            {
+                "element" : "WiseDiv",
+                "children" : 
+                [
+                    { "element": "WiseComboBox", "id": "cmbEducationLevel", "data" : "educationLevelCode", "lookupData" : "educationLevel", "lookupValue" : "code", "lookupText" : "educationLevelName", "label" : "Education Level", "placeholder" : "Enter the education level" }
+                ]
+            }
+            ,
+            {
+                "element" : "WiseDiv", "style" : "display: flex",
+                "children" : 
+                [
+                    { "element": "WiseTextBox", "id": "major", "data" : "major", "label" : "Major", "placeholder" : "Enter the education major" },
+                    { "element": "WiseTextBox", "numeric" : "yes", "id": "gpa", "data" : "gpa", "label" : "GPA", "placeholder" : "Enter the GPA" }
+
+                ]
+            }   
+            ,
+            {
+                "element": "WiseDiv", "class":"vertical-separator"
+            }
+            ,
+            {
+                "element" : "WiseDiv", "class" : "flex-div",
+                "children": 
+                [
+                    { "element": "WiseButton", "id" : "btnOk", "onclick": "btnOk_onClick", "icon" : "fa fa-check", "text" : "Ok" },
+                    { "element": "WiseButton", "id" : "btnCancel", "onclick": "btnCancel_onClick", "icon" : "fa fa-ban", "text" : "Cancel" }
+                ]
+            }
+        ]
+    }
+}

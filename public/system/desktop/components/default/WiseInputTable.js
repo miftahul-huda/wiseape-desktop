@@ -94,7 +94,7 @@ var WiseInputTable = Class(WiseElement, {
 
         let tbl = document.createElement("table");
         $(tbl).attr("id", this.id + "_table");
-        $(tbl).attr("style", "border: solid 1px #ccc; width: 100%;");
+        //$(tbl).attr("style", "border: solid 1px #ccc; width: 100%;");
         let tr = document.createElement("tr")
         for(let colidx = 0; colidx < columns.length; colidx++)
         {
@@ -109,12 +109,12 @@ var WiseInputTable = Class(WiseElement, {
         }
 
         td = document.createElement("th")
-        $(td).attr("style", "padding: 10px; border: solid 1px #ccc")
+        //$(td).attr("style", "padding: 10px; border: solid 1px #ccc")
         $(td).addClass("wise-inputtable-th")
         $(tr).append(td);
 
         td = document.createElement("th")
-        $(td).attr("style", "padding: 10px; border: solid 1px #ccc")
+        //$(td).attr("style", "padding: 10px; border: solid 1px #ccc")
         $(td).addClass("wise-inputtable-th")
         $(tr).append(td);
 
@@ -127,7 +127,7 @@ var WiseInputTable = Class(WiseElement, {
             let td = document.createElement("td")
             $(td).attr("colspan", columns.length + 2)
             $(td).html("No Items")
-            $(td).attr("style", "padding: 10px; border: solid 1px #ccc; text-align: center")
+            $(td).attr("style", "text-align: center")
             $(td).addClass("wise-inputtable-td")
 
             $(tr).append(td);
@@ -142,12 +142,24 @@ var WiseInputTable = Class(WiseElement, {
             {
                 let td = document.createElement("td")
                 let col = columns[colidx]
-                $(td).attr("style", "padding: 3px; padding-left: 10px; border: solid 1px #ccc")
+                //$(td).attr("style", "padding: 3px; padding-left: 10px; border: solid 1px #ccc")
                 $(td).addClass("wise-inputtable-td")
 
                 let datafield = col.datafield;
                 let value = "";
                 eval("value = data[rowidx]." + datafield + ";");
+
+                if(col.type == "date" || col.type == "datetime")
+                {
+                    let format = col.format;
+                    if(format == null)
+                    {
+                        format = "DD MMM YYYY";
+                        if(col.type == "datetime")
+                            format = "DD MMM YYYY hh:mm:ss"
+                    }
+                    value = moment(value).format(format)
+                }
                 $(td).html(value);
                 $(tr).append(td);
             }
@@ -160,13 +172,13 @@ var WiseInputTable = Class(WiseElement, {
 
 
             let td = document.createElement("td")
-            $(td).attr("style", "padding: 10px; border: solid 1px #ccc; text-align: center;")
+            //$(td).attr("style", "padding: 10px; border: solid 1px #ccc; text-align: center;")
             $(td).addClass("wise-inputtable-td")
             $(td).append(btnEdit)
             $(tr).append(td);
 
             td = document.createElement("td")
-            $(td).attr("style", "padding: 10px; border: solid 1px #ccc; text-align: center;")
+            //$(td).attr("style", "padding: 10px; border: solid 1px #ccc; text-align: center;")
             $(td).addClass("wise-inputtable-td")
             $(td).append(btnDelete)
             $(tr).append(td);
@@ -185,15 +197,15 @@ var WiseInputTable = Class(WiseElement, {
         let me = this;
         $(btnEdit).on("click", function(){
             let rowIdx = $(this).attr("row");
-            let item = me.data[rowIdx];
+            let item = me._data[rowIdx];
             item.row = rowIdx;
             me.elementEventHandler(me.id, me.onEditButtonClick, item)
         })
 
         $(btnDelete).on("click", function(){
             let rowIdx = $(this).attr("row");
-            me.data.splice(rowIdx, 1);
-            me.loadData(me.data)
+            me._data.splice(rowIdx, 1);
+            me.loadData(me._data)
             //me.elementEventHandler(me.id, me.onEditButtonClick, item)
         })
     }
@@ -201,7 +213,7 @@ var WiseInputTable = Class(WiseElement, {
     loadData: function(data, totalData=null)
     {
         var me = this;
-        this.data = data;
+        this._data = data;
 
         let tbl = this.createTable(data);
         $("#" + this.id + "_table").replaceWith(tbl)
@@ -259,25 +271,25 @@ var WiseInputTable = Class(WiseElement, {
     ,
     addItem: function(item)
     {
-        if(this.data == null)
-            this.data = []
-        this.data.push(item)
-        this.loadData(this.data)
+        if(this._data == null)
+            this._data = []
+        this._data.push(item)
+        this.loadData(this._data)
     }
     ,
     updateItem: function(row, item)
     {
-        if(this.data != null)
+        if(this._data != null)
         {
-            this.data[row] = item;
-            this.loadData(this.data)
+            this._data[row] = item;
+            this.loadData(this._data)
 
         }
     }
     ,
     getData: function()
     {
-        return this.data;
+        return this._data;
     }
     ,
     getSelectedData: function()
@@ -288,22 +300,10 @@ var WiseInputTable = Class(WiseElement, {
         for(let i = 0; i < rowindexes.length; i++)
         {
             let rowIdx = rowindexes[i]
-            selectedData.push(this.data[rowIdx]);
+            selectedData.push(this._data[rowIdx]);
             
         }
         return selectedData;
-    }
-    ,
-    getSelectedItem: function()
-    {
-        var rowindex = $("#" + this.id).jqxGrid('getselectedrowindex');
-        return this.data[rowindex];
-    }
-    ,
-    getSelectedRowIndex: function()
-    {
-        var rowindex = $("#" + this.id).jqxGrid('getselectedrowindex');
-        return rowindex;
     }
     ,
     imageRenderer: function (row, datafield, value, col) 
@@ -352,6 +352,18 @@ var WiseInputTable = Class(WiseElement, {
     rowHeight: function(height)
     {
         $("#" + this.id + " div[role='row']").css("height", height);
+    }
+    ,
+    value: function(val)
+    {
+        if(val == null)
+        {
+            return this._data;
+        }
+        else
+        {
+            this.loadData(val)
+        }
     }
 
 })

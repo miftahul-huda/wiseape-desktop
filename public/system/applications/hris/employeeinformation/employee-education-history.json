@@ -7,10 +7,11 @@
             [   { "datafield" : "academicInstitution", "label" : "Institution" }, 
                 { "datafield" : "startDate", "label" : "Start Date", "type" : "date" }, 
                 { "datafield" : "endDate", "label" : "End Date", "type" : "date" },
-                { "datafield" : "educationLevel", "label" : "Education Level" },
+                { "datafield" : "educationLevel.educationLevelName", "label" : "Education Level" },
                 { "datafield" : "major", "label" : "Major" } ,
                 { "datafield" : "gpa", "label" : "GPA" }
             ],
+            "data" : "educationHistory",
             "onAddButtonClick" : "showAddEducationHistory",
             "onEditButtonClick" : "showAddEducationHistory"
         }

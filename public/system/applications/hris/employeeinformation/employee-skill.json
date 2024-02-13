@@ -5,9 +5,10 @@
         {
             "element" : "WiseInputTable", "id" : "tblSkill", "title" : "Skill", "columns" : 
             [   { "datafield" : "skillName", "label" : "Skill" }, 
-                { "datafield" : "skillLevelCode_item.text", "label" : "Skill Level" }, 
-                { "datafield" : "skillGroupCode_item.text", "label" : "Skill Group" }
+                { "datafield" : "skillLevel.skillLevel", "label" : "Skill Level" }, 
+                { "datafield" : "skillGroup.skillGroup", "label" : "Skill Group" }
             ],
+            "data" : "skills",
             "onAddButtonClick" : "showAddSkill",
             "onEditButtonClick" : "showAddSkill"
         }

@@ -10,7 +10,7 @@
             "element" : "WiseDiv",
             "children" : 
             [
-                { "element": "WiseOptionGroup", "id": "identityTypeCode", "data" : "identityTypeCode", "label" : "Identity Type", "placeholder" : "Enter identity type", "layout" : "horizontal" }
+                { "element": "WiseOptionGroup", "id": "identityNoTypeCode", "data" : "identityNoTypeCode", "label" : "Identity Type", "placeholder" : "Enter identity type", "layout" : "horizontal" }
             ]
         }
         ,
@@ -40,11 +40,19 @@
         }
         ,
         {
+            "element" : "WiseDiv",
+            "children" : 
+            [
+                { "element": "WiseComboBox", "id": "cmbGender", "data" : "genderCode", "label" : "Sex", "placeholder" : "Enter employee's sex" }
+            ]
+        }
+        ,
+        {
             "element" : "WiseDiv", "style" : "display: flex",
             "children" : 
             [
                 { "element": "WiseTextBox", "id": "birthPlace", "data" : "birthPlace", "label" : "Birthplace", "placeholder" : "Enter employee's birth city" },
-                { "element": "WiseDate", "id": "Birth Date", "data" : "birthDate", "label" : "Birth Date", "placeholder" : "Enter employee's birth date" }
+                { "element": "WiseDate", "id": "birthDate", "data" : "birthDate", "label" : "Birth Date", "placeholder" : "Enter employee's birth date" }
                
             ]
         }

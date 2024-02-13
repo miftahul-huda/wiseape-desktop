@@ -260,7 +260,7 @@ var UIProcessor = Class({
         me.initDateControl(win);
         $(".notification-box").hide();
 
-        console.log("Done initcontent")
+        //console.log("Done initcontent")
     }
     ,
     initTabGroup: function(win)
@@ -283,11 +283,11 @@ var UIProcessor = Class({
     ,
     initDateControl: function(win)
     {
-        $("#" + win.id).find('.wise-date').flatpickr({ enableTime: false, altInput: true});
-        $("#" + win.id).find('.wise-datetime').flatpickr({ enableTime: true, time_24hr: true,  altInput: true});
+        $("#" + win.id).find('.wise-date').flatpickr({ enableTime: false, altInput: false});
+        $("#" + win.id).find('.wise-datetime').flatpickr({ enableTime: true, time_24hr: true,  altInput: false});
 
-        $("#" + win.id).find('.wise-daterange').flatpickr({ enableTime: false, mode: "range",  altInput: true});
-        $("#" + win.id).find('.wise-datetimerange').flatpickr({ enableTime: true, time_24hr: true, mode: "range",  altInput: true});
+        $("#" + win.id).find('.wise-daterange').flatpickr({ enableTime: false, mode: "range",  altInput: false});
+        $("#" + win.id).find('.wise-datetimerange').flatpickr({ enableTime: true, time_24hr: true, mode: "range",  altInput: false});
 
         $("#" + win.id).find('.wise-date-button').off("click");
         $("#" + win.id).find('.wise-date-button').on("click", function(){
@@ -319,15 +319,15 @@ var UIProcessor = Class({
         })
 
 
-        console.log("Done initBootstrap")
+        //console.log("Done initBootstrap")
     }
     ,
     initBootstrapCalendar: function(win)
     {
         
         //Date picker
-        console.log("wisedate")
-        console.log($("#" + win.id).find(".wise-date"));
+        //console.log("wisedate")
+        //console.log($("#" + win.id).find(".wise-date"));
 
         $("#" + win.id).find(".wise-date").datetimepicker({
             format: 'L'

@@ -11,7 +11,7 @@ var WiseTitle = Class(WiseElement, {
 
         let div = document.createElement("div")
         $(div).addClass("wise-title")
-        $(div).html("<div style='display: flex;height: 40px'><div style='height: 100%; width: 30%; vertical-align: center; font-size: 16pt' class='wise-title-text'>" + this.text + "</div><div style='width: 70%'><hr/></div></div>")
+        $(div).html("<div style='display: flex;height: 100%'><div style='height: 100%; width: 30%; vertical-align: center;' class='wise-title-text'>" + this.text + "</div><div style='width: 70%'><hr/></div></div>")
         this.dom = div;
         return div;
     }

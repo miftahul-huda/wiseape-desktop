@@ -180,7 +180,8 @@ var Window = Class({
             lll = me.options.left;
         }
             
-        
+        let wbBodyHeight = 95/100 * hhh;
+        //alert(wbBodyHeight)
 
         let viewPort = me.options.viewPort;
         me.winbox = new WinBox({
@@ -203,7 +204,7 @@ var Window = Class({
                 me.width = width
                 $(".wb-min").on("click",function(){
                     alert("mix")
-                });
+                });                
             }
             ,
             onfocus: function()
@@ -257,6 +258,7 @@ var Window = Class({
 
         //$("#" + me.id).append("<div class='wb-footer'></div>")
 
+        //
 
 
         if(me.contentEventHandler != null)
@@ -266,6 +268,9 @@ var Window = Class({
 
         me.setWindowHeaderEvent();
         me.uiProcessor.initContent(me);
+
+        //$("#" + me.id).find(".wb-body").css("height", me.height * 95/100)
+
 
 
 
@@ -444,13 +449,9 @@ var Window = Class({
                 $.getJSON(content, function(json){
 
                     let uiProcessor = me.uiProcessor;   
-                    console.log("================PAGE JSON============")
-                    console.log(json)
+                    
 
                     me.expandJson(me, json.root, function(){
-                        console.log("=========json after expand==========")
-                        console.log(json)
-                        console.log("=========/json after expand==========")
 
                         content = me.setIds(me, json)
                         me.elements = uiProcessor.createElement(content, me, function(elmId, event, param){
@@ -502,14 +503,11 @@ var Window = Class({
         //console.log(json.children)
         if(json.children != null && json.children.length > 0)
         {
-            console.log("totalJsonChildren+")
             me.totalJsonChildren += json.children.length - 1;
-            console.log(me.totalJsonChildren)
 
             json.children.map((item)=>{
                 //console.log("item.source")
                 //console.log(item.source)
-                console.log(item)
                 if(item.source != null)
                 {
                     let jsonSourceFile = item.source;
@@ -523,7 +521,6 @@ var Window = Class({
                     $.getJSON(jsonSourceFile, function(jsonContent){
                         if(item.children == null)
                             item.children = [];
-                        console.log("adding childern")
                         item.children.push(jsonContent);
                         item.source = null;
                         me.expandJson(me, item, callback)
@@ -531,7 +528,6 @@ var Window = Class({
                 }
                 else
                 {
-                    console.log("expanding")
                     me.expandJson(me, item, callback)
                 }
             })
@@ -539,9 +535,6 @@ var Window = Class({
         else
         {
             me.totalJsonChildren--;
-            console.log("totalJsonChildren")
-            console.log(json)
-            console.log(me.totalJsonChildren)
             if(me.totalJsonChildren <= 0)
             {
                 if(callback != null)
@@ -559,8 +552,8 @@ var Window = Class({
     createDom: function(me, root){
 
         let parentDom = document.createElement("div");
-        $(parentDom).css("padding", "20px")
-        $(parentDom).css("height", "100%")
+        $(parentDom).css("padding", "0px")
+        //$(parentDom).css("height", "100%")
         $(parentDom).css("overflow", "auto")
 
         parentDom = me.createDomStructure(me, parentDom, root.children)
@@ -744,8 +737,8 @@ var Window = Class({
                 if(fieldname != null && fieldname != "")
                 {
                     let value = null;
-                    console.log("fieldname")
-                    console.log(fieldname)  
+                    //console.log("fieldname")
+                    //console.log(fieldname)  
                     eval("value = data." + fieldname + ";")                        
 
                     el.value(value);
@@ -769,6 +762,7 @@ var Window = Class({
         {
             children.forEach(function(el){
                 let fieldname = el.data;
+                let lookupFieldname = el.lookupData;
                 if(fieldname != null)
                 {
                     data[fieldname] = el.value();
@@ -776,6 +770,21 @@ var Window = Class({
                     {
                         data[fieldname + "_item" ] = el.getSelectedItem();
                     }
+                }
+
+                if(lookupFieldname != null)
+                {
+                    if(el.functionExists("getSelectedItem"))
+                    {
+                        let lookupValue = el.lookupValue;
+                        let lookupText = el.lookupText;
+
+                        let item = el.getSelectedItem();
+                        let newData = {}
+                        newData[lookupValue] = item.value;
+                        newData[lookupText] = item.text;
+                        data[lookupFieldname] = newData;
+                    }                
                 }
 
                 me.getDataDetail(el.children, data) 

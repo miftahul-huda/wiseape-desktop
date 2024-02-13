@@ -13,7 +13,7 @@ var WiseComboBox = Class(WiseElement, {
         this.placeholder = json.placeholder;
         if(this.placeholder == null)
             this.placeholder = "";
-        WiseTextBox.$superp.init.call(this, json, "WiseComboBox");
+        WiseComboBox.$superp.init.call(this, json, "WiseComboBox");
     }
     ,
     createDom: function()
@@ -27,7 +27,7 @@ var WiseComboBox = Class(WiseElement, {
         let dom = $(html)[0]
 
         $(dom).find("select").on("change", function(){
-            console.log(me.elementEventHandler)
+            //console.log(me.elementEventHandler)
             if(me.elementEventHandler != null)
                 me.elementEventHandler(me.id, me.onchange, $(this).val())
         })

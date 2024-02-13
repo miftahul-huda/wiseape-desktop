@@ -20,7 +20,7 @@ var ListOfEmployeesPage =  Class(DefaultListPage, {
     ,
     btnDetailEmployee_onClick: function(win, id)
     {
-        //this.showDetail(win)
+        this.showDetail(win)
     }
     ,
     btnExportEmployee_onClick: function(win, id)
@@ -187,7 +187,7 @@ var ListOfEmployeesPage =  Class(DefaultListPage, {
         let selectedItem = win.get("tableListOfEmployee").getSelectedItem();
         if(selectedItem != null)
         {
-            let idEmployee = selectedItem.id;
+            let idEmployee = selectedItem.employeeNo;
             this.application.run("edit", null, idEmployee, function(item){
                 me.refresh(win);
             })
